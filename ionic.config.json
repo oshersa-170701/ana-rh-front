@@ -1,0 +1,7 @@
+{
+  "name": "ana-rh-front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
