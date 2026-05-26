@@ -10,4 +10,8 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'reconocimiento-facial',
+    loadComponent: () => import('./reconocimiento-facial/reconocimiento-facial.page').then( m => m.ReconocimientoFacialPage)
+  },
 ];

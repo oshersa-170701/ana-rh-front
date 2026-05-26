@@ -1,20 +1,28 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Dashboard ANA Medic 💫</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  
+  <div class="action-container" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+    <h2>Gestión de Personal</h2>
+    
+    <ion-button expand="block" (click)="abrirModalEmpleado()">
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      Registrar Nuevo Empleado
+    </ion-button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-button expand="block" color="secondary" (click)="abrirModalUsuario()">
+      <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+      Registrar Nuevo Usuario (Admin)
+    </ion-button>
   </div>
+
+  <ion-modal [isOpen]="isUsuarioModalOpen" (didDismiss)="cerrarModalUsuario()">
+    <ng-template>
+      </ng-template>
+  </ion-modal>
+
 </ion-content>

@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Kiosco ANA Medic 💫</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+ <div class="camera-container">
+  <video #videoElement autoplay muted playsinline (play)="onVideoPlay()"></video>
+  <canvas #canvasElement></canvas>
+</div>
+</ion-content>
