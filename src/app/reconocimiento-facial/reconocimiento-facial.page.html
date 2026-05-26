@@ -1,12 +1,30 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Kiosco ANA Medic 💫</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="kiosco-bg">
+  <div class="main-layout">
+    <div class="header-branding">
+      <h1>Reconocimiento Facial</h1>
+      <p>Sistema de Acceso Biométrico</p>
+    </div>
 
-<ion-content class="ion-padding">
- <div class="camera-container">
-  <video #videoElement autoplay muted playsinline (play)="onVideoPlay()"></video>
-  <canvas #canvasElement></canvas>
-</div>
+    <div class="camera-container">
+      <video #videoElement autoplay muted playsinline (play)="onVideoPlay()"></video>
+      <canvas #canvasElement></canvas>
+      <div class="scanner-line"></div> </div>
+
+    @if (empleadoIdentificado) {
+      <div class="info-panel animated-fade-in">
+        <div class="status-badge">¡Bienvenido!</div>
+        <h2>{{ empleadoIdentificado.nombre }}</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span>Puesto</span>
+            <p>{{ empleadoIdentificado.puesto }}</p>
+          </div>
+          <div class="info-item">
+            <span>CURP</span>
+            <p>{{ empleadoIdentificado.curp }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
 </ion-content>
