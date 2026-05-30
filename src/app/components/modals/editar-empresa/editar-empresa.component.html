@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modificar Empresa</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding modal-dark-content">
+  <form (ngSubmit)="guardar()">
+    
+    <div class="form-group">
+      <ion-input 
+        label="Nombre de la Empresa" 
+        labelPlacement="floating" 
+        fill="solid" 
+        type="text" 
+        name="nombre"
+        [(ngModel)]="empresaEditada.nombre" 
+        #nombreCtrl="ngModel"
+        required>
+      </ion-input>
+      <ion-note slot="error" color="danger" *ngIf="nombreCtrl.invalid && nombreCtrl.touched">
+        El nombre de la empresa es obligatorio.
+      </ion-note>
+    </div>
+
+    <div class="form-group ion-margin-top">
+      <ion-input 
+        label="RFC" 
+        labelPlacement="floating" 
+        fill="solid" 
+        type="text" 
+        name="rfc"
+        [(ngModel)]="empresaEditada.rfc" 
+        #rfcCtrl="ngModel"
+        required
+        maxlength="13">
+      </ion-input>
+      <ion-note slot="error" color="danger" *ngIf="rfcCtrl.touched && (empresaEditada.rfc.trim().length < 12 || empresaEditada.rfc.trim().length > 13)">
+        El RFC debe tener exactamente entre 12 y 13 caracteres.
+      </ion-note>
+    </div>
+
+    <div class="form-group ion-margin-top">
+      <ion-item lines="none" class="custom-select-item">
+        <ion-select 
+          label="Estatus de la Empresa" 
+          labelPlacement="floating" 
+          interface="popover"
+          name="estatus"
+          [(ngModel)]="empresaEditada.estatus">
+          <ion-select-option [value]="true">Activo</ion-select-option>
+          <ion-select-option [value]="false">Inactivo</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-actions ion-margin-top">
+      <ion-button type="submit" expand="block" color="success">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        Actualizar Cambios
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

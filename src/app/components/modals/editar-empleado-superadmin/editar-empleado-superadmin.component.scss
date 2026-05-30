@@ -1,0 +1,57 @@
+.custom-bg {
+  --background: #0f172a;
+}
+
+.morado-header {
+  --background: #6b21a8;
+  --color: #ffffff;
+}
+
+.section-title {
+  color: #a855f7;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-left: 3px solid #a855f7;
+  padding-left: 8px;
+  margin-bottom: 14px;
+}
+
+.custom-select-item {
+  --background: #1e293b;
+  --color: #ffffff;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  ion-select {
+    width: 100%;
+  }
+}
+
+ion-input {
+  --background: #1e293b;
+  --color: #ffffff;
+  border-radius: 8px;
+}
+
+ion-input-password-toggle {
+  color: #a855f7;
+  --button-color: #a855f7;
+}
+
+.error-msg {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.info-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: #64748b;
+  padding-left: 4px;
+}
+
+.submit-btn {
+  --border-radius: 8px;
+  font-weight: 600;
+}

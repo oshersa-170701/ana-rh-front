@@ -1,0 +1,108 @@
+.crud-container {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+.table-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h2 {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #0f172a;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+
+  thead {
+    background: #1e293b;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+  }
+
+  th, td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #334155;
+    white-space: nowrap;
+  }
+
+  tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .no-data {
+    color: #64748b;
+    padding: 30px;
+  }
+
+  .font-bold {
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  .puesto-text {
+    color: #38bdf8;
+    font-weight: 500;
+  }
+
+  .curp-text {
+    font-family: monospace;
+    letter-spacing: 0.5px;
+  }
+
+  .company-badge {
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  .branch-badge {
+    background: rgba(45, 212, 191, 0.15);
+    color: #2dd4bf;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(45, 212, 191, 0.3);
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .actions-cell {
+    padding: 4px;
+    ion-button {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      margin: 0;
+    }
+  }
+}

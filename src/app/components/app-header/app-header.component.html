@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="esHome"></ion-menu-button>
+      
+      <ion-back-button *ngIf="!esHome" defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title>{{ titulo }}</ion-title>
+  </ion-toolbar>
+</ion-header>

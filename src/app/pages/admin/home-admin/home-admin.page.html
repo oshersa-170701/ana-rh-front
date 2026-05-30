@@ -1,0 +1,47 @@
+<app-header titulo="Panel de Control Super Admin" [esHome]="true"></app-header>
+<ion-content class="ion-padding">
+  <div class="welcome-header">
+    <h1>Bienvenido, Super Admin</h1>
+    <p>¿Qué gestión deseas realizar hoy?</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="4">
+        <ion-card button routerLink="/dashboard/empresas" class="action-card">
+          <ion-card-header>
+            <ion-icon name="business-outline" color="primary"></ion-icon>
+            <ion-card-title>Empresas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Administra el registro y estado de las empresas.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card button routerLink="/dashboard/sucursales" class="action-card">
+          <ion-card-header>
+            <ion-icon name="storefront-outline" color="secondary"></ion-icon>
+            <ion-card-title>Sucursales</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Gestiona la estructura de sedes de cada empresa.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="4">
+        <ion-card button routerLink="/dashboard/empleados" class="action-card">
+          <ion-card-header>
+            <ion-icon name="people-outline" color="tertiary"></ion-icon>
+            <ion-card-title>Empleados</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Control total sobre el personal y sus perfiles.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

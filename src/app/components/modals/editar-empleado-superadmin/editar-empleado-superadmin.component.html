@@ -1,0 +1,120 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="morado-header">
+    <ion-title>Modificar Empleado</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()" color="danger">X</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding custom-bg">
+  <form [formGroup]="empleadoForm" (ngSubmit)="guardar()">
+
+    <div class="form-container">
+      
+      <h3 class="section-title">Asignación de Entidad</h3>
+      
+      <ion-item lines="none" class="custom-select-item">
+        <ion-icon name="business-outline" slot="start" color="tertiary"></ion-icon>
+        <ion-select 
+          label="Empresa Dueña" 
+          labelPlacement="floating" 
+          interface="popover"
+          formControlName="tenant_id"
+          (ionChange)="onEmpresaChange($event)">
+          <ion-select-option *ngFor="let empresa of empresasActivas" [value]="empresa.id">
+            {{ empresa.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-select-item" style="margin-top: 12px;">
+        <ion-icon name="git-branch-outline" slot="start" color="tertiary"></ion-icon>
+        <ion-select 
+          label="Sucursal Asignada" 
+          labelPlacement="floating" 
+          interface="popover"
+          formControlName="sucursal_id">
+          <ion-select-option *ngFor="let sucursal of sucursalesFiltradas" [value]="sucursal.id">
+            {{ sucursal.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <h3 class="section-title" style="margin-top: 20px;">Información General</h3>
+
+      <ion-input fill="outline" color="tertiary" label="Nombre Completo" labelPlacement="floating" type="text"
+        formControlName="nombre_completo" (ionInput)="onNombreInput($event)"></ion-input>
+
+      <ion-input fill="outline" label="CURP" labelPlacement="floating" type="text" formControlName="curp" maxlength="18" (ionInput)="onCurpInput($event)" style="margin-top: 12px;"></ion-input>
+      @if (empleadoForm.get('curp')?.invalid && empleadoForm.get('curp')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ El CURP debe tener exactamente 18 caracteres.</ion-note>
+      }
+
+      <ion-input fill="outline" label="NSS" labelPlacement="floating" type="number" formControlName="nss" maxlength="11" style="margin-top: 12px;"></ion-input>
+      @if (empleadoForm.get('nss')?.invalid && empleadoForm.get('nss')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ El NSS debe tener exactamente 11 dígitos.</ion-note>
+      }
+
+      <ion-input fill="outline" color="tertiary" label="Salario Diario ($)" labelPlacement="floating" type="number"
+        formControlName="salario_diario" style="margin-top: 12px;"></ion-input>
+
+      <ion-input fill="outline" color="tertiary" label="Puesto / Cargo" labelPlacement="floating" type="text"
+        formControlName="puesto" style="margin-top: 12px;"></ion-input>
+
+      <h3 class="section-title" style="margin-top: 20px;">Credenciales y Estado</h3>
+      
+      <ion-input fill="outline" color="tertiary" label="Usuario de Ingreso" labelPlacement="floating" type="text"
+        formControlName="user" placeholder="N/A si es empleado normal"></ion-input>
+
+      <ion-input fill="outline" color="tertiary" label="Cambiar Contraseña (Opcional)" labelPlacement="floating" type="password"
+        formControlName="password_hash" placeholder="Escribe para modificar" style="margin-top: 12px;">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+      <ion-note class="info-note">Deja el campo vacío si no deseas modificar la contraseña actual.</ion-note>
+
+      <ion-item lines="none" class="custom-select-item" style="margin-top: 12px;">
+        <ion-select 
+          label="Estatus Laboral" 
+          labelPlacement="floating" 
+          interface="popover"
+          formControlName="estatus">
+          <ion-select-option [value]="true">Activo</ion-select-option>
+          <ion-select-option [value]="false">Inactivo</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <h3 class="section-title" style="margin-top: 20px;">Fotografía de Identificación</h3>
+      <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)" style="display: none;">
+
+      <div class="foto-zona ion-text-center" style="margin-top: 20px;">
+        @if (!imagePreview) {
+          <div class="placeholder-camara" (click)="activarCamara()">
+            <ion-icon name="camera-outline" style="font-size: 48px;"></ion-icon>
+            <p>Seleccionar Foto de Perfil</p>
+          </div>
+        } @else {
+          <div class="preview-container">
+            <img [src]="imagePreview" class="preview-img" alt="Previsualización">
+            <ion-button color="danger" fill="clear" (click)="eliminarFoto($event)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <ion-button 
+      expand="block" 
+      type="submit" 
+      color="success" 
+      [disabled]="empleadoForm.invalid || isSaving" 
+      class="submit-btn" 
+      size="large"
+      style="margin-top: 25px;">
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      Actualizar Datos
+    </ion-button>
+  </form>
+</ion-content>

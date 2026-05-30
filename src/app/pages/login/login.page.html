@@ -1,0 +1,39 @@
+<ion-content class="login-bg ion-padding flex-center">
+  <div class="login-container animated-fade-in">
+    <div class="login-header">
+      <h1>ANA Medic 💫</h1>
+      <p>Panel de Administración Global</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()">
+      <ion-item lines="none" class="custom-input">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <ion-input 
+          type="text" 
+          placeholder="Usuario" 
+          name="user" 
+          [(ngModel)]="user" 
+          required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item lines="none" class="custom-input">
+  <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+  <ion-input 
+    [type]="showPassword ? 'text' : 'password'" 
+    placeholder="Contraseña" 
+    name="password" 
+    [(ngModel)]="password_hash" 
+    required>
+  </ion-input>
+  <ion-button slot="end" fill="clear" class="eye-btn" (click)="togglePassword()">
+    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+  </ion-button>
+</ion-item>
+
+      <ion-button type="submit" expand="block" class="login-btn">
+        Ingresar al Sistema
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

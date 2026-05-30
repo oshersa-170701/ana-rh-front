@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modificar Sucursal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding modal-dark-content">
+  <form (ngSubmit)="guardar()">
+    
+    <div class="form-group">
+      <ion-item lines="none" class="custom-select-item">
+        <ion-select 
+          label="Empresa Dueña" 
+          labelPlacement="floating" 
+          interface="popover"
+          name="tenant_id"
+          [(ngModel)]="sucursalEditada.tenant_id"
+          required>
+          <ion-select-option *ngFor="let empresa of empresasActivas" [value]="empresa.id">
+            {{ empresa.nombre }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
+    <div class="form-group ion-margin-top">
+      <ion-input 
+        label="Nombre de la Sucursal" 
+        labelPlacement="floating" 
+        fill="solid" 
+        type="text" 
+        name="nombre"
+        [(ngModel)]="sucursalEditada.nombre" 
+        required>
+      </ion-input>
+    </div>
+
+    <div class="form-group ion-margin-top">
+      <ion-textarea 
+        label="Dirección" 
+        labelPlacement="floating" 
+        fill="solid" 
+        name="direccion"
+        [(ngModel)]="sucursalEditada.direccion" 
+        [autoGrow]="true">
+      </ion-textarea>
+    </div>
+
+    <div class="form-actions ion-margin-top">
+      <ion-button type="submit" expand="block" color="success">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        Actualizar Sucursal
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

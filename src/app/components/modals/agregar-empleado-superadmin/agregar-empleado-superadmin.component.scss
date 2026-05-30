@@ -1,0 +1,81 @@
+.custom-select-item {
+  --background: #1e293b;
+  --color: #ffffff;
+  border: 1px solid #334155;
+  border-radius: 4px;
+  ion-select {
+    width: 100%;
+  }
+}
+.error-msg {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+// Variables de ANA Medic
+$morado: #6a1b9a;
+$blanco: #ffffff;
+$fondo: #f4f7f9;
+
+.custom-bg { --background: #{$fondo}; }
+
+.morado-header {
+  --background: #{$morado};
+  --color: #{$blanco};
+  ion-title { font-weight: 800; letter-spacing: 1px; }
+}
+
+.form-container {
+  padding: 10px;
+  ion-input {
+    --background: #{$blanco};
+    --border-radius: 14px;
+    --padding-start: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    color: #333;
+  }
+}
+
+.foto-zona {
+  margin: 20px 0;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 2px dashed #d1c4e9;
+  transition: 0.3s;
+  
+  &:hover { border-color: #{$morado}; }
+
+  .placeholder-camara {
+    color: #6a1b9a;
+    ion-icon { font-size: 50px; }
+    p { font-weight: 600; margin-top: 10px; }
+  }
+
+  .preview-container {
+    position: relative;
+    .preview-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .btn-eliminar {
+      position: absolute;
+      top: -10px;
+      right: calc(50% - 85px);
+      background: white;
+      border-radius: 50%;
+    }
+  }
+}
+
+.submit-btn {
+  --border-radius: 16px;
+  height: 56px;
+  font-weight: 700;
+  box-shadow: 0 8px 16px rgba(106, 27, 154, 0.25);
+  margin-top: 10px;
+}

@@ -1,0 +1,58 @@
+<app-header titulo="Gestión de Empresas" [esHome]="false"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="crud-container">
+    
+    <div class="table-header-actions">
+      <h2>Listado de Empresas</h2>
+      <ion-button color="primary" class="btn-add" (click)="abrirModalAgregar()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Agregar Empresa
+      </ion-button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>RFC</th>
+            <th>Estatus</th>
+            <th>Fecha Registro</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="empresas.length === 0">
+            <td colspan="6" class="text-center no-data">
+              No se encontraron empresas registradas.
+            </td>
+          </tr>
+
+          <tr *ngFor="let empresa of empresas">
+            <td class="uuid-text">{{ empresa.id }}</td>
+            <td class="font-bold">{{ empresa.nombre }}</td>
+            <td class="rfc-text">{{ empresa.rfc }}</td>
+            <td>
+              <ion-badge [color]="empresa.estatus ? 'success' : 'danger'">
+                {{ empresa.estatus ? 'Activo' : 'Inactivo' }}
+              </ion-badge>
+            </td>
+            <td>{{ empresa.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center actions-cell">
+              <ion-button fill="clear" color="primary" size="small" title="Editar" (click)="abrirModalEditar(empresa)">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+             <ion-button fill="clear" color="danger" size="small" (click)="confirmarEliminacion(empresa)">
+  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+</ion-button>
+          
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</ion-content>

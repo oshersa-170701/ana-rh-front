@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Registrar Nueva Empresa</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding modal-dark-content">
+  <form (ngSubmit)="guardar()">
+    
+    <div class="form-group">
+      <ion-input 
+        label="Nombre de la Empresa" 
+        labelPlacement="floating" 
+        fill="solid" 
+        type="text" 
+        name="nombre"
+        [(ngModel)]="nuevaEmpresa.nombre" 
+        #nombreCtrl="ngModel"
+        required
+        placeholder="Ej. Comercializadora Médica S.A.">
+      </ion-input>
+      <ion-note slot="helper" *ngIf="!nombreCtrl.touched">Escribe el nombre legal o comercial de la empresa.</ion-note>
+      <ion-note slot="error" color="danger" *ngIf="nombreCtrl.invalid && nombreCtrl.touched">
+        El nombre de la empresa es obligatorio.
+      </ion-note>
+    </div>
+
+    <div class="form-group ion-margin-top">
+      <ion-input 
+        label="RFC" 
+        labelPlacement="floating" 
+        fill="solid" 
+        type="text" 
+        name="rfc"
+        [(ngModel)]="nuevaEmpresa.rfc" 
+        #rfcCtrl="ngModel"
+        required
+        minlength="12"
+        maxlength="13"
+        placeholder="Ej. ABC123456789">
+      </ion-input>
+      <ion-note slot="helper" *ngIf="!rfcCtrl.touched">Persona Física (13 letras/números) o Moral (12 letras/números).</ion-note>
+      <ion-note slot="error" color="danger" *ngIf="rfcCtrl.touched && (nuevaEmpresa.rfc.trim().length < 12 || nuevaEmpresa.rfc.trim().length > 13)">
+        El RFC debe tener exactamente entre 12 y 13 caracteres.
+      </ion-note>
+    </div>
+
+    <div class="form-actions ion-margin-top">
+      <ion-button type="submit" expand="block" color="success">
+        <ion-icon slot="start" name="save-outline"></ion-icon>
+        Guardar Empresa
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

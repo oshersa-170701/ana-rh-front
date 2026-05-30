@@ -1,0 +1,11 @@
+.active-item {
+  --background: rgba(var(--ion-color-primary-rgb), 0.12);
+  --color: var(--ion-color-primary);
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+ion-item {
+  margin-bottom: 5px;
+  cursor: pointer;
+}

@@ -1,0 +1,18 @@
+.modal-dark-content {
+  --background: #0f172a;
+  
+  ion-input {
+    --background: #1e293b;
+    --color: #ffffff;
+    --placeholder-color: #64748b;
+    border-radius: 8px;
+  }
+}
+
+.form-actions {
+  margin-top: 25px;
+  ion-button {
+    --border-radius: 8px;
+    font-weight: 600;
+  }
+}

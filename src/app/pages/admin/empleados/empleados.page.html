@@ -1,0 +1,67 @@
+<app-header titulo="Gestión de Empleados" [esHome]="false"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="crud-container">
+    
+    <div class="table-header-actions">
+      <h2>Listado de Empleados</h2>
+      <ion-button color="primary" (click)="abrirModalAgregar()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Agregar Empleado
+      </ion-button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Nombre Completo</th>
+            <th>Puesto / Cargo</th>
+            <th>Empresa</th>
+            <th>Sucursal</th>
+            <th>CURP</th>
+            <th>Estatus</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="empleados.length === 0">
+            <td colspan="7" class="text-center no-data">
+              No se encontraron empleados registrados.
+            </td>
+          </tr>
+
+          <tr *ngFor="let empleado of empleados">
+            <td class="font-bold">{{ empleado.nombre_completo }}</td>
+            <td class="puesto-text">{{ empleado.puesto }}</td>
+            <td>
+              <span class="company-badge">
+                {{ empleado.empresa?.nombre || 'Sin Asignar' }}
+              </span>
+            </td>
+            <td>
+              <span class="branch-badge">
+                {{ empleado.sucursal?.nombre || 'Sin Asignar' }}
+              </span>
+            </td>
+            <td class="curp-text">{{ empleado.curp }}</td>
+            <td>
+             <ion-badge [color]="empleado.estatus ? 'success' : 'danger'">
+  {{ empleado.estatus ? 'Activo' : 'Inactivo' }}
+</ion-badge>
+            </td>
+            <td class="text-center actions-cell">
+              <ion-button fill="clear" color="warning" size="small" (click)="abrirModalEditar(empleado)">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="danger" size="small" (click)="confirmarEliminacion(empleado)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</ion-content>

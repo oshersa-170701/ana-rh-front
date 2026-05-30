@@ -1,0 +1,123 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="morado-header">
+    <ion-title>Registrar Administrador de Sucursal</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()" color="danger">X</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding custom-bg">
+  <form [formGroup]="empleadoForm" (ngSubmit)="confirmar()">
+
+    <div class="form-container">
+      
+      <div class="select-group" style="margin-bottom: 16px;">
+        <ion-item lines="none" class="custom-select-item">
+          <ion-icon name="business-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-select 
+            label="Asignar Empresa" 
+            labelPlacement="floating" 
+            interface="popover"
+            formControlName="tenant_id"
+            (ionChange)="onEmpresaChange($event)"
+            placeholder="Seleccionar empresa">
+            <ion-select-option *ngFor="let empresa of empresasActivas" [value]="empresa.id">
+              {{ empresa.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-select-item" style="margin-top: 12px;">
+          <ion-icon name="git-branch-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-select 
+            label="Asignar Sucursal" 
+            labelPlacement="floating" 
+            interface="popover"
+            formControlName="sucursal_id"
+            placeholder="Seleccionar sucursal">
+            <ion-select-option *ngFor="let sucursal of sucursalesFiltradas" [value]="sucursal.id">
+              {{ sucursal.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <ion-input fill="outline" color="tertiary" label="Nombre Completo" labelPlacement="floating" type="text"
+        formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández" (ionInput)="onNombreInput($event)"></ion-input>
+
+      <ion-input fill="outline" label="CURP" labelPlacement="floating" type="text" formControlName="curp" maxlength="18" (ionInput)="onCurpInput($event)" style="margin-top: 12px;"></ion-input>
+      @if (empleadoForm.get('curp')?.invalid && empleadoForm.get('curp')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ El CURP debe tener exactamente 18 caracteres.</ion-note>
+      }
+
+      <ion-input fill="outline" label="NSS" labelPlacement="floating" type="number" formControlName="nss" maxlength="11" style="margin-top: 12px;">
+        <div slot="helper">Debe tener exactamente 11 dígitos</div>
+      </ion-input>
+      @if (empleadoForm.get('nss')?.invalid && empleadoForm.get('nss')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ El NSS debe tener exactamente 11 dígitos.</ion-note>
+      }
+
+      <ion-input fill="outline" color="tertiary" label="Salario Diario ($)" labelPlacement="floating" type="number"
+        formControlName="salario_diario" style="margin-top: 12px;"></ion-input>
+
+      <ion-input fill="outline" color="tertiary" label="Puesto" labelPlacement="floating" type="text"
+        formControlName="puesto" placeholder="Ej. Encargado General" style="margin-top: 12px;"></ion-input>
+
+      <div class="credentials-group" style="margin-top: 20px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px dashed rgba(168, 85, 247, 0.3);">
+        <h3 style="color: #a855f7; font-size: 1rem; margin-top: 0; font-weight: 500;">Credenciales de Autorización</h3>
+        
+        <ion-input fill="outline" color="tertiary" label="Usuario de Ingreso" labelPlacement="floating" type="text"
+          formControlName="user" placeholder="Ej. oswaldo.admin"></ion-input>
+        @if (empleadoForm.get('user')?.invalid && empleadoForm.get('user')?.touched) {
+          <ion-note color="danger" class="error-msg">⚠️ El usuario es obligatorio (Min. 4 caracteres).</ion-note>
+        }
+
+       <ion-input fill="outline" color="tertiary" label="Contraseña de Sistema" labelPlacement="floating" type="password"
+    formControlName="password_hash" placeholder="Ej.••••••••" style="margin-top: 12px;">
+    <ion-input-password-toggle slot="end"></ion-input-password-toggle> </ion-input>
+  @if (empleadoForm.get('password_hash')?.invalid && empleadoForm.get('password_hash')?.touched) {
+    <ion-note color="danger" class="error-msg">⚠️ La contraseña es obligatoria (Min. 6 caracteres).</ion-note>
+  }
+      </div>
+
+      <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)" style="display: none;">
+
+      <div class="foto-zona ion-text-center" style="margin-top: 20px;">
+        @if (!imagePreview) {
+          <div class="placeholder-camara" (click)="activarCamara()">
+            <ion-icon name="camera-outline" style="font-size: 48px;"></ion-icon>
+            <p>Seleccionar Foto de Perfil</p>
+          </div>
+        } @else {
+          <div class="preview-container">
+            <img [src]="imagePreview" class="preview-img" alt="Previsualización">
+            <ion-button color="danger" fill="clear" (click)="eliminarFoto($event)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <ion-button 
+      expand="block" 
+      type="submit" 
+      color="tertiary" 
+      [disabled]="empleadoForm.invalid || !selectedFile || !isModelLoaded || isSaving" 
+      class="submit-btn" 
+      size="large"
+      style="margin-top: 20px;">
+      
+      @if (isSaving) {
+        <ion-spinner name="crescent"></ion-spinner>
+        <span style="margin-left: 12px;">Analizando y guardando...</span>
+      } @else if (!isModelLoaded) {
+        <ion-spinner name="dots" style="margin-right: 10px;"></ion-spinner>
+        <span>Preparando IA...</span>
+      } @else {
+        <span>Guardar Administrador</span>
+      }
+    </ion-button>
+  </form>
+</ion-content>

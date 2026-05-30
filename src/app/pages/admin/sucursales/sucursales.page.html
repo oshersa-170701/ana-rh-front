@@ -1,0 +1,57 @@
+<app-header titulo="Gestión de Sucursales" [esHome]="false"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="crud-container">
+    
+    <div class="table-header-actions">
+      <h2>Listado de Sucursales</h2>
+      <ion-button color="primary" (click)="abrirModalAgregar()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Agregar Sucursal
+      </ion-button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre Sucursal</th>
+            <th>Empresa (Tenant)</th>
+            <th>Dirección</th>
+            <th>Fecha Registro</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="sucursales.length === 0">
+            <td colspan="6" class="text-center no-data">
+              No se encontraron sucursales registradas.
+            </td>
+          </tr>
+
+          <tr *ngFor="let sucursal of sucursales">
+            <td class="uuid-text">{{ sucursal.id }}</td>
+            <td class="font-bold">{{ sucursal.nombre }}</td>
+            <td>
+              <span class="tenant-badge">
+                {{ sucursal.empresa?.nombre || 'Sin Empresa' }}
+              </span>
+            </td>
+            <td class="direccion-text">{{ sucursal.direccion || 'N/A' }}</td>
+            <td>{{ sucursal.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center actions-cell">
+             <ion-button fill="clear" color="warning" size="small" (click)="abrirModalEditar(sucursal)">
+  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+</ion-button>
+              <ion-button fill="clear" color="danger" size="small" (click)="confirmarEliminacion(sucursal)">
+  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+</ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</ion-content>
