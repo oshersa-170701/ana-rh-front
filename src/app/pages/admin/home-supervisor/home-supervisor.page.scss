@@ -1,0 +1,83 @@
+.supervisor-bg {
+  --background: #0f172a;
+}
+
+.supervisor-welcome {
+  padding: 12px 6px;
+  h1 {
+    color: #ffffff;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  p {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    margin: 4px 0 10px 0;
+  }
+  .badge-custom {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+}
+
+.menu-card {
+  --background: #1e293b;
+  --color: #ffffff;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  margin: 0;
+  height: 100%;
+  transition: transform 0.2s, border-color 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: #38bdf8;
+  }
+
+  ion-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+
+  ion-card-title {
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  ion-card-content {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+.badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  
+  ion-icon {
+    font-size: 22px;
+    color: #ffffff;
+  }
+}
+
+.icon-emerald { background: linear-gradient(135deg, #10b981, #047857); }
+.icon-ocean   { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+
+.action-footer {
+  margin-top: 48px;
+  ion-button {
+    font-weight: 600;
+  }
+}

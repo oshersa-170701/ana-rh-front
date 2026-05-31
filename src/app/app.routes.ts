@@ -19,9 +19,19 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+  path: 'empleados-supervisor',
+  loadComponent: () => import('./pages/admin/empleados-supervisor/empleados-supervisor.page').then(m => m.EmpleadosSupervisorPage),
+  data: { title: 'Mi Personal', isHome: false }
+},
+      {
         path: '', 
         loadComponent: () => import('./pages/admin/home-admin/home-admin.page').then(m => m.HomeAdminPage),
         data: { title: 'Panel de Control', isHome: true }
+      },
+      {
+        path: 'home-supervisor', // 👈 REGISTRADA AQUÍ COMO HIJA PROTEGIDA
+        loadComponent: () => import('./pages/admin/home-supervisor/home-supervisor.page').then(m => m.HomeSupervisorPage),
+        data: { title: 'Panel Supervisor', isHome: true }
       },
       {
         path: 'empresas',
@@ -53,5 +63,13 @@ export const routes: Routes = [
   {
     path: 'home-admin',
     loadComponent: () => import('./pages/admin/home-admin/home-admin.page').then( m => m.HomeAdminPage)
+  },
+  {
+    path: 'home-supervisor',
+    loadComponent: () => import('./pages/admin/home-supervisor/home-supervisor.page').then( m => m.HomeSupervisorPage)
+  },
+  {
+    path: 'empleados-supervisor',
+    loadComponent: () => import('./pages/admin/empleados-supervisor/empleados-supervisor.page').then( m => m.EmpleadosSupervisorPage)
   }
 ];

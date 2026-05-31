@@ -20,9 +20,17 @@ export class AddEmpleadoModalComponent {
   selectedFile: Blob | null = null;
   imagePreview: string | null = null;
   isSaving = false; // ✨ Nueva variable de control
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder, private empleadosService: EmpleadosService,private toastCtrl: ToastController) {
+  listaSucursales: any[] = [];
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder, private empleadosService: EmpleadosService, private toastCtrl: ToastController) {
     addIcons({ cameraOutline, trashOutline });
+    // 🏢 Recuperamos los datos descriptivos de la sesión para mostrarlos
+    const empresaReal = localStorage.getItem('admin_empresa_nombre') || 'Cargando Empresa...';
+    const sucursalReal = localStorage.getItem('admin_sucursal_nombre') || 'Cargando Sucursal...';
     this.empleadoForm = this.fb.group({
+      // ✨ Agregamos los controles precargados al Formulario Reactivo
+      // Se muestran congelados en la vista con los nombres reales
+      tenant_id: [empresaReal, Validators.required],
+      sucursal_id: ['', Validators.required],
       nombre_completo: ['', Validators.required],
       curp: ['', [Validators.required, Validators.minLength(18), Validators.maxLength(18)]],
       nss: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]],
@@ -30,7 +38,9 @@ export class AddEmpleadoModalComponent {
       puesto: ['', Validators.required]
     });
   }
-async ngOnInit() {
+
+  async ngOnInit() {
+    this.obtenerSedesDelSupervisor();
     try {
       const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
       await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
@@ -41,9 +51,29 @@ async ngOnInit() {
       this.mostrarToast('Error cargando IA', 'danger');
     }
   }
+  obtenerSedesDelSupervisor() {
+    const miEmpresaID = localStorage.getItem('admin_tenant_id') || '';
+    
+    if (miEmpresaID) {
+      this.empleadosService.getSucursalesByTenant(miEmpresaID).subscribe({
+        next: (sedes) => {
+          this.listaSucursales = sedes;
+          
+          // Opcional: Si solo tiene una sucursal asignada, la preseleccionamos automáticamente
+          if (this.listaSucursales.length === 1) {
+            this.empleadoForm.get('sucursal_id')?.setValue(this.listaSucursales[0].id);
+          }
+        },
+        error: (err) => {
+          console.error('Error al descargar sucursales:', err);
+          this.mostrarToast('No se pudieron cargar las sedes de trabajo', 'danger');
+        }
+      });
+    }
+  }
   async cargarModelos() {
     // Estas rutas funcionan si moviste tus modelos a la carpeta /public/models
-    const MODEL_URL = '/models'; 
+    const MODEL_URL = '/models';
     await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
     await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
     await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
@@ -75,19 +105,30 @@ async confirmar() {
         }
 
         const formData = new FormData();
-        Object.keys(this.empleadoForm.value).forEach(key => formData.append(key, this.empleadoForm.value[key]));
+        
+        // Pasamos todos los datos del formulario (esto ya incluye el sucursal_id seleccionado en el combobox)
+        Object.keys(this.empleadoForm.value).forEach(key => {
+          if (key !== 'tenant_id') {
+            formData.append(key, this.empleadoForm.value[key]);
+          }
+        });
+
+        // Inyectamos el ID real de la empresa (UUID)
+        const miEmpresaID = localStorage.getItem('admin_tenant_id') || '';
+        formData.append('tenant_id', miEmpresaID);
+
         formData.append('foto', this.selectedFile, 'perfil.jpg');
         formData.append('face_embedding', JSON.stringify(Array.from(detection.descriptor)));
 
         this.empleadosService.crearEmpleado(formData).subscribe({
           next: () => { 
-            this.mostrarToast('¡Empleado guardado exitosamente!', 'success'); // ✨ Toast éxito
-            this.modalCtrl.dismiss(); 
+            this.mostrarToast('¡Empleado guardado exitosamente!', 'success');
+            this.modalCtrl.dismiss(null, 'confirm'); 
           },
           error: (err) => {
             console.error(err);
             this.isSaving = false;
-            this.mostrarToast('Error al guardar el empleado', 'danger'); // ✨ Toast error
+            this.mostrarToast('Error al guardar el empleado', 'danger');
           }
         });
       } catch (e) {
@@ -97,7 +138,7 @@ async confirmar() {
       }
     }
   }
-// ✨ Método auxiliar para mostrar Toasts
+  // ✨ Método auxiliar para mostrar Toasts
   async mostrarToast(mensaje: string, color: string) {
     const toast = await this.toastCtrl.create({
       message: mensaje,
@@ -111,15 +152,15 @@ async confirmar() {
   cancelar() { return this.modalCtrl.dismiss(); }
   activarCamara() { this.fileInput.nativeElement.click(); }
   eliminarFoto(event: Event) {
-  event.stopPropagation();
-  this.imagePreview = null;
-  this.selectedFile = null;
-  
-  // ✨ ESTO ES LO QUE FALTA: Resetear el valor del input de archivo
-  if (this.fileInput && this.fileInput.nativeElement) {
-    this.fileInput.nativeElement.value = ''; 
+    event.stopPropagation();
+    this.imagePreview = null;
+    this.selectedFile = null;
+
+    // ✨ ESTO ES LO QUE FALTA: Resetear el valor del input de archivo
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = '';
+    }
   }
-}
   onCurpInput(event: any) {
     const valor = event.target.value.toUpperCase();
     this.empleadoForm.get('curp')?.setValue(valor, { emitEvent: false });

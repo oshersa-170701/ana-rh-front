@@ -1,0 +1,48 @@
+<app-header titulo="Panel Supervisor" [esHome]="true"></app-header>
+
+<ion-content class="ion-padding supervisor-bg">
+
+  <div class="supervisor-welcome">
+    <h1>Panel Operativo</h1>
+    <p>Bienvenido, {{ nombreSupervisor }}</p>
+    <div class="meta-info">
+      <ion-badge color="secondary" class="badge-custom">{{ puestoSupervisor }}</ion-badge>
+    </div>
+  </div>
+
+  <ion-grid style="margin-top: 16px;">
+    <ion-row>
+
+      <ion-col size="12" size-md="6">
+        <ion-card button routerLink="/dashboard/empleados-supervisor" class="menu-card">
+          <ion-card-header>
+            <div class="badge-icon icon-emerald">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <ion-card-title>Mi Personal</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Visualiza y administra la lista completa de los empleados dados de alta en tu sucursal.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <ion-card button routerLink="/dashboard/asistencias" class="menu-card">
+          <ion-card-header>
+            <div class="badge-icon icon-ocean">
+              <ion-icon name="time-outline"></ion-icon>
+            </div>
+            <ion-card-title>Bitácora de Asistencia</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Revisa los horarios de entrada, salida e incidencias registradas por el lector biométrico facial.
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

@@ -11,7 +11,6 @@ import {
   ToastController 
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-// ✨ Importamos los nuevos iconos del ojo
 import { personOutline, lockClosedOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth';
 
@@ -56,23 +55,40 @@ export class LoginPage implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  async onLogin() {
+async onLogin() {
     if (!this.user || !this.password_hash) {
       this.showToast('Por favor, rellena todos los campos', 'warning');
       return;
     }
 
-    this.authService.login(this.user, this.password_hash).subscribe({
+    // 1. Intentamos loguear primero como Superadmin global
+    this.authService.loginSuperadmin(this.user, this.password_hash).subscribe({
       next: () => {
-        this.router.navigate(['/dashboard']);
+        this.showToast('¡Bienvenido Superadmin! 💫', 'success');
+        this.router.navigate(['/dashboard']); // Va a la raíz del dashboard (home-admin)
       },
-      error: async (err) => {
-        const msg = err.status === 401 ? 'Credenciales incorrectas' : 'Error al conectar con el servidor';
-        this.showToast(msg, 'danger');
+      error: (err) => {
+        console.log('No es Superadmin, intentando acceso como Empleado Supervisor...');
+        
+        // 2. Si falla el Superadmin, se intenta con las credenciales de la tabla empleados
+        this.authService.loginEmpleadoAdmin(this.user, this.password_hash).subscribe({
+          next: () => {
+            this.showToast('¡Bienvenido, Supervisor! 🏢', 'success');
+            
+            // ✨ REDIRECCIÓN AL ENTORNO CORRECTO:
+            this.router.navigate(['/dashboard/home-supervisor']); 
+          },
+          error: (empleadoErr) => {
+            // 3. Si ambos fallan, mostramos el error definitivo al usuario
+            const msg = empleadoErr.status === 401 || empleadoErr.status === 404 
+              ? 'Credenciales incorrectas o usuario inexistente' 
+              : 'Error al conectar con el servidor';
+            this.showToast(msg, 'danger');
+          }
+        });
       }
     });
   }
-
   async showToast(message: string, color: string) {
     const toast = await this.toastCtrl.create({
       message,

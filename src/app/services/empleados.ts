@@ -19,6 +19,7 @@ export interface Empleado {
   created_at?: Date;
   empresa?: { nombre: string };
   sucursal?: { nombre: string };
+  user?: string | null; // 👈 Nombre de usuario para el login de sistema
 }
 
 @Injectable({
@@ -58,4 +59,8 @@ export class EmpleadosService {
   reconocer(descriptor: number[]): Observable<EmpleadoIdentificado> {
     return this.http.post<EmpleadoIdentificado>(`${`${this.apiUrl}/reconocer`}`, { descriptor });
   }
+  getSucursalesByTenant(tenantId: string): Observable<any[]> {
+  // Cambia este endpoint según cómo tengas nombrada tu ruta de sucursales en NestJS
+  return this.http.get<any[]>(`http://localhost:3000/sucursales/tenant/${tenantId}`);
+}
 }

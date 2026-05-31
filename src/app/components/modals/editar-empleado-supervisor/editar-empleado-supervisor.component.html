@@ -1,0 +1,84 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="morado-header">
+    <ion-title>Editar Colaborador</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()" color="danger">X</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding custom-bg">
+  <form [formGroup]="empleadoForm" (ngSubmit)="confirmar()">
+
+    <div class="form-container">
+      
+      <ion-input fill="outline" color="medium" label="Empresa" labelPlacement="floating" type="text"
+        formControlName="tenant_id" [readonly]="true" class="readonly-input"></ion-input>
+
+      <ion-select fill="outline" color="tertiary" label="Asignar a Sucursal" labelPlacement="floating"
+        formControlName="sucursal_id" interface="popover" placeholder="Selecciona una sede">
+        @for (sucursal of listaSucursales; track sucursal.id) {
+          <ion-select-option [value]="sucursal.id">
+            {{ sucursal.nombre }}
+          </ion-select-option>
+        }
+      </ion-select>
+
+      @if (empleadoForm.get('sucursal_id')?.invalid && empleadoForm.get('sucursal_id')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ Debes seleccionar una sucursal para el colaborador.</ion-note>
+      }
+
+      <ion-input fill="outline" color="tertiary" label="Nombre Completo" labelPlacement="floating" type="text"
+        formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández" (ionInput)="onNombreInput($event)"></ion-input>
+
+      <ion-input fill="outline" label="CURP" labelPlacement="floating" type="text" formControlName="curp" maxlength="18" (ionInput)="onCurpInput($event)"></ion-input>
+      
+      @if (empleadoForm.get('curp')?.invalid && empleadoForm.get('curp')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ El CURP debe tener exactamente 18 caracteres.</ion-note>
+      }
+
+      <ion-input fill="outline" label="NSS" labelPlacement="floating" type="number" formControlName="nss" maxlength="11">
+        <div slot="helper">Debe tener exactamente 11 dígitos</div>
+      </ion-input>
+      
+      @if (empleadoForm.get('nss')?.invalid && empleadoForm.get('nss')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ El NSS debe tener exactamente 11 dígitos.</ion-note>
+      }
+
+      <ion-input fill="outline" color="tertiary" label="Salario Diario ($)" labelPlacement="floating" type="number"
+        formControlName="salario_diario"></ion-input>
+
+      <ion-input fill="outline" color="tertiary" label="Puesto" labelPlacement="floating" type="text"
+        formControlName="puesto" placeholder="Ej. Desarrollador Frontend"></ion-input>
+
+      <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)" style="display: none;">
+
+      <div class="foto-zona ion-text-center">
+        @if (!imagePreview) {
+          <div class="placeholder-camara" (click)="activarCamara()">
+            <ion-icon name="camera-outline" style="font-size: 48px;"></ion-icon>
+            <p>Actualizar Foto de Perfil (Opcional)</p>
+          </div>
+        } @else {
+          <div class="preview-container">
+            <img [src]="imagePreview" class="preview-img" alt="Previsualización">
+            <ion-button color="danger" fill="clear" (click)="eliminarFoto($event)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <ion-button expand="block" type="submit" color="tertiary"
+      [disabled]="empleadoForm.invalid || isSaving" class="submit-btn" size="large">
+      @if (isSaving) {
+        <ion-spinner name="crescent"></ion-spinner>
+        <span style="margin-left: 12px;">Actualizando colaborador...</span>
+      } @else {
+        <span>Guardar Cambios</span>
+      }
+    </ion-button>
+
+  </form>
+</ion-content>

@@ -1,38 +1,63 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // Ajusta la URL según la configuración de tu servidor NestJS
- private apiUrl = 'http://localhost:3000/usuarios/login'; // 👈 Cambiado de /auth/login a /usuarios/login
-private inactivityTimer: any;
-  private readonly SESSION_TIMEOUT = 15 * 60 * 1000; // 15 minutos en ms
-  constructor(private http: HttpClient,private router: Router) {}
+  // 🚀 Endpoints independientes para cada tipo de cuenta
+  private superadminUrl = 'http://localhost:3000/usuarios/login'; 
+  private empleadoUrl = 'http://localhost:3000/empleados/login'; // 👈 Nuestro nuevo endpoint
 
-  login(user: string, password_hash: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { user, password_hash }).pipe(
+  private inactivityTimer: any;
+  private readonly SESSION_TIMEOUT = 15 * 60 * 1000; // 15 minutos
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  // ✨ Intento de login para Superadmin
+  loginSuperadmin(user: string, password_hash: string): Observable<any> {
+    return this.http.post<any>(this.superadminUrl, { user, password_hash }).pipe(
       tap(res => {
         if (res && res.token) {
           localStorage.setItem('admin_token', res.token);
           localStorage.setItem('admin_user', user);
+          localStorage.setItem('admin_role', 'superadmin'); // 👈 Guardamos el rol
         }
       })
     );
   }
 
-  // Borra todo rastro de la sesión
+  // ✨ Intento de login para Administrador de Sucursal (Tabla Empleados)
+ loginEmpleadoAdmin(user: string, password_hash: string): Observable<any> {
+    return this.http.post<any>(this.empleadoUrl, { user, password_hash }).pipe(
+      tap(res => {
+        if (res && res.token) {
+          localStorage.setItem('admin_token', res.token);
+          localStorage.setItem('admin_user', res.nombre_completo || user);
+          localStorage.setItem('admin_user_id', res.id); 
+          localStorage.setItem('admin_role', 'admin_sucursal');
+          localStorage.setItem('admin_tenant_id', res.tenant_id);
+          localStorage.setItem('admin_sucursal_id', res.sucursal_id);
+          
+          // ✨ NUEVO: Guardamos los nombres descriptivos en el almacenamiento local
+          localStorage.setItem('admin_empresa_nombre', res.empresa_nombre);
+          localStorage.setItem('admin_sucursal_nombre', res.sucursal_nombre);
+        }
+      })
+    );
+  }
   logout() {
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
+    localStorage.removeItem('admin_role');
+    localStorage.removeItem('admin_tenant_id');
+    localStorage.removeItem('admin_sucursal_id');
     this.stopInactivityTimer();
     this.router.navigate(['/login']);
   }
 
-  // Reinicia el temporizador cada vez que el usuario interactúa
   resetInactivityTimer() {
     this.stopInactivityTimer();
     this.inactivityTimer = setTimeout(() => {
@@ -47,5 +72,14 @@ private inactivityTimer: any;
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('admin_token');
+  }
+
+  // Métodos auxiliares para saber quién está logueado en el sistema
+  getUserRole(): string | null {
+    return localStorage.getItem('admin_role');
+  }
+
+  getSucursalId(): string | null {
+    return localStorage.getItem('admin_sucursal_id');
   }
 }
