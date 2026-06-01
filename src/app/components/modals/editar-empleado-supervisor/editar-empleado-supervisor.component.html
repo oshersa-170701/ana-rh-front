@@ -51,6 +51,12 @@
       <ion-input fill="outline" color="tertiary" label="Puesto" labelPlacement="floating" type="text"
         formControlName="puesto" placeholder="Ej. Desarrollador Frontend"></ion-input>
 
+     <ion-select fill="outline" color="tertiary" label="Estatus Laboral" labelPlacement="floating"
+        formControlName="estatus" interface="popover">
+        <ion-select-option [value]="true">Activo</ion-select-option>
+        <ion-select-option [value]="false">Inactivo</ion-select-option>
+      </ion-select>
+
       <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)" style="display: none;">
 
       <div class="foto-zona ion-text-center">

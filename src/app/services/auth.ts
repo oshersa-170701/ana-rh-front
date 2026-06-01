@@ -48,16 +48,23 @@ export class AuthService {
       })
     );
   }
-  logout() {
+logout() {
+    // 🧹 Limpieza absoluta de todas las llaves de ANA Medic
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
     localStorage.removeItem('admin_role');
+    localStorage.removeItem('admin_user_id');
     localStorage.removeItem('admin_tenant_id');
     localStorage.removeItem('admin_sucursal_id');
+    localStorage.removeItem('admin_empresa_nombre');
+    localStorage.removeItem('admin_sucursal_nombre');
+    localStorage.removeItem('admin_user_username'); // Por si acaso
+
     this.stopInactivityTimer();
+    
+    // Redirigimos estrictamente a la pantalla de login limpia
     this.router.navigate(['/login']);
   }
-
   resetInactivityTimer() {
     this.stopInactivityTimer();
     this.inactivityTimer = setTimeout(() => {

@@ -5,17 +5,17 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { addIcons } from 'ionicons';
 import { cameraOutline, trashOutline } from 'ionicons/icons';
 import { Empleado, EmpleadosService } from 'src/app/services/empleados';
-import * as faceapi from 'face-api.js'; // 👈 ¡FALTA ESTA LÍNEA DE ORO!
+import * as faceapi from 'face-api.js';
+
 @Component({
   selector: 'app-editar-empleado-supervisor',
   templateUrl: './editar-empleado-supervisor.component.html',
-  styleUrls: ['./editar-empleado-supervisor.component.scss'], // 👈 Reutilizamos tus estilos del agregar
+  styleUrls: ['./editar-empleado-supervisor.component.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, ReactiveFormsModule]
 })
 export class EditarEmpleadoSupervisorComponent implements OnInit {
 
-  // ✨ Recibe el objeto completo enviado desde la grilla
   @Input() empleadoData!: Empleado;
 
   empleadoForm!: FormGroup;
@@ -35,10 +35,13 @@ export class EditarEmpleadoSupervisorComponent implements OnInit {
     addIcons({ cameraOutline, trashOutline });
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     const empresaNombre = localStorage.getItem('admin_empresa_nombre') || 'Mi Empresa';
 
-    // Inicializamos el formulario
+    // ✨ CORRECCIÓN: Validamos si el estatus viene como 1/0 o true/false desde MySQL
+  const estatusInicial = this.empleadoData.estatus;
+
+    // Inicializamos el formulario reactivo incluyendo el control de estatus
     this.empleadoForm = this.fb.group({
       tenant_id: [empresaNombre, Validators.required],
       sucursal_id: [this.empleadoData.sucursal_id, Validators.required],
@@ -46,17 +49,18 @@ export class EditarEmpleadoSupervisorComponent implements OnInit {
       curp: [this.empleadoData.curp, [Validators.required, Validators.minLength(18), Validators.maxLength(18)]],
       nss: [this.empleadoData.nss, [Validators.required, Validators.pattern('^[0-9]{11}$')]],
       salario_diario: [this.empleadoData.salario_diario, [Validators.required, Validators.min(1)]],
-      puesto: [this.empleadoData.puesto, Validators.required]
+      puesto: [this.empleadoData.puesto, Validators.required],
+      estatus: [estatusInicial, Validators.required] // 👈 Recibirá un 1 o un 0 perfecto
     });
-if (this.empleadoData.foto_perfil_url) {
+
+    if (this.empleadoData.foto_perfil_url) {
       this.imagePreview = `http://localhost:3000/${this.empleadoData.foto_perfil_url}`;
     } else {
-      this.imagePreview = null; // Placeholder si no tiene foto
+      this.imagePreview = null;
     }
 
     this.obtenerSedesDelSupervisor();
 
-    // ✨ CARGA DE MODELOS: Por seguridad para que face-api funcione al cambiar la foto
     try {
       const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
       await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
@@ -92,27 +96,30 @@ if (this.empleadoData.foto_perfil_url) {
     }
   }
 
-async confirmar() {
+  async confirmar() {
     if (this.empleadoForm.valid && !this.isSaving) {
       this.isSaving = true;
 
       try {
         const formData = new FormData();
 
-        // Mapeamos formulario reactivo al FormData
+        // Mapeamos los campos del formulario sanitizando valores vacíos o nulos
         Object.keys(this.empleadoForm.value).forEach(key => {
+          const valor = this.empleadoForm.value[key];
           if (key !== 'tenant_id') {
-            formData.append(key, this.empleadoForm.value[key]);
+            if (valor !== null && valor !== undefined && valor !== '') {
+              // El campo 'estatus' se mandará automáticamente como un string "true" o "false", 
+              // el cual tu backend ya sabe castear gracias a @Transform en CreateEmpleadoDto.
+              formData.append(key, valor);
+            }
           }
         });
 
-        // Aseguramos tenant_id real
         const miEmpresaID = localStorage.getItem('admin_tenant_id') || '';
         formData.append('tenant_id', miEmpresaID);
 
-        // ✨ CORRECCIÓN 2: Gestión Inteligente de Fotos
+        // Gestión Inteligente de Fotos y Embeddings
         if (this.selectedFile) {
-          // ESCENARIO A: Se seleccionó una foto nueva -> Analizar rostro y mandar archivo
           const imgElement = await faceapi.bufferToImage(this.selectedFile as any);
           const detection = await faceapi.detectSingleFace(imgElement)
             .withFaceLandmarks()
@@ -128,18 +135,15 @@ async confirmar() {
           formData.append('face_embedding', JSON.stringify(Array.from(detection.descriptor)));
 
         } else if (this.imagePreview && this.empleadoData.face_embedding) {
-          // ESCENARIO B: No hay foto nueva, pero se mantiene la actual -> Mandar embedding previo para no borrarla
           formData.append('face_embedding', typeof this.empleadoData.face_embedding === 'string' 
             ? this.empleadoData.face_embedding 
             : JSON.stringify(this.empleadoData.face_embedding)
           );
         }
-        // ESCENARIO C: imagePreview es nulo -> Se eliminó la foto, el backend debe borrarla
 
-        // Enviamos la petición PATCH al backend
         this.empleadosService.updateEmpleado(this.empleadoData.id!, formData).subscribe({
           next: (res) => {
-            this.mostrarToast('¡Colaborador actualizado con éxito! 🎉', 'success');
+            this.mostrarToast('¡Colaborador actualizado con éxito!', 'success');
             this.modalCtrl.dismiss(res, 'confirm'); 
           },
           error: (err) => {
@@ -156,6 +160,7 @@ async confirmar() {
       }
     }
   }
+
   cancelar() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }

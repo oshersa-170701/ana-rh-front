@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, ToastController } from '@ionic/angular/standalone';
 import { EmpleadosService } from '../services/empleados';
 import { EmpleadoIdentificado } from '../models1/empleado.interface';
 import * as faceapi from 'face-api.js';
@@ -14,18 +14,22 @@ import * as faceapi from 'face-api.js';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class ReconocimientoFacialPage implements OnInit, OnDestroy {
-  private buscando: boolean = false;
   iaInicializada = false;
   mediaStream: MediaStream | null = null;
   empleadoIdentificado: EmpleadoIdentificado | null = null;
-  private idEmpleadoMostrado: string | null = null;
-  private framesSinDeteccion = 0;
-  private umbralFrames = 10;
+  
+  // Controladores de flujo interactivo
+  public buscando: boolean = false; 
+  private scoreConfianzaActual = 0;
+  private timerResetUI: any;
 
   @ViewChild('videoElement', { static: true }) videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
 
-  constructor(private empleadosService: EmpleadosService) { }
+  constructor(
+    private empleadosService: EmpleadosService,
+    private toastCtrl: ToastController
+  ) { }
 
   async ngOnInit() {
     await this.cargarModelosIA();
@@ -45,91 +49,152 @@ export class ReconocimientoFacialPage implements OnInit, OnDestroy {
     }
   }
 
- async iniciarCamara() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ 
-      video: { facingMode: 'user', width: 640, height: 480 } 
-    });
-    
-    const video = this.videoElement.nativeElement;
-    video.srcObject = stream;
-    this.mediaStream = stream;
+  async iniciarCamara() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'user', width: 640, height: 480 } 
+      });
+      
+      const video = this.videoElement.nativeElement;
+      video.srcObject = stream;
+      this.mediaStream = stream;
 
-    // ✨ CORRECCIÓN CRÍTICA: Esperar a que el video cargue los datos antes de darle play
-    video.onloadedmetadata = () => {
-      video.play().catch(e => console.error("Error al iniciar video:", e));
-    };
-  } catch (error) {
-    console.error("❌ Error al acceder a la cámara:", error);
+      video.onloadedmetadata = () => {
+        video.play().catch(e => console.error("Error al iniciar video:", e));
+      };
+    } catch (error) {
+      console.error("❌ Error al acceder a la cámara:", error);
+    }
   }
-}
-async onVideoPlay() {
-  const video = this.videoElement.nativeElement;
-  const canvas = this.canvasElement.nativeElement;
-  const opciones = new faceapi.TinyFaceDetectorOptions({ inputSize: 224 });
 
-  const procesarFrame = async () => {
-    // 1. Validación de estado del video
-    const videoEsValido = video && video.readyState === 4;
-    if (!videoEsValido || !this.iaInicializada) {
-      setTimeout(procesarFrame, 1000);
-      return;
-    }
-
-    // 2. Detección
-    const detection = await faceapi.detectSingleFace(video, opciones)
-      .withFaceLandmarks(true)
-      .withFaceDescriptor();
-
-    // 3. Configuración del Canvas para dibujar
-    const displaySize = { width: video.clientWidth, height: video.clientHeight };
-    faceapi.matchDimensions(canvas, displaySize);
-    const ctx = canvas.getContext('2d');
-    ctx?.clearRect(0, 0, canvas.width, canvas.height); // Limpiamos canvas
-
-    if (detection) {
-      this.framesSinDeteccion = 0;
-
-      // ✨ DIBUJAR EL CUADRO (Solo los 2 argumentos permitidos)
-      const resizedDetections = faceapi.resizeResults(detection, displaySize);
-      if (ctx) {
-        ctx.strokeStyle = '#a78bfa'; // Color morado institucional
-        ctx.lineWidth = 3;
-      }
-      faceapi.draw.drawDetections(canvas, resizedDetections);
-
-      // 4. Lógica de reconocimiento
-      if (!this.buscando) {
-        this.buscando = true;
-        this.empleadosService.reconocer(Array.from(detection.descriptor)).subscribe({
-          next: (empleado: EmpleadoIdentificado) => {
-            if (this.idEmpleadoMostrado !== empleado.curp) {
-              this.empleadoIdentificado = empleado;
-              this.idEmpleadoMostrado = empleado.curp;
-            }
-            this.buscando = true;
-          },
-          error: () => this.buscando = false
-        });
-      }
-    } else {
-      // 5. Limpieza si no hay rostro
-      this.framesSinDeteccion++;
-      if (this.framesSinDeteccion >= this.umbralFrames) {
-        this.empleadoIdentificado = null;
-        this.idEmpleadoMostrado = null;
-        this.buscando = false;
-        this.framesSinDeteccion = 0;
-      }
-    }
+ async onVideoPlay() {
+    const video = this.videoElement.nativeElement;
+    const canvas = this.canvasElement.nativeElement;
+    const opciones = new faceapi.TinyFaceDetectorOptions({ inputSize: 224 });
     
-    setTimeout(procesarFrame, 200);
-  };
-  procesarFrame();
-}
+    // ⏳ Variables de control para el auto-reinicio por abandono
+    let framesSinDeteccion = 0;
+    const umbralFrames = 15; // ~3 segundos de tolerancia a 200ms por frame
+
+    const procesarFrame = async () => {
+      const videoEsValido = video && video.readyState === 4;
+      
+      if (!videoEsValido || !this.iaInicializada) {
+        setTimeout(procesarFrame, 500);
+        return;
+      }
+
+      const detection = await faceapi.detectSingleFace(video, opciones)
+        .withFaceLandmarks(true)
+        .withFaceDescriptor();
+
+      const displaySize = { width: video.clientWidth, height: video.clientHeight };
+      faceapi.matchDimensions(canvas, displaySize);
+      const ctx = canvas.getContext('2d');
+      ctx?.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (detection) {
+        // ✨ Si hay un rostro presente, reiniciamos el contador de abandono
+        framesSinDeteccion = 0;
+
+        // Dibujamos el recuadro morado institucional de la IA
+        const resizedDetections = faceapi.resizeResults(detection, displaySize);
+        if (ctx) {
+          ctx.strokeStyle = '#a78bfa';
+          ctx.lineWidth = 3;
+        }
+        faceapi.draw.drawDetections(canvas, resizedDetections);
+
+        // Si la pantalla ya está congelada con un empleado, no volvemos a llamar al servicio
+        if (this.empleadoIdentificado) {
+          setTimeout(procesarFrame, 200);
+          return;
+        }
+
+        if (!this.buscando) {
+          this.buscando = true;
+          this.scoreConfianzaActual = detection.detection.score;
+
+          this.empleadosService.reconocer(Array.from(detection.descriptor)).subscribe({
+            next: (empleado: EmpleadoIdentificado) => {
+              this.empleadoIdentificado = empleado;
+            },
+            error: () => {
+              this.buscando = false;
+            }
+          });
+        }
+      } else {
+        // 📉 CASO CONTRARIO: No hay ningún rostro en la cámara
+        if (this.empleadoIdentificado) {
+          framesSinDeteccion++;
+          
+          // Si pasa el tiempo límite sin detectar a nadie, limpiamos el kiosco automáticamente
+          if (framesSinDeteccion >= umbralFrames) {
+            console.log("🔄 Kiosco abandonado. Aplicando auto-limpieza...");
+            this.resetearPantallaKiosco();
+            framesSinDeteccion = 0;
+          }
+        }
+      }
+      
+      setTimeout(procesarFrame, 200);
+    };
+    procesarFrame();
+  }
+  // 🔥 NUEVA FUNCIÓN: Envía el evento seleccionado al Backend
+  registrarEvento(tipo: 'ENTRADA' | 'INICIO_ALMUERZO' | 'FIN_ALMUERZO' | 'SALIDA') {
+    if (!this.empleadoIdentificado) return;
+
+    const ahora = new Date();
+    const fechaStr = ahora.toISOString().split('T')[0];
+    const horaStr = ahora.toTimeString().split(' ')[0];
+
+    // Construimos el DTO mapeado a tu CreateAsistenciaDto del Backend
+    const asistenciaPayload = {
+      tenant_id: this.empleadoIdentificado.tenant_id, // Asegúrate de enviarlo desde el modelo de reconocer
+      empleado_id: this.empleadoIdentificado.id,
+      fecha: fechaStr,
+      tipo_evento: tipo,
+      hora: horaStr,
+      metodo_validacion: 'FACIAL',
+      score_confianza_ia: parseFloat(this.scoreConfianzaActual.toFixed(2))
+    };
+
+    // Consumimos el endpoint POST base de asistencias que ya tenías creado
+    this.empleadosService.guardarAsistencia(asistenciaPayload).subscribe({
+      next: () => {
+        this.mostrarToast(`¡${tipo} registrado con éxito con éxito! 🎉`, 'success');
+        this.resetearPantallaKiosco();
+      },
+      error: (err) => {
+        console.error(err);
+        this.mostrarToast('Error al registrar la asistencia en el servidor', 'danger');
+        this.resetearPantallaKiosco();
+      }
+    });
+  }
+
+  // Limpia el panel de información y reactiva la cámara del Kiosco
+  private resetearPantallaKiosco() {
+    this.empleadoIdentificado = null;
+    this.buscando = false;
+    this.scoreConfianzaActual = 0;
+  }
+
+  async mostrarToast(mensaje: string, color: string) {
+    const toast = await this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'bottom',
+      color: color
+    });
+    await toast.present();
+  }
 
   ngOnDestroy() {
     this.detenerCamara();
+    if (this.timerResetUI) clearTimeout(this.timerResetUI);
   }
 
   detenerCamara() {

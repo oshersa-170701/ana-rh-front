@@ -8,22 +8,34 @@
     <div class="camera-container">
       <video #videoElement autoplay muted playsinline (play)="onVideoPlay()"></video>
       <canvas #canvasElement></canvas>
-      <div class="scanner-line"></div> </div>
+      <div class="scanner-line"></div>
+    </div>
 
     @if (empleadoIdentificado) {
       <div class="info-panel animated-fade-in">
-        <div class="status-badge">¡Bienvenido!</div>
+        <div class="status-badge">¡Rostro Reconocido!</div>
         <h2>{{ empleadoIdentificado.nombre }}</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <span>Puesto</span>
-            <p>{{ empleadoIdentificado.puesto }}</p>
-          </div>
-          <div class="info-item">
-            <span>CURP</span>
-            <p>{{ empleadoIdentificado.curp }}</p>
+        <p class="sub-puesto">{{ empleadoIdentificado.puesto }}</p>
+
+        <div class="asistencia-actions">
+          <p class="instruccion-text">Selecciona la acción a registrar:</p>
+          
+          <div class="botones-grid">
+            <button class="btn-asistencia entrada" (click)="registrarEvento('ENTRADA')">
+              🌅 Entrada
+            </button>
+            <button class="btn-asistencia inicio-comida" (click)="registrarEvento('INICIO_ALMUERZO')">
+              🍔 Iniciar Almuerzo
+            </button>
+            <button class="btn-asistencia fin-comida" (click)="registrarEvento('FIN_ALMUERZO')">
+              ☕ Regreso Almuerzo
+            </button>
+            <button class="btn-asistencia salida" (click)="registrarEvento('SALIDA')">
+              🏠 Salida
+            </button>
           </div>
         </div>
+
       </div>
     }
   </div>

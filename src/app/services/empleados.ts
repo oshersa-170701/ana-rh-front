@@ -27,6 +27,7 @@ export interface Empleado {
 })
 export class EmpleadosService {
   private apiUrl = 'http://localhost:3000/empleados';
+  private asistenciaUrl = 'http://localhost:3000/asistencias';
 
   constructor(private http: HttpClient) { }
 
@@ -63,4 +64,8 @@ export class EmpleadosService {
   // Cambia este endpoint según cómo tengas nombrada tu ruta de sucursales en NestJS
   return this.http.get<any[]>(`http://localhost:3000/sucursales/tenant/${tenantId}`);
 }
+// 🔥 NUEVO MÉTODO: Guarda la checada seleccionada desde los botones de la tablet
+  guardarAsistencia(payload: any): Observable<any> {
+    return this.http.post<any>(this.asistenciaUrl, payload);
+  }
 }
