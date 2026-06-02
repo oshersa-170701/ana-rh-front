@@ -168,9 +168,7 @@ ion-content {
     --box-shadow: none !important;
 
     // Cambiamos el color de edición a azul en vez del amarillo por defecto, se ve más corporativo
-    &[color="warning"] {
-      --color: #2563eb !important; 
-    }
+    
 
     &:hover {
       background: #f1f5f9;

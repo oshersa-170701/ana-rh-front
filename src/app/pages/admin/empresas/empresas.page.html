@@ -18,7 +18,8 @@
       <table class="custom-table">
         <thead>
           <tr>
-            <th>Logo</th> <th>ID</th>
+            <th>Logo</th> 
+            <th>ID</th>
             <th>Nombre</th>
             <th>RFC</th>
             <th>Estatus</th>
@@ -27,50 +28,56 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="empresas.length === 0">
-            <td colspan="7" class="text-center no-data">
-              No se encontraron empresas registradas.
-            </td>
-          </tr>
 
-          <tr *ngFor="let empresa of empresas">
-            <td>
-              <div class="avatar-container">
-                <img 
-                  *ngIf="empresa.logo_url"
-                  [src]="empresa.logo_url.startsWith('data:') ? empresa.logo_url : 'http://localhost:3000/' + empresa.logo_url" 
-                  class="empresa-logo-img" 
-                  alt="Logo"
-                  (error)="empresa.logo_url = ''"
-                />
-                <div *ngIf="!empresa.logo_url" class="avatar-placeholder">
-                  {{ (empresa.nombre || 'E').substring(0, 1).toUpperCase() }}
+          @for (empresa of empresas; track empresa.id) {
+            <tr>
+              <td>
+                <div class="avatar-container">
+                  @if (empresa.logo_url) {
+                    <img 
+                      [src]="empresa.logo_url.startsWith('data:') ? empresa.logo_url : 'http://localhost:3000/' + empresa.logo_url" 
+                      class="empresa-logo-img" 
+                      alt="Logo"
+                      (error)="empresa.logo_url = ''"
+                    />
+                  } @else {
+                    <div class="avatar-placeholder">
+                      {{ (empresa.nombre || 'E').substring(0, 1).toUpperCase() }}
+                    </div>
+                  }
                 </div>
-              </div>
-            </td>
+              </td>
 
-            <td class="uuid-text">{{ (empresa.id?.substring(0, 8) ?? '').toUpperCase() }}...</td>
-            <td class="font-bold">{{ empresa.nombre }}</td>
-            <td class="rfc-text">{{ empresa.rfc }}</td>
-            
-            <td>
-              <span class="status-badge" [ngClass]="empresa.estatus ? 'activo' : 'inactivo'">
-                {{ empresa.estatus ? 'Activo' : 'Inactivo' }}
-              </span>
-            </td>
-            
-            <td class="fecha-text">{{ empresa.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
-            
-            <td class="actions-cell">
-              <ion-button fill="clear" class="btn-editar" title="Editar" (click)="abrirModalEditar(empresa)">
-                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-              </ion-button>
+              <td class="uuid-text">{{ (empresa.id?.substring(0, 8) ?? '').toUpperCase() }}...</td>
+              <td class="font-bold">{{ empresa.nombre }}</td>
+              <td class="rfc-text">{{ empresa.rfc }}</td>
               
-              <ion-button fill="clear" class="btn-eliminar" title="Eliminar" (click)="confirmarEliminacion(empresa)">
-                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-              </ion-button>
-            </td>
-          </tr>
+              <td>
+                <span class="status-badge" [ngClass]="empresa.estatus ? 'activo' : 'inactivo'">
+                  {{ empresa.estatus ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              
+              <td class="fecha-text">{{ empresa.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+              
+              <td class="actions-cell">
+                <ion-button fill="clear" class="btn-editar" title="Editar" color="warning" (click)="abrirModalEditar(empresa)">
+                  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                </ion-button>
+                
+                <ion-button fill="clear" class="btn-eliminar" title="Eliminar" color="danger" (click)="confirmarEliminacion(empresa)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="text-center no-data">
+                No se encontraron empresas registradas.
+              </td>
+            </tr>
+          }
+
         </tbody>
       </table>
     </div>

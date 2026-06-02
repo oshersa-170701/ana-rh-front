@@ -1,3 +1,4 @@
+import { Color } from './../../../../../node_modules/jspdf-autotable/dist/index.d';
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -97,14 +98,19 @@ descargarPDF(detalle: NominaDetalleResponse) {
       this.pdfService.generarReciboEmpleado(this.nomina, detalle, infoEmpresa);
     }
   }
-  async cambiarEstado(nuevoEstatus: EstatusNomina) {
+ async cambiarEstado(nuevoEstatus: EstatusNomina) {
     const alert = await this.alertCtrl.create({
       header: 'Confirmar Acción',
       subHeader: `Cambiar estatus a: ${nuevoEstatus}`,
+      mode: 'ios',
       message: `¿Estás seguro de que deseas marcar este período de nómina como ${nuevoEstatus.toLowerCase()}? Esta acción afectará el historial contable.`,
       backdropDismiss: false,
       buttons: [
-        { text: 'Cancelar', role: 'cancel' },
+        { 
+          text: 'Cancelar', 
+          role: 'cancel',
+          cssClass: 'alert-button-cancel-red' 
+        },
         {
           text: 'Confirmar',
           role: 'confirm',

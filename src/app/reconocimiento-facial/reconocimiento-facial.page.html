@@ -15,14 +15,17 @@
       <div class="info-panel animated-fade-in">
         <div class="status-badge">¡Rostro Reconocido!</div>
         <h2>{{ empleadoIdentificado.nombre }}</h2>
-        <p class="sub-puesto">{{ empleadoIdentificado.puesto }}</p>
+        
+        <div class="puesto-badge-container">
+          <span class="puesto-badge">{{ empleadoIdentificado.puesto }}</span>
+        </div>
 
         <div class="asistencia-actions">
           <p class="instruccion-text">Selecciona la acción a registrar:</p>
           
           <div class="botones-grid">
             <button class="btn-asistencia entrada" (click)="registrarEvento('ENTRADA')">
-              🌅 Entrada
+              🚪 Entrada
             </button>
             <button class="btn-asistencia inicio-comida" (click)="registrarEvento('INICIO_ALMUERZO')">
               🍔 Iniciar Almuerzo

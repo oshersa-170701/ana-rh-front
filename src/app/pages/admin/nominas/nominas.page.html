@@ -1,6 +1,5 @@
 <app-header titulo="Nóminas de Empleados" [esHome]="false"></app-header>
 
-
 <ion-content class="ion-padding app-background">
   <div class="modulo-container">
     
@@ -16,49 +15,55 @@
 
     <hr class="divisor" />
 
-    <div *ngIf="cargando" class="spinner-container">
-      <ion-spinner name="cues"></ion-spinner>
-      <p>Procesando registros financieros...</p>
-    </div>
+    @if (cargando) {
+      <div class="spinner-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Procesando registros financieros...</p>
+      </div>
+    } @else {
+      <div class="tabla-wrapper">
+        <table class="tabla-nominas">
+          <thead>
+            <tr>
+              <th>ID PERÍODO</th>
+              <th>FECHA INICIO</th>
+              <th>FECHA FIN</th>
+              <th>ESTATUS</th>
+              <th>FECHA CREACIÓN</th>
+              <th class="text-center">ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            @for (nomina of listaNominas; track nomina.id) {
+              <tr>
+                <td class="id-text">#{{ nomina.id.substring(0, 8).toUpperCase() }}</td>
+                <td>{{ nomina.periodo_inicio | date:'dd/MM/yyyy':'UTC' }}</td>
+                <td>{{ nomina.periodo_fin | date:'dd/MM/yyyy':'UTC' }}</td>
+                <td>
+                  <span class="badge-tag" [ngClass]="getEstatusClass(nomina.estatus)">
+                    {{ nomina.estatus }}
+                  </span>
+                </td>
+                <td>{{ nomina.created_at | date:'dd/MM/yyyy hh:mm a' }}</td>
+                <td class="text-center">
+                  <ion-button size="small" class="btn-desglose" (click)="abrirDetalleNomina(nomina.id)">
+                    Ver Desglose
+                  </ion-button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="6" class="text-center tabla-vacia">
+                  No se han generado períodos de nómina para esta sucursal.
+                </td>
+              </tr>
+            }
 
-    <div *ngIf="!cargando" class="tabla-wrapper">
-      <table class="tabla-nominas">
-        <thead>
-          <tr>
-            <th>ID PERÍODO</th>
-            <th>FECHA INICIO</th>
-            <th>FECHA FIN</th>
-            <th>ESTATUS</th>
-            <th>FECHA CREACIÓN</th>
-            <th class="text-center">ACCIONES</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="listaNominas.length === 0">
-            <td colspan="6" class="text-center tabla-vacia">
-              No se han generado períodos de nómina para esta sucursal.
-            </td>
-          </tr>
-
-          <tr *ngFor="let nomina of listaNominas">
-            <td class="id-text">#{{ nomina.id.substring(0, 8).toUpperCase() }}</td>
-            <td>{{ nomina.periodo_inicio | date:'dd/MM/yyyy':'UTC' }}</td>
-            <td>{{ nomina.periodo_fin | date:'dd/MM/yyyy':'UTC' }}</td>
-            <td>
-              <span class="badge-tag" [ngClass]="getEstatusClass(nomina.estatus)">
-                {{ nomina.estatus }}
-              </span>
-            </td>
-            <td>{{ nomina.created_at | date:'dd/MM/yyyy hh:mm a' }}</td>
-            <td class="text-center">
-              <ion-button  size="small" class="btn-desglose" (click)="abrirDetalleNomina(nomina.id)">
-                Ver Desglose
-              </ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
+    }
 
   </div>
-</ion-content>
+</ion-content>  

@@ -1,29 +1,22 @@
-<!-- 🏛️ Cabecera Unificada con el Azul Corporativo de la Marca -->
+
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Editar Colaborador</ion-title>
+    <ion-title>Editar Empleado</ion-title>
     <ion-buttons slot="end">
-      <!-- Botón de cierre unificado e icon-only -->
       <ion-button (click)="cancelar()" class="btn-close-header">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<!-- Contenido adaptado a la paleta ejecutiva clara -->
 <ion-content class="ion-padding modal-ejecutivo-content">
   <form [formGroup]="empleadoForm" (ngSubmit)="confirmar()">
 
     <div class="form-container">
-      
-      <!-- 🏢 Campo de Solo Lectura: Empresa Perteneciente -->
       <div class="form-group">
         <ion-input fill="solid" label="Empresa" labelPlacement="floating" type="text"
           formControlName="tenant_id" [readonly]="true" class="readonly-input"></ion-input>
       </div>
-
-      <!-- 🎯 Selector Blindado: Asignar a Sucursal (Sin ion-item) -->
       <div class="form-group ion-margin-top">
         <div class="custom-select-container">
           <ion-select 
@@ -45,8 +38,6 @@
           <ion-note color="danger" class="error-msg">⚠️ Debes seleccionar una sucursal para el colaborador.</ion-note>
         }
       </div>
-
-      <!-- 📝 Campos de Identidad (Inputs de Texto fill="solid") -->
       <div class="fields-group ion-margin-top">
         <ion-input fill="solid" label="Nombre Completo" labelPlacement="floating" type="text"
           formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández" (ionInput)="onNombreInput($event)"></ion-input>
@@ -69,8 +60,6 @@
         <ion-input fill="solid" label="Puesto" labelPlacement="floating" type="text"
           formControlName="puesto" placeholder="Ej. Desarrollador Frontend" class="ion-margin-top"></ion-input>
       </div>
-
-      <!-- 🎯 Selector Blindado: Estatus Laboral (Sin ion-item) -->
       <div class="form-group ion-margin-top">
         <div class="custom-select-container">
           <ion-select 
@@ -87,8 +76,6 @@
       </div>
 
       <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)" style="display: none;">
-
-      <!-- 🖼️ Zona Biométrica de Rostro -->
       <div class="foto-zona ion-text-center ion-margin-top">
         @if (!imagePreview) {
           <div class="placeholder-camara" (click)="activarCamara()">
@@ -107,8 +94,6 @@
       </div>
 
     </div>
-
-    <!-- Botón de Envío Unificado en Azul Corporativo -->
     <ion-button expand="block" type="submit" [disabled]="empleadoForm.invalid || isSaving" class="submit-btn">
       @if (isSaving) {
         <ion-spinner name="crescent"></ion-spinner>

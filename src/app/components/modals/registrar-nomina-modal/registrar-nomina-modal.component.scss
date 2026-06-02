@@ -4,7 +4,7 @@ ion-toolbar {
   --color: #ffffff !important; 
   height: 60px;
 
-  ion-title {
+  .header-title-executive {
     font-size: 1.15rem;
     font-weight: 800;
     letter-spacing: -0.3px;
@@ -12,9 +12,10 @@ ion-toolbar {
   }
 }
 
-// 🚪 BOTÓN DE CIERRE EN EL HEADER
+// 🚪 BOTÓN VOLVER / CERRAR
 .btn-close-header {
   --color: #ffffff !important;
+  color: #ffffff !important;
   opacity: 0.9;
 
   ion-icon {
@@ -26,110 +27,131 @@ ion-toolbar {
   }
 }
 
-// 📦 CUERPO DEL FORMULARIO SAAS CLARO
+// 📦 CUERPO DEL MODAL (Forzamos tema claro limpio)
 .modal-ejecutivo-content {
-  --background: #ffffff !important; // Fondo blanco que transmite orden institucional
+  --background: #ffffff !important;
+}
 
-  // 📋 BLOQUE DE INSTRUCCIONES DE AUDITORÍA (Look de Oficina Limpio)
-  .instrucciones-box {
-    display: flex;
-    gap: 12px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 24px;
-    align-items: flex-start;
+.form-container {
+  padding: 4px;
+}
 
-    .info-icon {
-      font-size: 1.4rem;
-      color: #1e40af; // Azul de la marca resaltando la advertencia
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
+// ℹ️ CAJA DE INSTRUCCIONES SAAS
+.instrucciones-box {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
 
-    .instrucciones {
-      font-size: 0.9rem;
-      color: #475569;
-      line-height: 1.5;
-      font-weight: 500;
-      margin: 0;
-    }
+  .info-icon {
+    color: #1e40af;
+    font-size: 1.4rem;
+    flex-shrink: 0;
   }
 
-  // 📅 Estilizado Premium para los selectores de Fecha nativos de Ionic
-  ion-input[type="date"] {
-    --background: #f8fafc !important;
-    --color: #0f172a !important; // Texto oscuro 100% visible
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    padding: 0 4px;
-    transition: all 0.2s ease-in-out;
-
-    &:focus-within {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-      --background: #ffffff !important;
-    }
-  }
-
-  // 🛠️ CONTENEDOR DE ACCIONES INLINE (Cancelación y Procesamiento)
-  .acciones-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 12px;
-    margin-top: 32px;
-    padding-top: 16px;
-    border-top: 1px solid #f1f5f9;
-
-    // Botón Cancelar Secundario Líquido
-    .btn-cancelar {
-      --color: #64748b !important;
-      font-weight: 700;
-      font-size: 0.95rem;
-      text-transform: none;
-      margin: 0;
-      height: 44px;
-
-      &:hover {
-        --color: #0f172a !important;
-      }
-    }
-    .btn-close-header {
-  --color: #ffffff !important;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-transform: none;
-  opacity: 0.9;
-
-  ion-icon {
-    font-size: 1.1rem !important;
-  }
-
-  &:hover {
-    opacity: 1;
+  .instrucciones {
+    color: #334155;
+    font-weight: 600;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 }
 
-    // Botón Procesar Principal en Azul Navy
-    .btn-procesar {
-      --background: #1e40af !important;
-      --background-activated: #1d4ed8 !important;
-      --background-hover: #1d4ed8 !important;
-      --color: #ffffff !important;
-      --border-radius: 8px !important;
-      font-weight: 700;
-      font-size: 0.95rem;
-      height: 44px;
-      text-transform: none;
-      margin: 0;
-      letter-spacing: 0.3px;
-      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15) !important;
+// 🗓️ DISEÑO DE LOS INPUTS DE FECHA CUSTOM (Actualizado)
+.input-grupo-custom {
+  margin-bottom: 20px;
 
-      ion-spinner {
-        --color: #ffffff !important;
+  .label-custom {
+    display: block;
+    color: #475569;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0 16px;
+    height: 52px;
+    cursor: pointer; // 🎯 Indica al supervisor que toda la caja es interactiva
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within, &:hover {
+      border-color: #1e40af;
+      box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12);
+      background: #ffffff;
+    }
+
+    .calendar-start-icon {
+      color: #1e40af;
+      font-size: 1.25rem;
+      margin-right: 12px;
+      pointer-events: none; // Evita que el icono bloquee el clic del div
+    }
+
+    .native-date-input {
+      border: none !important;
+      background: transparent !important;
+      color: #0f172a !important;
+      font-size: 1rem;
+      font-weight: 600;
+      width: 100%;
+      outline: none;
+      padding: 0;
+      cursor: pointer;
+
+      // 🎯 Limpiamos el indicador nativo del navegador para que no encime tooltips raros
+      &::-webkit-calendar-picker-indicator {
+        display: none !important;
+        -webkit-appearance: none;
       }
+    }
+  }
+}
+
+// 🛠️ BOTONES DE ACCIÓN UNIFICADOS
+.acciones-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+
+  .btn-cancelar {
+    --color: #64748b !important;
+    font-weight: 700;
+    text-transform: none;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .btn-procesar {
+    --background: #1e40af !important;
+    --background-activated: #1d4ed8 !important;
+    --background-hover: #1d4ed8 !important;
+    --color: #ffffff !important;
+    --border-radius: 8px !important;
+    font-weight: 700;
+    text-transform: none;
+    height: 44px;
+    margin: 0;
+
+    ion-spinner {
+      --color: #ffffff !important;
+    }
+
+    .btn-text {
+      color: #ffffff !important;
     }
   }
 }

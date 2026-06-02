@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Generar Nueva Nómina</ion-title>
+    <ion-title class="header-title-executive">Generar Nueva Nómina</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()" class="btn-close-header">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
@@ -19,42 +19,44 @@
       </p>
     </div>
 
-    <div class="input-grupo ion-margin-top">
-      <ion-input 
-        label="Fecha de Inicio del Período" 
-        labelPlacement="floating" 
-        fill="solid" 
-        type="date" 
-        class="custom-date-input"
-        [(ngModel)]="periodo_inicio">
-        <ion-icon slot="start" name="calendar-outline" class="input-inner-icon"></ion-icon>
-      </ion-input>
+    <div class="input-grupo-custom">
+      <label class="label-custom">Fecha de Inicio del Período</label>
+      <div class="input-wrapper" (click)="inicioPicker.showPicker()">
+        <ion-icon name="calendar-outline" class="calendar-start-icon"></ion-icon>
+        <input 
+          #inicioPicker
+          type="date" 
+          [(ngModel)]="periodo_inicio"
+          class="native-date-input"
+        />
+      </div>
     </div>
 
-    <div class="input-grupo ion-margin-top">
-      <ion-input 
-        label="Fecha de Fin del Período" 
-        labelPlacement="floating" 
-        fill="solid" 
-        type="date" 
-        class="custom-date-input"
-        [(ngModel)]="periodo_fin">
-        <ion-icon slot="start" name="calendar-outline" class="input-inner-icon"></ion-icon>
-      </ion-input>
+    <div class="input-grupo-custom">
+      <label class="label-custom">Fecha de Fin del Período</label>
+      <div class="input-wrapper" (click)="finPicker.showPicker()">
+        <ion-icon name="calendar-outline" class="calendar-start-icon"></ion-icon>
+        <input 
+          #finPicker
+          type="date" 
+          [(ngModel)]="periodo_fin"
+          class="native-date-input"
+        />
+      </div>
     </div>
 
-    <div class="acciones-container ion-margin-top">
-      <ion-button class="btn-cancelar" fill="clear" (click)="cerrar()" [disabled]="guardando">
+    <div class="acciones-container">
+      <ion-button (click)="cerrar()" fill="clear" class="btn-cancelar" [disabled]="guardando">
         Cancelar
       </ion-button>
       
-      <ion-button class="btn-procesar" (click)="guardar()" [disabled]="guardando">
+      <ion-button (click)="guardar()" class="btn-procesar" [disabled]="guardando">
         @if (guardando) {
           <ion-spinner name="crescent"></ion-spinner>
-          <span style="margin-left: 8px;">Calculando...</span>
+          <span class="btn-text">Calculando...</span>
         } @else {
           <ion-icon slot="start" name="calculator-outline"></ion-icon>
-          <span>Procesar y Guardar</span>
+          <span class="btn-text">Procesar y Guardar</span>
         }
       </ion-button>
     </div>

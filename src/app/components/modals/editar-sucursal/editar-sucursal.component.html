@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>Modificar Sucursal</ion-title>
     <ion-buttons slot="end">
@@ -23,9 +23,12 @@
           name="tenant_id"
           [(ngModel)]="sucursalEditada.tenant_id"
           required>
-          <ion-select-option *ngFor="let empresa of empresasActivas" [value]="empresa.id">
-            {{ empresa.nombre }}
-          </ion-select-option>
+          
+          @for (empresa of empresasActivas; track empresa.id) {
+            <ion-select-option [value]="empresa.id">
+              {{ empresa.nombre }}
+            </ion-select-option>
+          }
         </ion-select>
       </div>
     </div>

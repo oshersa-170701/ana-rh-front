@@ -45,8 +45,6 @@
           <ion-note color="danger" class="error-msg">⚠️ Debes seleccionar una sucursal para el colaborador.</ion-note>
         }
       </div>
-
-      <!-- 📝 Campos de Identidad (Inputs de Texto fill="solid") -->
       <div class="fields-group ion-margin-top">
         <ion-input fill="solid" label="Nombre Completo" labelPlacement="floating" type="text"
           formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández"
@@ -75,8 +73,6 @@
 
       <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)"
         style="display: none;">
-
-      <!-- 🖼️ Zona Biométrica de Rostro -->
       <div class="foto-zona ion-text-center ion-margin-top">
         @if (!imagePreview) {
           <div class="placeholder-camara" (click)="activarCamara()">
@@ -94,8 +90,6 @@
         }
       </div>
     </div>
-
-    <!-- Botón de Envío Unificado en Azul Corporativo -->
     <ion-button 
       expand="block" 
       type="submit" 

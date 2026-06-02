@@ -144,64 +144,106 @@
 }
 
 // 🕹️ REFINAMIENTO DE ACCIONES DE REGISTRO (Mosaico Industrial Amigable)
+// 🕹️ REFINAMIENTO DE ACCIONES DE REGISTRO (Mosaico Industrial Amigable)
 .asistencia-actions {
   border-top: 1px solid #f1f5f9;
   padding-top: 20px;
 
   .instruccion-text {
     font-size: 0.95rem;
-    color: #64748b;
+    color: #000000;
     font-weight: 600;
     margin: 0 0 16px 0;
   }
+} // 👈 🎯 CORRECCIÓN: Cerramos correctamente la sección de acciones aquí
 
-  // 🧱 GRID MOSAICO PREMIUM LIMPIO
-  .botones-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); // Cuadrícula 2x2 ideal para pulsar con el dedo
-    gap: 12px;
+// 📊 GRIDS DE BOTONES DE ASISTENCIA BIOMÉTRICA
+.botones-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); // Mantiene tus 2 columnas simétricas
+  gap: 16px;
+  margin-top: 16px;
+}
 
-    .btn-asistencia {
-      height: 56px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #334155;
-      background: #f8fafc; // Fondo claro uniforme y profesional
-      border: 1px solid #e2e8f0;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.15s ease-in-out;
+// 🎯 ESTILO BASE PREMIUM E INTERACTIVO
+.btn-asistencia {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 56px;
+  background: #f8fafc; // Fondo claro limpio base
+  border: 1px solid #cbd5e1; // Borde gris sutil
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); // Animación suave premium
+  outline: none;
+  -webkit-tap-highlight-color: transparent; // Elimina el destello azul de Android al pulsar
 
-      // Animación de pulsación táctil sutil
-      &:active {
-        transform: scale(0.97);
-      }
+  // ✨ Respuesta Táctica al pasar el dedo (Hover) o presionar (Active)
+  &:hover {
+    transform: translateY(-2px); // Efecto de levitación sutil
+    box-shadow: 0 6px 12px -2px rgba(15, 23, 42, 0.06);
+  }
 
-      // 🌅 Efecto Entrada: Tono azul suave amigable al interactuar
-      &.entrada:hover {
-        background: #eff6ff;
-        color: #1e40af;
-        border-color: #bfdbfe;
-      }
+  &:active {
+    transform: translateY(1px); // Efecto hundido al pulsar con el dedo
+    box-shadow: none;
+  }
 
-      // 🍔 ☕ Efecto Almuerzos: Tono gris pizarra limpio de control
-      &.inicio-comida:hover, &.fin-comida:hover {
-        background: #f1f5f9;
-        color: #0f172a;
-        border-color: #cbd5e1;
-      }
-
-      // 🏠 Efecto Salida: Tono rojo/coral suave de salida administrativa
-      &.salida:hover {
-        background: #fef2f2;
-        color: #dc2626;
-        border-color: #fecaca;
-      }
+  // 🌅 1. BOTÓN ENTRADA: Acento Azul Amanecer
+  &.entrada {
+    &:hover, &:active {
+      background: #eff6ff !important;
+      border-color: #2253c5 !important;
+      color: #152380 !important;
     }
+  }
+
+  // 🍔 2. BOTÓN INICIAR ALMUERZO: Acento Naranja Cálido
+  &.inicio-comida {
+    &:hover, &:active {
+      background: #fff7ed !important;
+      border-color: #f97316 !important;
+      color: #c2410c !important;
+    }
+  }
+
+  // ☕ 3. BOTÓN REGRESO ALMUERZO: Acento Café / Purpura Ejecutivo
+  &.fin-comida {
+    &:hover, &:active {
+      background: #f5f3ff !important;
+      border-color: #8b5cf6 !important;
+      color: #6d28d9 !important;
+    }
+  }
+
+  // 🏠 4. BOTÓN SALIDA: Acento Rojo de Advertencia Contable Corregido 🚨
+  &.salida {
+    &:hover, &:active {
+      background: #fef2f2 !important; // 🎯 Fondo rojo pastel muy suave (No verde)
+      border-color: #ef4444 !important; // Borde rojo nítido de advertencia
+      color: #b91c1c !important;        // Texto rojo oscuro de alta legibilidad
+    }
+  }
+}
+
+// ⏳ ANIMACIÓN DE ENTRADA AL RECONOCER ROSTRO
+.animated-fade-in {
+  animation: panelEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes panelEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -211,13 +253,25 @@
   50% { top: 100%; opacity: 0.7; }
   100% { top: 0%; opacity: 0.2; }
 }
-
-// Transición suave de entrada para el panel informativo
-.animated-fade-in {
-  animation: kioskPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+// 🪪 CONTENEDOR Y ESTILIZADO DEL NUEVO BADGE DE PUESTO
+.puesto-badge-container {
+  margin-top: 6px;
+  margin-bottom: 24px; // Mantiene una separación limpia antes de la botonera
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes kioskPanelIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.puesto-badge {
+  background: #0574e3; // Gris slate muy claro y elegante
+  color: #ffffff;      // Texto gris corporativo de alta legibilidad
+  border: 1px solid #e2e8f0; // Borde fino de contención
+  padding: 6px 16px;
+  border-radius: 20px; // Estilo píldora premium
+  font-size: 0.85rem;
+  font-weight: 700;    // Resalta el cargo de forma clara
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  display: inline-block;
 }

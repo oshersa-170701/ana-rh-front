@@ -1,11 +1,15 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title *ngIf="nomina">
-      Desglose: Período #{{ nomina.id.substring(0,8).toUpperCase() }}
-    </ion-title>
-    <ion-title *ngIf="!nomina">Cargando Desglose...</ion-title>
+    @if (nomina) {
+      <ion-title>
+        Desglose: Período #{{ nomina.id.substring(0,8).toUpperCase() }}
+      </ion-title>
+    } @else {
+      <ion-title>Cargando Desglose...</ion-title>
+    }
+    
     <ion-buttons slot="end">
-       <ion-button (click)="cerrar()" class="btn-close-header" color="white">
+       <ion-button (click)="cerrar()" class="btn-close-header">
          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -14,100 +18,123 @@
 
 <ion-content class="ion-padding modal-ejecutivo-content">
 
-  <div *ngIf="cargando" class="spinner-container">
-    <ion-spinner name="crescent"></ion-spinner>
-    <p>Sincronizando cuentas y timbrados financieros...</p>
-  </div>
-
-  <div *ngIf="!cargando && nomina" class="panel-container animate-fade-in">
-
-    <div class="resumen-periodo">
-      <div class="datos">
-        <h3>Rango: <span>{{ nomina.periodo_inicio | date:'dd/MM/yyyy':'UTC' }}</span> al <span>{{ nomina.periodo_fin | date:'dd/MM/yyyy':'UTC' }}</span></h3>
-        <p>Generada automáticamente el {{ nomina.created_at | date:'dd/MM/yyyy hh:mm a' }}</p>
-      </div>
-      
-      <div class="acciones-estatus">
-        <ion-button 
-          *ngIf="nomina.estatus === EstatusEnum.BORRADOR" 
-          class="btn-estatus-action btn-timbrar"
-          size="small" 
-          [disabled]="procesandoEstatus"
-          (click)="cambiarEstado(EstatusEnum.TIMBRADA)">
-          <ion-icon slot="start" name="shield-checkmark-outline" *ngIf="!procesandoEstatus"></ion-icon>
-          {{ procesandoEstatus ? 'Procesando...' : 'Timbrar Nómina' }}
-        </ion-button>
-
-        <ion-button 
-          *ngIf="nomina.estatus === EstatusEnum.TIMBRADA" 
-          class="btn-estatus-action btn-pagar"
-          size="small" 
-          [disabled]="procesandoEstatus"
-          (click)="cambiarEstado(EstatusEnum.PAGADA)">
-          <ion-icon slot="start" name="cash-outline" *ngIf="!procesandoEstatus"></ion-icon>
-          {{ procesandoEstatus ? 'Registrando Pago...' : 'Marcar como Pagada' }}
-        </ion-button>
-
-        <span class="badge-tag" [ngClass]="getEstatusClass(nomina.estatus)">
-          {{ nomina.estatus }}
-        </span>
-      </div>
+  @if (cargando) {
+    <div class="spinner-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Sincronizando cuentas y timbrados financieros...</p>
     </div>
+  }
 
-    <hr class="divisor" />
+  @if (!cargando && nomina) {
+    <div class="panel-container animate-fade-in">
 
-    <div class="tabla-wrapper">
-      <table class="tabla-detalles">
-        <thead>
-          <tr>
-            <th>Foto</th>
-            <th>Colaborador</th>
-            <th>Puesto</th>
-            <th class="text-center">Días Lab</th>
-            <th class="text-center">Faltas</th>
-            <th class="text-center">Hrs Extra</th>
-            <th class="text-right">Pago Base</th>
-            <th class="text-right">Pago Extra</th>
-            <th class="text-right">Total Neto</th>
-            <th class="text-center">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of nomina.detalles">
-            <td>
-              <div class="avatar-container">
-                <img 
-                  *ngIf="item.empleado?.foto_perfil_url"
-                  [src]="'http://localhost:3000/' + item.empleado?.foto_perfil_url" 
-                  class="avatar-tabla" 
-                  alt="Perfil"
-                  (error)="item.empleado!.foto_perfil_url = ''" 
-                />
-                <div *ngIf="!item.empleado?.foto_perfil_url" class="avatar-placeholder">
-                  {{ (item.empleado?.nombre_completo || 'E').substring(0, 1).toUpperCase() }}
-                </div>
-              </div>
-            </td>
-            <td>
-              <div class="nombre-emp">{{ item.empleado?.nombre_completo }}</div>
-              <div class="curp-sub">CURP: {{ item.empleado?.curp }}</div>
-            </td>
-            <td class="puesto-text">{{ item.empleado?.puesto || 'Sin Puesto' }}</td>
-            <td class="text-center num-destacado">{{ item.dias_asistidos }}</td>
-            <td class="text-center faltas-destacadas font-bold">{{ item.faltas }}</td>
-            <td class="text-center extra-destacadas font-bold">{{ item.horas_extra }} hrs</td>
-            <td class="text-right dinero-text">{{ item.pago_base | currency:'MXN':'symbol':'1.2-2' }}</td>
-            <td class="text-right dinero-text text-success">+{{ item.pago_horas_extra | currency:'MXN':'symbol':'1.2-2' }}</td>
-            <td class="text-right total-pagar">{{ item.total_neto | currency:'MXN':'symbol':'1.2-2' }}</td>
-            <td class="text-center">
-              <ion-button fill="clear" class="btn-pdf" (click)="descargarPDF(item)" title="Descargar Recibo PDF">
-                <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
-              </ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="resumen-periodo">
+        <div class="datos">
+          <h3>Rango: <span>{{ nomina.periodo_inicio | date:'dd/MM/yyyy':'UTC' }}</span> al <span>{{ nomina.periodo_fin | date:'dd/MM/yyyy':'UTC' }}</span></h3>
+          <p>Generada automáticamente el {{ nomina.created_at | date:'dd/MM/yyyy hh:mm a' }}</p>
+        </div>
+        
+        <div class="acciones-estatus">
+          @if (nomina.estatus === EstatusEnum.BORRADOR) {
+            <ion-button 
+              class="btn-estatus-action btn-timbrar"
+              size="small" 
+              [disabled]="procesandoEstatus"
+              (click)="cambiarEstado(EstatusEnum.TIMBRADA)">
+              
+              @if (!procesandoEstatus) {
+                <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+              }
+              {{ procesandoEstatus ? 'Procesando...' : 'Timbrar Nómina' }}
+            </ion-button>
+          }
+
+          @if (nomina.estatus === EstatusEnum.TIMBRADA) {
+            <ion-button 
+              class="btn-estatus-action btn-pagar"
+              size="small" 
+              [disabled]="procesandoEstatus"
+              (click)="cambiarEstado(EstatusEnum.PAGADA)">
+              
+              @if (!procesandoEstatus) {
+                <ion-icon slot="start" name="cash-outline"></ion-icon>
+              }
+              {{ procesandoEstatus ? 'Registrando Pago...' : 'Marcar como Pagada' }}
+            </ion-button>
+          }
+
+          <span class="badge-tag" [ngClass]="getEstatusClass(nomina.estatus)">
+            {{ nomina.estatus }}
+          </span>
+        </div>
+      </div>
+
+      <hr class="divisor" />
+
+      <div class="tabla-wrapper">
+        <table class="tabla-detalles">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Colaborador</th>
+              <th>Puesto</th>
+              <th class="text-center">Días Lab</th>
+              <th class="text-center">Faltas</th>
+              <th class="text-center">Hrs Extra</th>
+              <th class="text-right">Pago Base</th>
+              <th class="text-right">Pago Extra</th>
+              <th class="text-right">Total Neto</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            @for (item of nomina.detalles; track item.id) {
+              <tr>
+                <td>
+                  <div class="avatar-container">
+                    @if (item.empleado?.foto_perfil_url) {
+                      <img 
+                        [src]="'http://localhost:3000/' + item.empleado?.foto_perfil_url" 
+                        class="avatar-tabla" 
+                        alt="Perfil"
+                        (error)="item.empleado!.foto_perfil_url = ''" 
+                      />
+                    } @else {
+                      <div class="avatar-placeholder">
+                        {{ (item.empleado?.nombre_completo || 'E').substring(0, 1).toUpperCase() }}
+                      </div>
+                    }
+                  </div>
+                </td>
+                
+                <td>
+                  <div class="nombre-emp">{{ item.empleado?.nombre_completo }}</div>
+                  <div class="curp-sub">CURP: {{ item.empleado?.curp }}</div>
+                </td>
+                
+                <td class="puesto-text">{{ item.empleado?.puesto || 'Sin Puesto' }}</td>
+                <td class="text-center num-destacado">{{ item.dias_asistidos }}</td>
+                <td class="text-center faltas-destacadas font-bold">{{ item.faltas }}</td>
+                <td class="text-center extra-destacadas font-bold">{{ item.horas_extra }} hrs</td>
+                
+                <td class="text-right dinero-text">{{ item.pago_base | currency:'MXN':'symbol':'1.2-2' }}</td>
+                <td class="text-right dinero-text text-success">+{{ item.pago_horas_extra | currency:'MXN':'symbol':'1.2-2' }}</td>
+                <td class="text-right total-pagar">{{ item.total_neto | currency:'MXN':'symbol':'1.2-2' }}</td>
+                
+                <td class="text-center">
+                  <ion-button fill="clear" class="btn-pdf" (click)="descargarPDF(item)" title="Descargar Recibo PDF">
+                    <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
+                  </ion-button>
+                </td>
+              </tr>
+            }
+
+          </tbody>
+        </table>
+      </div>
+
     </div>
+  }
 
-  </div>
 </ion-content>

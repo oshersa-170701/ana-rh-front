@@ -1,9 +1,7 @@
-<!-- 🏛️ Cabecera Unificada con el Azul Corporativo de la Marca -->
-<ion-header>
-  <ion-toolbar >
+<ion-header class="ion-no-border">
+  <ion-toolbar>
     <ion-title>Nueva Sucursal</ion-title>
     <ion-buttons slot="end">
-      <!-- Letras blancas para contraste de alta gama -->
       <ion-button (click)="cancelar()" class="btn-cancelar-header">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
@@ -11,11 +9,9 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- Contenido adaptado a la paleta ejecutiva clara -->
 <ion-content class="ion-padding modal-ejecutivo-content">
   <form (ngSubmit)="guardar()">
     
-    <!-- 🎯 Selector de Empresa (Corregido sin ion-item para evitar textos invisibles) -->
     <div class="form-group">
       <div class="custom-select-container">
         <ion-select 
@@ -28,16 +24,24 @@
           [(ngModel)]="nuevaSucursal.tenant_id"
           placeholder="Elegir empresa dueña"
           required>
-          <ion-select-option *ngFor="let empresa of empresasActivas" [value]="empresa.id">
-            {{ empresa.nombre }}
-          </ion-select-option>
+          
+          @for (empresa of empresasActivas; track empresa.id) {
+            <ion-select-option [value]="empresa.id">
+              {{ empresa.nombre }}
+            </ion-select-option>
+          }
         </ion-select>
       </div>
-      <ion-note slot="helper" *ngIf="empresasActivas.length > 0">Solo aparecen empresas con estatus Activo.</ion-note>
-      <ion-note slot="error" color="danger" *ngIf="empresasActivas.length === 0">No hay empresas activas disponibles.</ion-note>
+
+      @if (empresasActivas.length > 0) {
+        <ion-note slot="helper">Solo aparecen empresas con estatus Activo.</ion-note>
+      }
+
+      @if (empresasActivas.length === 0) {
+        <ion-note slot="error" color="danger">No hay empresas activas disponibles.</ion-note>
+      }
     </div>
 
-    <!-- Campo Nombre de la Sucursal -->
     <div class="form-group ion-margin-top">
       <ion-input 
         label="Nombre de la Sucursal" 
@@ -51,7 +55,6 @@
       </ion-input>
     </div>
 
-    <!-- Campo Dirección (Textarea Autogrow Estilizado) -->
     <div class="form-group ion-margin-top">
       <ion-textarea 
         label="Dirección (Opcional)" 
@@ -64,7 +67,6 @@
       </ion-textarea>
     </div>
 
-    <!-- Botón de acción unificado en Azul Navy -->
     <div class="form-actions ion-margin-top">
       <ion-button type="submit" expand="block" class="btn-guardar">
         <ion-icon slot="start" name="save-outline"></ion-icon>

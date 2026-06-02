@@ -10,7 +10,7 @@ import {
   IonLabel, 
   IonInput, 
   IonButton, 
-  ModalController, IonSpinner, IonIcon, IonButtons } from '@ionic/angular/standalone';
+  ModalController, IonSpinner, IonIcon, IonButtons, IonDatetimeButton, IonPopover } from '@ionic/angular/standalone';
 import { NominasService } from 'src/app/services/nominas';
 import { addIcons } from 'ionicons';
 import { calendarOutline, closeOutline, informationCircleOutline, calculatorOutline } from 'ionicons/icons';
@@ -20,7 +20,7 @@ import { calendarOutline, closeOutline, informationCircleOutline, calculatorOutl
   templateUrl: './registrar-nomina-modal.component.html',
   styleUrls: ['./registrar-nomina-modal.component.scss'],
   standalone: true,
-  imports: [IonButtons, IonIcon, IonSpinner, 
+  imports: [IonPopover, IonDatetimeButton, IonButtons, IonIcon, IonSpinner, 
     IonHeader, 
     IonToolbar, 
     IonTitle, 

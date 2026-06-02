@@ -1,8 +1,12 @@
 <ion-header class="ion-no-border">
   <ion-toolbar style="--background: #1e40af !important; --color: #ffffff !important; height: 64px;">
+    
     <ion-buttons slot="start">
-      <ion-menu-button *ngIf="esHome" class="btn-nav-header"></ion-menu-button>
-      <ion-back-button *ngIf="!esHome" defaultHref="/dashboard" class="btn-nav-header"></ion-back-button>
+      @if (esHome) {
+        <ion-menu-button class="btn-nav-header"></ion-menu-button>
+      } @else {
+        <ion-back-button defaultHref="/dashboard" class="btn-nav-header"></ion-back-button>
+      }
     </ion-buttons>
     
     <ion-title class="header-title-executive">{{ titulo }}</ion-title>

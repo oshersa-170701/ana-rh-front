@@ -26,9 +26,12 @@
             formControlName="tenant_id"
             (ionChange)="onEmpresaChange($event)"
             placeholder="Seleccionar empresa">
-            <ion-select-option *ngFor="let empresa of empresasActivas" [value]="empresa.id">
-              {{ empresa.nombre }}
-            </ion-select-option>
+            
+            @for (empresa of empresasActivas; track empresa.id) {
+              <ion-select-option [value]="empresa.id">
+                {{ empresa.nombre }}
+              </ion-select-option>
+            }
           </ion-select>
         </div>
 
@@ -42,9 +45,12 @@
             expandedIcon="chevron-up-outline"
             formControlName="sucursal_id"
             placeholder="Seleccionar sucursal">
-            <ion-select-option *ngFor="let sucursal of sucursalesFiltradas" [value]="sucursal.id">
-              {{ sucursal.nombre }}
-            </ion-select-option>
+            
+            @for (sucursal of sucursalesFiltradas; track sucursal.id) {
+              <ion-select-option [value]="sucursal.id">
+                {{ sucursal.nombre }}
+              </ion-select-option>
+            }
           </ion-select>
         </div>
       </div>
@@ -54,6 +60,7 @@
           formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández" (ionInput)="onNombreInput($event)"></ion-input>
 
         <ion-input fill="solid" label="CURP" labelPlacement="floating" type="text" formControlName="curp" maxlength="18" (ionInput)="onCurpInput($event)" class="ion-margin-top"></ion-input>
+        
         @if (empleadoForm.get('curp')?.invalid && empleadoForm.get('curp')?.touched) {
           <ion-note color="danger" class="error-msg">⚠️ El CURP debe tener exactamente 18 caracteres.</ion-note>
         }
@@ -61,6 +68,7 @@
         <ion-input fill="solid" label="NSS" labelPlacement="floating" type="number" formControlName="nss" maxlength="11" class="ion-margin-top">
           <div slot="helper">Debe tener exactamente 11 dígitos</div>
         </ion-input>
+        
         @if (empleadoForm.get('nss')?.invalid && empleadoForm.get('nss')?.touched) {
           <ion-note color="danger" class="error-msg">⚠️ El NSS debe tener exactamente 11 dígitos.</ion-note>
         }
@@ -77,6 +85,7 @@
         
         <ion-input fill="solid" label="Usuario de Ingreso" labelPlacement="floating" type="text"
           formControlName="user" placeholder="Ej. oswaldo.admin"></ion-input>
+        
         @if (empleadoForm.get('user')?.invalid && empleadoForm.get('user')?.touched) {
           <ion-note color="danger" class="error-msg">⚠️ El usuario es obligatorio (Min. 4 caracteres).</ion-note>
         }
@@ -85,6 +94,7 @@
           formControlName="password_hash" placeholder="Ej.••••••••" class="ion-margin-top">
           <ion-input-password-toggle slot="end"></ion-input-password-toggle> 
         </ion-input>
+        
         @if (empleadoForm.get('password_hash')?.invalid && empleadoForm.get('password_hash')?.touched) {
           <ion-note color="danger" class="error-msg">⚠️ La contraseña es obligatoria (Min. 6 caracteres).</ion-note>
         }

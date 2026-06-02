@@ -1,11 +1,14 @@
 <app-header titulo="Gestión de Sucursales" [esHome]="false"></app-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding sucursales-content">
   <div class="crud-container">
     
     <div class="table-header-actions">
-      <h2>Listado de Sucursales</h2>
-      <ion-button class="btn-add" (click)="abrirModalAgregar()">
+      <div class="titulos">
+        <h2>Listado de Sucursales</h2>
+        <p>Sedes operativas registradas: {{ sucursales.length }}</p>
+      </div>
+      <ion-button class="btn-principal" (click)="abrirModalAgregar()">
         <ion-icon slot="start" name="add-outline"></ion-icon>
         Agregar Sucursal
       </ion-button>
@@ -24,31 +27,41 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngIf="sucursales.length === 0">
-            <td colspan="6" class="text-center no-data">
-              No se encontraron sucursales registradas.
-            </td>
-          </tr>
+          
+          @for (sucursal of sucursales; track sucursal.id) {
+            <tr>
+              <td class="uuid-text">{{ (sucursal.id?.substring(0, 8) ?? '').toUpperCase() }}...</td>
+              
+              <td class="font-bold">{{ sucursal.nombre }}</td>
+              
+              <td>
+                <span class="tenant-badge">
+                  {{ sucursal.empresa?.nombre || 'Sin Empresa' }}
+                </span>
+              </td>
+              
+              <td class="direccion-text">{{ sucursal.direccion || 'N/A' }}</td>
+              
+              <td class="fecha-text">{{ sucursal.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+              
+              <td class="actions-cell">
+                <ion-button fill="clear" class="btn-editar" title="Editar" color="warning" (click)="abrirModalEditar(sucursal)">
+                  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+                </ion-button>
+                
+                <ion-button fill="clear" class="btn-eliminar" title="Eliminar" color="danger"  (click)="confirmarEliminacion(sucursal)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="text-center no-data">
+                No se encontraron sucursales registradas.
+              </td>
+            </tr>
+          }
 
-          <tr *ngFor="let sucursal of sucursales">
-            <td class="uuid-text">{{ sucursal.id }}</td>
-            <td class="font-bold">{{ sucursal.nombre }}</td>
-            <td>
-              <span class="tenant-badge">
-                {{ sucursal.empresa?.nombre || 'Sin Empresa' }}
-              </span>
-            </td>
-            <td class="direccion-text">{{ sucursal.direccion || 'N/A' }}</td>
-            <td>{{ sucursal.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
-            <td class="text-center actions-cell">
-             <ion-button fill="clear" color="warning" size="small" (click)="abrirModalEditar(sucursal)">
-  <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-</ion-button>
-              <ion-button fill="clear" color="danger" size="small" (click)="confirmarEliminacion(sucursal)">
-  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-</ion-button>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>

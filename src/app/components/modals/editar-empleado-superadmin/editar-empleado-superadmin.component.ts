@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
-import { cameraOutline, trashOutline, businessOutline, gitBranchOutline, saveOutline } from 'ionicons/icons';
+import { cameraOutline, trashOutline, businessOutline, gitBranchOutline, saveOutline, storefrontOutline, closeOutline } from 'ionicons/icons';
 import { Empresa, Empresas } from 'src/app/services/empresas';
 import { SucursalesService, Sucursal } from 'src/app/services/sucursales';
 
@@ -37,7 +37,7 @@ export class EditarEmpleadoSuperadminComponent implements OnInit {
     private sucursalesService: SucursalesService,
     private toastCtrl: ToastController
   ) {
-    addIcons({ cameraOutline, trashOutline, businessOutline, gitBranchOutline, saveOutline });
+    addIcons({ cameraOutline, trashOutline, businessOutline, gitBranchOutline, saveOutline,storefrontOutline,closeOutline});
   }
 
   ngOnInit() {

@@ -1,9 +1,7 @@
-<!-- 🏛️ Cabecera Corregida con el Azul Corporativo de la Marca -->
-<ion-header>
-  <ion-toolbar >
+<ion-header class="ion-no-border">
+  <ion-toolbar>
     <ion-title>Modificar Empresa</ion-title>
     <ion-buttons slot="end">
-      <!-- Texto en blanco para contrastar con el fondo azul -->
       <ion-button (click)="cancelar()" class="btn-cancelar-header">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
@@ -14,7 +12,6 @@
 <ion-content class="ion-padding modal-ejecutivo-content">
   <form (ngSubmit)="guardar()">
     
-    <!-- Campo Nombre de la Empresa -->
     <div class="form-group">
       <ion-input 
         label="Nombre de la Empresa" 
@@ -26,12 +23,14 @@
         #nombreCtrl="ngModel"
         required>
       </ion-input>
-      <ion-note slot="error" color="danger" *ngIf="nombreCtrl.invalid && nombreCtrl.touched">
-        El nombre de la empresa es obligatorio.
-      </ion-note>
+
+      @if (nombreCtrl.invalid && nombreCtrl.touched) {
+        <ion-note slot="error" color="danger">
+          El nombre de la empresa es obligatorio.
+        </ion-note>
+      }
     </div>
 
-    <!-- Campo RFC -->
     <div class="form-group ion-margin-top">
       <ion-input 
         label="RFC" 
@@ -44,12 +43,14 @@
         required
         maxlength="13">
       </ion-input>
-      <ion-note slot="error" color="danger" *ngIf="rfcCtrl.touched && (empresaEditada.rfc.trim().length < 12 || empresaEditada.rfc.trim().length > 13)">
-        El RFC debe tener exactamente entre 12 y 13 caracteres.
-      </ion-note>
+
+      @if (rfcCtrl.touched && (empresaEditada.rfc.trim().length < 12 || empresaEditada.rfc.trim().length > 13)) {
+        <ion-note slot="error" color="danger">
+          El RFC debe tener exactamente entre 12 y 13 caracteres.
+        </ion-note>
+      }
     </div>
 
-    <!-- 🖼️ Contenedor de Carga Premium para el Logotipo -->
     <div class="form-group ion-margin-top logo-upload-section">
       <label class="custom-label-logo">Logotipo de la Empresa (Opcional)</label>
       
@@ -61,26 +62,27 @@
         class="hidden-file-input" 
       />
 
-      <label for="logoFile" class="dropzone-container" *ngIf="!empresaEditada.logo_url">
-        <div class="dropzone-content">
-          <ion-icon name="image-outline" class="dropzone-icon"></ion-icon>
-          <span class="dropzone-text">Seleccionar Nuevo Logotipo</span>
-          <span class="dropzone-subtext">Formatos aceptados: PNG, JPG (Max. 2MB)</span>
+      @if (!empresaEditada.logo_url) {
+        <label for="logoFile" class="dropzone-container">
+          <div class="dropzone-content">
+            <ion-icon name="image-outline" class="dropzone-icon"></ion-icon>
+            <span class="dropzone-text">Seleccionar Nuevo Logotipo</span>
+            <span class="dropzone-subtext">Formatos aceptados: PNG, JPG (Max. 2MB)</span>
+          </div>
+        </label>
+      } @else {
+        <div class="preview-active-container">
+          <img [src]="empresaEditada.logo_url" alt="Logotipo corporativo" class="img-preview-canvas" />
+          
+          <button type="button" class="btn-remove-logo" (click)="empresaEditada.logo_url = ''">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
         </div>
-      </label>
-
-      <div class="preview-active-container" *ngIf="empresaEditada.logo_url">
-        <img [src]="empresaEditada.logo_url" alt="Logotipo corporativo" class="img-preview-canvas" />
-        
-        <button type="button" class="btn-remove-logo" (click)="empresaEditada.logo_url = ''">
-          <ion-icon name="trash-outline"></ion-icon>
-        </button>
-      </div>
+      }
 
       <ion-note class="helper-logo">Este logotipo se utilizará para renderizar los encabezados de los recibos de nómina.</ion-note>
     </div>
 
-    <!-- 🎯 Campo Estatus de la Empresa (Corregido para que sea 100% visible) -->
     <div class="form-group ion-margin-top">
       <div class="custom-select-container">
         <ion-select 
@@ -97,7 +99,6 @@
       </div>
     </div>
 
-    <!-- Botón de acción unificado en Azul Navy -->
     <div class="form-actions ion-margin-top">
       <ion-button type="submit" expand="block" class="btn-guardar">
         <ion-icon slot="start" name="save-outline"></ion-icon>

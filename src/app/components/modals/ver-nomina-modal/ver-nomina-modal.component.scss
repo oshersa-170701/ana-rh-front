@@ -126,6 +126,7 @@ ion-toolbar {
   }
 
   // 🏷️ BADGES DE ESTATUS UNIFICADOS
+// 🏷️ BADGES DE ESTATUS UNIFICADOS Y CORREGIDOS 💫
   .badge-tag {
     padding: 6px 12px;
     border-radius: 6px;
@@ -136,22 +137,25 @@ ion-toolbar {
     letter-spacing: 0.5px;
     border: 1px solid transparent;
 
-    &.borrador, &.generado {
-      background: #eff6ff;
-      color: #1e40af;
-      border-color: #bfdbfe;
+    // 🎯 Corregido: Agregamos '-tag' para que coincida con el TypeScript
+    &.borrador-tag, &.generado-tag {
+      background: #eff6ff !important;
+      color: #1e40af !important;
+      border-color: #bfdbfe !important;
     }
 
-    &.timbrada, &.procesada {
-      background: #fff7ed;
-      color: #ea580c;
-      border-color: #ffedd5;
+    // 🎯 Corregido: Agregamos '-tag' para el estado de timbrado
+    &.timbrada-tag, &.procesada-tag {
+      background: #fff7ed !important;
+      color: #ea580c !important;
+      border-color: #ffedd5 !important;
     }
 
-    &.pagada, &.cerrada {
-      background: #dcfce7;
-      color: #15803d;
-      border-color: #bbf7d0;
+    // 🎯 Corregido: Agregamos '-tag' para pintar el estado PAGADA en verde nítido
+    &.pagada-tag, &.cerrada-tag {
+      background: #dcfce7 !important;
+      color: #15803d !important;
+      border-color: #bbf7d0 !important;
     }
   }
 
@@ -325,4 +329,8 @@ ion-toolbar {
 @keyframes modalFadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+.alert-button-cancel-red {
+  color: #dc2626 !important; // Rojo ejecutivo de alta visibilidad
+  font-weight: 700 !important;
 }

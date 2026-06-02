@@ -101,7 +101,7 @@ export class EmpleadosSupervisorPage implements OnInit {
   async confirmarEliminacion(empleado: Empleado) {
     const alert = await this.alertCtrl.create({
       header: 'Eliminar Colaborador',
-      message: `¿Estás seguro de que deseas eliminar a ${empleado.nombre_completo}?"⚠️ Esta acción eliminará permanentemente su registro y su foto de perfil del servidor.`,
+      message: `¿Estás seguro de que deseas eliminar a ${empleado.nombre_completo}?" Esta acción eliminará permanentemente su registro y su foto de perfil del servidor.`,
       mode: 'ios',
       buttons: [
         { 
