@@ -1,13 +1,16 @@
-<app-header titulo="Gestión de Empleados" [esHome]="false"></app-header>
+<app-header titulo="Gestión de Empresas" [esHome]="false"></app-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding empleados-content">
   <div class="crud-container">
     
     <div class="table-header-actions">
-      <h2>Listado de Empleados</h2>
-      <ion-button color="primary" (click)="abrirModalAgregar()">
+      <div class="titulos">
+        <h2>Listado de Supervisores</h2>
+        <p>Cuentas de administración activas: {{ empleados.length }}</p>
+      </div>
+      <ion-button class="btn-principal" (click)="abrirModalAgregar()">
         <ion-icon slot="start" name="add-outline"></ion-icon>
-        Agregar Empleado
+        Registrar Supervisor
       </ion-button>
     </div>
 
@@ -15,7 +18,7 @@
       <table class="custom-table">
         <thead>
           <tr>
-            <th>Nombre Completo</th>
+            <th>Foto</th> <th>Nombre Completo</th>
             <th>Puesto / Cargo</th>
             <th>Empresa</th>
             <th>Sucursal</th>
@@ -26,14 +29,30 @@
         </thead>
         <tbody>
           <tr *ngIf="empleados.length === 0">
-            <td colspan="7" class="text-center no-data">
-              No se encontraron empleados registrados.
+            <td colspan="8" class="text-center no-data">
+              No se encontraron supervisores registrados en el sistema.
             </td>
           </tr>
 
           <tr *ngFor="let empleado of empleados">
+            <td>
+              <div class="avatar-container">
+                <img 
+                  *ngIf="empleado.foto_perfil_url"
+                  [src]="'http://localhost:3000/' + empleado.foto_perfil_url" 
+                  class="supervisor-avatar-img" 
+                  alt="Perfil"
+                  (error)="empleado.foto_perfil_url = ''"
+                />
+                <div *ngIf="!empleado.foto_perfil_url" class="avatar-placeholder">
+                  {{ (empleado.nombre_completo || 'S').substring(0, 1).toUpperCase() }}
+                </div>
+              </div>
+            </td>
+
             <td class="font-bold">{{ empleado.nombre_completo }}</td>
-            <td class="puesto-text">{{ empleado.puesto }}</td>
+            <td class="puesto-text">{{ empleado.puesto || 'Supervisor General' }}</td>
+            
             <td>
               <span class="company-badge">
                 {{ empleado.empresa?.nombre || 'Sin Asignar' }}
@@ -44,17 +63,21 @@
                 {{ empleado.sucursal?.nombre || 'Sin Asignar' }}
               </span>
             </td>
+            
             <td class="curp-text">{{ empleado.curp }}</td>
+            
             <td>
-             <ion-badge [color]="empleado.estatus ? 'success' : 'danger'">
-  {{ empleado.estatus ? 'Activo' : 'Inactivo' }}
-</ion-badge>
+              <span class="status-badge" [ngClass]="empleado.estatus ? 'activo' : 'inactivo'">
+                {{ empleado.estatus ? 'Activo' : 'Inactivo' }}
+              </span>
             </td>
-            <td class="text-center actions-cell">
-              <ion-button fill="clear" color="warning" size="small" (click)="abrirModalEditar(empleado)">
+            
+            <td class="actions-cell">
+              <ion-button fill="clear" class="btn-editar" title="Editar" (click)="abrirModalEditar(empleado)">
                 <ion-icon slot="icon-only" name="create-outline"></ion-icon>
               </ion-button>
-              <ion-button fill="clear" color="danger" size="small" (click)="confirmarEliminacion(empleado)">
+              
+              <ion-button fill="clear" class="btn-eliminar" title="Eliminar" (click)="confirmarEliminacion(empleado)">
                 <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
               </ion-button>
             </td>

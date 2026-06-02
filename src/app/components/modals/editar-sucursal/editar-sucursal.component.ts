@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { saveOutline, alertCircleOutline } from 'ionicons/icons';
+import { saveOutline, alertCircleOutline, closeOutline } from 'ionicons/icons';
 import {  Empresa, Empresas } from 'src/app/services/empresas';
 
 @Component({
@@ -40,7 +40,7 @@ export class EditarSucursalComponent implements OnInit {
     private toastCtrl: ToastController,
     private empresasService: Empresas
   ) {
-    addIcons({ saveOutline, alertCircleOutline });
+    addIcons({closeOutline,saveOutline,alertCircleOutline});
   }
 
   ngOnInit() {

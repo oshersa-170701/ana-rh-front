@@ -1,54 +1,157 @@
+// 🏛️ ALINEACIÓN CENTRADA TOTAL
 .login-bg {
-  --background: #0f172a;
+  --background: #f1f5f9; // Tu gris claro ejecutivo
+  
+  // 🚀 Forzamos al componente nativo de Ionic a centrar su contenido interno
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // Hack limpio para romper el comportamiento por defecto de Ionic Content
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.login-container {
   width: 100%;
-  max-width: 400px;
-  background: #1e293b;
-  padding: 35px 25px;
-  border-radius: 24px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  border-top: 4px solid #a78bfa;
-  margin: auto;
+  height: 100%;
 }
 
+// 📦 TARJETA CONTENEDORA (Diseño Clean SaaS)
+// 📦 TARJETA CONTENEDORA CON DETALLE DE ACENTO EJECUTIVO
+.login-container {
+  position: relative; // Necesario para el truco de la barra superior
+  width: 90%;
+  max-width: 400px;
+  padding: 40px 28px 32px 28px; // Añadimos un poco más de aire arriba
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.04), 
+              0 8px 16px -6px rgba(15, 23, 42, 0.04);
+  margin: auto;
+  overflow: hidden; // Corta los bordes rectos de la barra superior interna
+
+  // 🔹 DETALLE DE ASIGNACIÓN: Barra superior ejecutiva en azul corporativo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Una línea ultra-fina y elegante
+    background: #1e40af; // El mismo azul navy de tu botón
+  }
+}
+
+// 🏷️ ENCABEZADO CORPORATIVO
 .login-header {
   text-align: center;
-  margin-bottom: 30px;
-  h1 { font-size: 28px; font-weight: 800; color: #a78bfa; margin: 0; }
-  p { color: #94a3b8; font-size: 14px; margin: 5px 0 0 0; }
+  margin-bottom: 28px;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a; // Azul pizarra muy oscuro (Casi negro corporativo)
+    letter-spacing: -0.5px;
+    margin: 0 0 6px 0;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #64748b; // Gris azulado elegante
+    margin: 0;
+    font-weight: 500;
+  }
 }
 
+// 🔏 INPUTS ESTILIZADOS CON REGLAS EJECUTIVAS
 .custom-input {
-  --background: #0f172a;
-  --color: white;
-  --border-radius: 12px;
-  --padding-start: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #334155;
-  
-  ion-icon { color: #a78bfa; font-size: 20px; }
-  ion-input { --placeholder-color: #64748b; font-size: 15px; }
-}
-
-.login-btn {
-  --background: #a78bfa;
+  --background: #f8fafc; // Fondo limpio para los campos
+  --border-radius: 8px;
   --color: #0f172a;
-  --border-radius: 12px;
-  font-weight: 700;
-  margin-top: 25px;
-  height: 48px;
+  --placeholder-color: #94a3b8;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #cbd5e1; // Borde nítido estándar de oficina
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+
+  // Efecto de enfoque ejecutivo (Línea azul de atención)
+  &:focus-within {
+    border-color: #2563eb; 
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    --background: #ffffff;
+    
+    ion-icon {
+      color: #2563eb; // El icono se ilumina en azul corporativo
+    }
+  }
+
+  ion-icon {
+    color: #64748b;
+    font-size: 1.25rem;
+    margin-right: 8px;
+    transition: color 0.2s;
+  }
+
+  ion-input {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
 }
 
+// 👁️ BOTÓN DEL OJO (Contraseña)
+.eye-btn {
+  --color: #64748b;
+  margin: 0;
+  height: 100%;
+  
+  &:hover {
+    --color: #2563eb;
+  }
+}
+
+// 🚀 BOTÓN DE ACCIÓN PRINCIPAL (Azul Navy Premium)
+.login-btn {
+  --background: #1e40af; // Azul rey/navy de alta seriedad
+  --background-activated: #1d4ed8;
+  --background-hover: #1d4ed8;
+  --color: #ffffff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+  font-weight: 700;
+  font-size: 0.95rem;
+  height: 46px;
+  margin-top: 24px;
+  text-transform: none; // Evita las mayúsculas forzadas agresivas
+  letter-spacing: 0.3px;
+  transition: all 0.2s;
+}
+
+// ✨ ANIMACIÓN DE ENTRADA SUAVE
 .animated-fade-in {
-  animation: fadeIn 0.4s ease-in-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

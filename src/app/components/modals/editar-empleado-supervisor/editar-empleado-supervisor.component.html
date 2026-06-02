@@ -1,83 +1,115 @@
+<!-- 🏛️ Cabecera Unificada con el Azul Corporativo de la Marca -->
 <ion-header class="ion-no-border">
-  <ion-toolbar class="morado-header">
+  <ion-toolbar>
     <ion-title>Editar Colaborador</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="cancelar()" color="danger">X</ion-button>
+      <!-- Botón de cierre unificado e icon-only -->
+      <ion-button (click)="cancelar()" class="btn-close-header">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding custom-bg">
+<!-- Contenido adaptado a la paleta ejecutiva clara -->
+<ion-content class="ion-padding modal-ejecutivo-content">
   <form [formGroup]="empleadoForm" (ngSubmit)="confirmar()">
 
     <div class="form-container">
       
-      <ion-input fill="outline" color="medium" label="Empresa" labelPlacement="floating" type="text"
-        formControlName="tenant_id" [readonly]="true" class="readonly-input"></ion-input>
+      <!-- 🏢 Campo de Solo Lectura: Empresa Perteneciente -->
+      <div class="form-group">
+        <ion-input fill="solid" label="Empresa" labelPlacement="floating" type="text"
+          formControlName="tenant_id" [readonly]="true" class="readonly-input"></ion-input>
+      </div>
 
-      <ion-select fill="outline" color="tertiary" label="Asignar a Sucursal" labelPlacement="floating"
-        formControlName="sucursal_id" interface="popover" placeholder="Selecciona una sede">
-        @for (sucursal of listaSucursales; track sucursal.id) {
-          <ion-select-option [value]="sucursal.id">
-            {{ sucursal.nombre }}
-          </ion-select-option>
+      <!-- 🎯 Selector Blindado: Asignar a Sucursal (Sin ion-item) -->
+      <div class="form-group ion-margin-top">
+        <div class="custom-select-container">
+          <ion-select 
+            label="Asignar a Sucursal" 
+            labelPlacement="floating"
+            interface="popover" 
+            toggleIcon="chevron-down-outline"
+            expandedIcon="chevron-up-outline"
+            formControlName="sucursal_id" 
+            placeholder="Selecciona una sede">
+            @for (sucursal of listaSucursales; track sucursal.id) {
+              <ion-select-option [value]="sucursal.id">
+                {{ sucursal.nombre }}
+              </ion-select-option>
+            }
+          </ion-select>
+        </div>
+        @if (empleadoForm.get('sucursal_id')?.invalid && empleadoForm.get('sucursal_id')?.touched) {
+          <ion-note color="danger" class="error-msg">⚠️ Debes seleccionar una sucursal para el colaborador.</ion-note>
         }
-      </ion-select>
+      </div>
 
-      @if (empleadoForm.get('sucursal_id')?.invalid && empleadoForm.get('sucursal_id')?.touched) {
-        <ion-note color="danger" class="error-msg">⚠️ Debes seleccionar una sucursal para el colaborador.</ion-note>
-      }
+      <!-- 📝 Campos de Identidad (Inputs de Texto fill="solid") -->
+      <div class="fields-group ion-margin-top">
+        <ion-input fill="solid" label="Nombre Completo" labelPlacement="floating" type="text"
+          formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández" (ionInput)="onNombreInput($event)"></ion-input>
 
-      <ion-input fill="outline" color="tertiary" label="Nombre Completo" labelPlacement="floating" type="text"
-        formControlName="nombre_completo" placeholder="Ej. Oswaldo Hernández" (ionInput)="onNombreInput($event)"></ion-input>
+        <ion-input fill="solid" label="CURP" labelPlacement="floating" type="text" formControlName="curp" maxlength="18" (ionInput)="onCurpInput($event)" class="ion-margin-top"></ion-input>
+        @if (empleadoForm.get('curp')?.invalid && empleadoForm.get('curp')?.touched) {
+          <ion-note color="danger" class="error-msg">⚠️ El CURP debe tener exactamente 18 caracteres.</ion-note>
+        }
 
-      <ion-input fill="outline" label="CURP" labelPlacement="floating" type="text" formControlName="curp" maxlength="18" (ionInput)="onCurpInput($event)"></ion-input>
-      
-      @if (empleadoForm.get('curp')?.invalid && empleadoForm.get('curp')?.touched) {
-        <ion-note color="danger" class="error-msg">⚠️ El CURP debe tener exactamente 18 caracteres.</ion-note>
-      }
+        <ion-input fill="solid" label="NSS" labelPlacement="floating" type="number" formControlName="nss" maxlength="11" class="ion-margin-top">
+          <div slot="helper">Debe tener exactamente 11 dígitos</div>
+        </ion-input>
+        @if (empleadoForm.get('nss')?.invalid && empleadoForm.get('nss')?.touched) {
+          <ion-note color="danger" class="error-msg">⚠️ El NSS debe tener exactamente 11 dígitos.</ion-note>
+        }
 
-      <ion-input fill="outline" label="NSS" labelPlacement="floating" type="number" formControlName="nss" maxlength="11">
-        <div slot="helper">Debe tener exactamente 11 dígitos</div>
-      </ion-input>
-      
-      @if (empleadoForm.get('nss')?.invalid && empleadoForm.get('nss')?.touched) {
-        <ion-note color="danger" class="error-msg">⚠️ El NSS debe tener exactamente 11 dígitos.</ion-note>
-      }
+        <ion-input fill="solid" label="Salario Diario ($)" labelPlacement="floating" type="number"
+          formControlName="salario_diario" class="ion-margin-top"></ion-input>
 
-      <ion-input fill="outline" color="tertiary" label="Salario Diario ($)" labelPlacement="floating" type="number"
-        formControlName="salario_diario"></ion-input>
+        <ion-input fill="solid" label="Puesto" labelPlacement="floating" type="text"
+          formControlName="puesto" placeholder="Ej. Desarrollador Frontend" class="ion-margin-top"></ion-input>
+      </div>
 
-      <ion-input fill="outline" color="tertiary" label="Puesto" labelPlacement="floating" type="text"
-        formControlName="puesto" placeholder="Ej. Desarrollador Frontend"></ion-input>
-
-     <ion-select fill="outline" color="tertiary" label="Estatus Laboral" labelPlacement="floating"
-        formControlName="estatus" interface="popover">
-        <ion-select-option [value]="true">Activo</ion-select-option>
-        <ion-select-option [value]="false">Inactivo</ion-select-option>
-      </ion-select>
+      <!-- 🎯 Selector Blindado: Estatus Laboral (Sin ion-item) -->
+      <div class="form-group ion-margin-top">
+        <div class="custom-select-container">
+          <ion-select 
+            label="Estatus Laboral" 
+            labelPlacement="floating"
+            interface="popover"
+            toggleIcon="chevron-down-outline"
+            expandedIcon="chevron-up-outline"
+            formControlName="estatus">
+            <ion-select-option [value]="true">Activo</ion-select-option>
+            <ion-select-option [value]="false">Inactivo</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
 
       <input type="file" accept="image/*" capture="user" #fileInput (change)="onFileSelected($event)" style="display: none;">
 
-      <div class="foto-zona ion-text-center">
+      <!-- 🖼️ Zona Biométrica de Rostro -->
+      <div class="foto-zona ion-text-center ion-margin-top">
         @if (!imagePreview) {
           <div class="placeholder-camara" (click)="activarCamara()">
-            <ion-icon name="camera-outline" style="font-size: 48px;"></ion-icon>
+            <ion-icon name="camera-outline"></ion-icon>
             <p>Actualizar Foto de Perfil (Opcional)</p>
+            <span>Formatos aceptados: JPG, PNG (Cara descubierta)</span>
           </div>
         } @else {
           <div class="preview-container">
-            <img [src]="imagePreview" class="preview-img" alt="Previsualización">
-            <ion-button color="danger" fill="clear" (click)="eliminarFoto($event)">
-              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-            </ion-button>
+            <img [src]="imagePreview" class="preview-img" alt="Previsualización Biométrica">
+            <button type="button" class="btn-remove-foto" (click)="eliminarFoto($event)">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
           </div>
         }
       </div>
+
     </div>
 
-    <ion-button expand="block" type="submit" color="tertiary"
-      [disabled]="empleadoForm.invalid || isSaving" class="submit-btn" size="large">
+    <!-- Botón de Envío Unificado en Azul Corporativo -->
+    <ion-button expand="block" type="submit" [disabled]="empleadoForm.invalid || isSaving" class="submit-btn">
       @if (isSaving) {
         <ion-spinner name="crescent"></ion-spinner>
         <span style="margin-left: 12px;">Actualizando colaborador...</span>

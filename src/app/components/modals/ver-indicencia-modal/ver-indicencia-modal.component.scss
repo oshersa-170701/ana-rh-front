@@ -1,95 +1,145 @@
-.incidencia-header {
-  --background: #b45309; // Tonalidad ámbar/café corporativo para auditoría
-  --color: white;
-  font-weight: 700;
-}
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
+ion-toolbar {
+  --background: #1e40af !important; // El azul navy oficial de ANA Medic
+  --color: #ffffff !important; 
+  height: 60px;
 
-.custom-bg {
-  --background: #0f172a; // Fondo azul noche oscuro
-  color: white;
-}
-
-.card-detalle {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 16px;
-  border: 1px solid #334155;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-}
-
-.header-status {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.badge-aprobado {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 12px;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.fecha-text {
-  color: #94a3b8;
-  margin: 0;
-  font-size: 14px;
-}
-
-.divider {
-  border: 0;
-  border-top: 1px solid #334155;
-  margin: 16px 0;
-}
-
-.info-group {
-  margin-bottom: 16px;
-
-  label {
-    font-size: 11px;
-    color: #a78bfa; // Detalle morado institucional para los títulos internos
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+  ion-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: #ffffff !important;
   }
 }
 
-.tipo-title {
-  margin: 4px 0 0 0;
-  font-size: 24px;
-  font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.5px;
+// 🚪 BOTÓN DE CIERRE EN EL HEADER
+.btn-close-header {
+  --color: #ffffff !important;
+  opacity: 0.9;
+
+  ion-icon {
+    font-size: 1.4rem !important;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
-.horas-text {
-  margin: 4px 0 0 0;
-  font-size: 16px;
-  color: #cbd5e1;
-  font-weight: 600;
-}
+// 📦 CUERPO Y CONTENEDORES ESTILO SAAS CLARO
+.modal-ejecutivo-content {
+  --background: #f1f5f9 !important; // El gris claro de fondo que resalta la tarjeta blanca
 
-.justification-box, .supervisor-box {
-  background: #0f172a;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  margin-top: 6px;
-}
+  // Tarjeta contenedora de datos de auditoría
+  .card-detalle {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+  }
 
-.motivo-text {
-  margin: 4px 0 0 0;
-  color: #e2e8f0;
-  font-size: 14px;
-  line-height: 1.5;
-}
+  // Estatus superior y fecha
+  .header-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.supervisor-name {
-  margin: 4px 0 0 0;
-  color: #60a5fa;
-  font-weight: 600;
-  font-size: 14px;
+    // 🟠 Badge en ámbar/naranja haciendo juego con el icono de la bitácora
+    .badge-aprobado {
+      background: #fff7ed;
+      color: #ea580c;
+      border: 1px solid #ffedd5;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .fecha-text {
+      font-size: 0.9rem;
+      color: #475569;
+      margin: 0;
+
+      b {
+        font-family: 'Courier New', Courier, monospace;
+        color: #0f172a;
+        font-weight: 700;
+      }
+    }
+  }
+
+  // Línea divisoria de oficina fina
+  .divider {
+    border: none;
+    height: 1px;
+    background-color: #e2e8f0;
+    margin: 20px 0;
+  }
+
+  // 🧬 BLOQUES DE INFORMACIÓN DE AUDITORÍA
+  .info-group {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8; // Gris atenuado para labels estructurales
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .tipo-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+
+    .horas-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #334155;
+      margin: 0;
+    }
+  }
+
+  // 📝 Bloque de Justificación / Motivo Interno
+  .justification-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+
+    .motivo-text {
+      font-size: 0.95rem;
+      color: #475569;
+      line-height: 1.5;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  // 🛡️ Bloque de Firma o Supervisor Autorizador
+  .supervisor-box {
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 16px;
+    margin-top: 24px;
+
+    .supervisor-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e40af; // Resalta en el azul de la empresa
+      margin: 0;
+    }
+  }
 }

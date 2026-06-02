@@ -8,6 +8,7 @@ export interface Empresa {
   id?: string;
   nombre: string;
   rfc: string;
+  logo_url?: string;
   estatus?: boolean;
   created_at?: Date;
 }

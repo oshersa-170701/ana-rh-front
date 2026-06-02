@@ -79,6 +79,7 @@ export class NominasPage implements OnInit {
 
   async abrirModalNuevaNomina() {
   const modal = await this.modalCtrl.create({
+    mode: 'ios', // Puedes elegir el estilo que prefieras
     component: RegistrarNominaModalComponent,
     cssClass: 'modal-chico' // Puedes darle dimensiones personalizadas en tu global.scss si gustas
   });
@@ -94,7 +95,8 @@ export class NominasPage implements OnInit {
 async abrirDetalleNomina(id: string) {
     const modal = await this.modalCtrl.create({
       component: VerNominaModalComponent,
-      componentProps: { nominaId: id }
+      componentProps: { nominaId: id },
+      mode: 'ios'
     });
     
     await modal.present();

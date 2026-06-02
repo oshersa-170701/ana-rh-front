@@ -1,11 +1,60 @@
-.active-item {
-  --background: rgba(var(--ion-color-primary-rgb), 0.12);
-  --color: var(--ion-color-primary);
-  font-weight: bold;
-  border-radius: 8px;
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA DEL MENÚ
+ion-menu {
+  ion-toolbar {
+    --background: #1e40af !important; // El Azul Navy oficial de ANA Medic
+    --color: #ffffff !important; // Texto blanco puro de alto contraste
+    height: 60px;
+
+    .menu-title-executive {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff !important;
+    }
+  }
 }
 
-ion-item {
-  margin-bottom: 5px;
-  cursor: pointer;
+// 📦 CUERPO INTERNO DEL MENÚ LATERAL CLARO
+.menu-ejecutivo-content {
+  --background: #ffffff !important; // Fondo limpio de oficina
+
+  .bg-transparent {
+    background: transparent !important;
+    padding-top: 8px;
+  }
+
+  // 🎯 PARCHE PREMIUM PARA EL ÍTEM DE CERRAR SESIÓN (Amigable y sutil)
+  .btn-logout-item {
+    --background: transparent !important;
+    --background-focused: #fef2f2 !important;
+    --background-hover: #fef2f2 !important;
+    --background-activated: #fee2e2 !important;
+    --border-radius: 8px !important;
+    margin: 4px 8px;
+    transition: all 0.2s ease-in-out;
+
+    // En reposo usa un gris slate corporativo muy profesional
+    .logout-label {
+      color: #475569 !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: color 0.15s ease-in-out;
+    }
+
+    .logout-icon {
+      color: #64748b !important;
+      font-size: 1.25rem;
+      transition: color 0.15s ease-in-out;
+    }
+
+    // 🚨 Al interactuar, se ilumina suavemente en rojo coral administrativo
+    &:hover, &:focus-within {
+      .logout-label {
+        color: #dc2626 !important;
+      }
+      .logout-icon {
+        color: #dc2626 !important;
+      }
+    }
+  }
 }

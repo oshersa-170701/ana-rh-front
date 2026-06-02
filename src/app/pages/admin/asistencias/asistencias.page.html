@@ -67,20 +67,20 @@
                     </span>
                   </td>
 
-                  <td class="ion-text-center">
+               <td class="actions-cell">
                     @if (asistencia.incidencia) {
-                      <button class="btn-ver-incidencia" 
-                              (click)="abrirModalVerIncidencia(asistencia.incidencia)"
-                              title="Ver Detalle de la Incidencia">
-                        🔍 Ver Incidencia
-                      </button>
+                      <ion-button fill="clear" class="btn-ver-incidencia" 
+                                  (click)="abrirModalVerIncidencia(asistencia.incidencia)"
+                                  title="Ver Detalle de la Incidencia">
+                        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+                      </ion-button>
                     } @else {
-                      <button class="btn-incidencia-action" 
-                              (click)="abrirModalIncidencia(asistencia.empleado)"
-                              [disabled]="!asistencia.empleado"
-                              title="Reportar Incidencia">
-                        📝 Incidencia
-                      </button>
+                      <ion-button fill="clear" class="btn-incidencia-action" 
+                                  (click)="abrirModalIncidencia(asistencia.empleado)"
+                                  [disabled]="!asistencia.empleado"
+                                  title="Reportar Incidencia">
+                        <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
+                      </ion-button>
                     }
                   </td>
 

@@ -1,0 +1,42 @@
+// 🏛️ DISEÑO EJECUTIVO PARA LA CABECERA GLOBAL
+:host {
+  display: block;
+  width: 100%;
+}
+
+ion-header {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+}
+
+// Atacamos el componente directamente y su Shadow DOM interno
+ion-toolbar {
+  --background: #1e40af !important; // 👔 Tu Azul Navy Corporativo
+  --color: #ffffff !important;      // Texto e iconos en blanco
+  height: 64px;
+
+  // Forzamos las variables de color internas de Ionic
+  --ion-color-base: #1e40af !important;
+  --ion-color-contrast: #ffffff !important;
+
+  // Estilizado estricto del título principal
+  .header-title-executive {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: #ffffff !important;
+  }
+}
+
+// 🎛️ BOTONES DE NAVEGACIÓN (Menú hamburguesa y botón Volver)
+.btn-nav-header {
+  --color: #ffffff !important; // Fuerza el color blanco en el icono
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  transition: opacity 0.15s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+  }
+}

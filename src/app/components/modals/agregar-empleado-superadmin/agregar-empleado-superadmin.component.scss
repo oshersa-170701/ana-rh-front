@@ -1,81 +1,235 @@
-.custom-select-item {
-  --background: #1e293b;
-  --color: #ffffff;
-  border: 1px solid #334155;
-  border-radius: 4px;
-  ion-select {
-    width: 100%;
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
+ion-toolbar {
+  --background: #1e40af !important; // El azul navy oficial de ANA Medic
+  --color: #ffffff !important; 
+  height: 60px;
+
+  ion-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: #ffffff !important;
   }
 }
-.error-msg {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.85rem;
-}
-// Variables de ANA Medic
-$morado: #6a1b9a;
-$blanco: #ffffff;
-$fondo: #f4f7f9;
 
-.custom-bg { --background: #{$fondo}; }
+// 🚪 BOTÓN DE CIERRE EN EL HEADER
+.btn-close-header {
+  --color: #ffffff !important;
+  opacity: 0.9;
 
-.morado-header {
-  --background: #{$morado};
-  --color: #{$blanco};
-  ion-title { font-weight: 800; letter-spacing: 1px; }
+  ion-icon {
+    font-size: 1.4rem !important;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
-.form-container {
-  padding: 10px;
+// 📦 CUERPO DEL FORMULARIO SAAS CLARO
+.modal-ejecutivo-content {
+  --background: #ffffff !important; // Fondo blanco de oficina
+
+  // Estilizado Premium de las cajas de Inputs
   ion-input {
-    --background: #{$blanco};
-    --border-radius: 14px;
-    --padding-start: 16px;
-    margin-bottom: 12px;
-    border: 1px solid #e0e0e0;
-    color: #333;
-  }
-}
+    --background: #f8fafc !important;
+    --color: #0f172a !important; // Texto oscuro nítido visible
+    --placeholder-color: #94a3b8;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0 4px;
+    transition: all 0.2s ease-in-out;
 
-.foto-zona {
-  margin: 20px 0;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 20px;
-  border: 2px dashed #d1c4e9;
-  transition: 0.3s;
-  
-  &:hover { border-color: #{$morado}; }
-
-  .placeholder-camara {
-    color: #6a1b9a;
-    ion-icon { font-size: 50px; }
-    p { font-weight: 600; margin-top: 10px; }
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      --background: #ffffff !important;
+    }
   }
 
-  .preview-container {
+  // Mensajes de error e informativos
+  .error-msg {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-block;
+    padding-left: 4px;
+  }
+
+  ion-note[slot="helper"] {
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  // 🎯 SELECTORES DE RELACIÓN BLINDADOS (Sin ion-item que oculte el texto)
+  .custom-select-container {
+    width: 100%;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
     position: relative;
-    .preview-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #ffffff !important;
     }
-    .btn-eliminar {
+
+    .select-inner-icon {
+      font-size: 1.25rem;
+      color: #64748b;
       position: absolute;
-      top: -10px;
-      right: calc(50% - 85px);
-      background: white;
-      border-radius: 50%;
+      left: 14px;
+      z-index: 10;
+    }
+
+    ion-select {
+      width: 100%;
+      --color: #0f172a !important; // Texto seleccionado visible
+      --placeholder-color: #64748b !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding-left: 44px; // Espacio para el icono de la izquierda
+      padding-right: 16px;
+      min-height: 56px;
+
+      &::part(label) {
+        color: #475569 !important;
+        font-weight: 600;
+      }
+
+      &::part(text) {
+        color: #0f172a !important;
+      }
+
+      &::part(icon) {
+        color: #64748b !important;
+        opacity: 1;
+      }
     }
   }
-}
 
-.submit-btn {
-  --border-radius: 16px;
-  height: 56px;
-  font-weight: 700;
-  box-shadow: 0 8px 16px rgba(106, 27, 154, 0.25);
-  margin-top: 10px;
+  // 🔐 CONTENEDOR DE CREDENCIALES (Look limpio estilo SaaS)
+  .credentials-group {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px 16px;
+
+    h3 {
+      color: #1e40af; // Título en el azul de la marca
+      font-size: 0.95rem;
+      margin: 0 0 16px 0;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+  }
+
+  // 🖼️ ZONA DE CAPTURA BIOMÉTRICA DE ROSTRO
+  .foto-zona {
+    .placeholder-camara {
+      width: 100%;
+      padding: 24px 16px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      ion-icon {
+        color: #94a3b8;
+        margin-bottom: 8px;
+        transition: all 0.2s ease-in-out;
+      }
+
+      p {
+        color: #334155;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 0 0 2px 0;
+      }
+
+      span {
+        color: #94a3b8;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      &:hover {
+        border-color: #1e40af;
+        background: #eff6ff;
+        
+        ion-icon {
+          color: #1e40af;
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    // Contenedor de previsualización con la imagen cargada
+    .preview-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto;
+      border-radius: 50%; // Formato circular de perfil biométrico
+      border: 3px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+
+      .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      // Botón flotante para remover rostro
+      .btn-remove-foto {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 32px;
+        background: rgba(239, 68, 68, 0.9);
+        color: #ffffff;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        ion-icon {
+          font-size: 1.1rem;
+        }
+
+        &:hover {
+          background: #dc2626;
+        }
+      }
+    }
+  }
+
+  // 🚀 BOTÓN PRINCIPAL "GUARDAR ADMINISTRADOR"
+  .submit-btn {
+    --background: #1e40af !important;
+    --background-activated: #1d4ed8 !important;
+    --background-hover: #1d4ed8 !important;
+    --color: #ffffff !important;
+    --border-radius: 8px !important;
+    font-weight: 700;
+    font-size: 0.95rem;
+    height: 46px;
+    text-transform: none;
+    margin-top: 24px;
+    letter-spacing: 0.3px;
+
+    ion-spinner {
+      --color: #ffffff !important;
+    }
+  }
 }

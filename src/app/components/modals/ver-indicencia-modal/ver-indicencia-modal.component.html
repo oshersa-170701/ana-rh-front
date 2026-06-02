@@ -1,21 +1,24 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar class="incidencia-header">
+  <ion-toolbar >
     <ion-title>Detalles de la Incidencia</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="cerrar()" color="white">Cerrar</ion-button>
+   <ion-button (click)="cerrar()" class="btn-close-header">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding custom-bg">
+
+<ion-content class="ion-padding modal-ejecutivo-content">
   <div class="card-detalle">
     
     <div class="header-status">
-      <span class="badge-aprobado"> APROBADA</span>
+      <span class="badge-aprobado">Aprobada</span>
       <p class="fecha-text">Fecha del suceso: <b>{{ incidenciaData?.fecha }}</b></p>
     </div>
 
-    <hr class="divider">
+    <hr class="divider" />
 
     <div class="info-group">
       <label>Tipo de Registro</label>
@@ -24,7 +27,7 @@
 
     <div class="info-group">
       <label>Tiempo Afectado</label>
-      <p class="horas-text"> {{ incidenciaData?.cantidad_horas }} Horas Reportadas</p>
+      <p class="horas-text">{{ incidenciaData?.cantidad_horas }} Horas Reportadas</p>
     </div>
 
     <div class="info-group justification-box">

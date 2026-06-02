@@ -18,7 +18,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline } from 'ionicons/icons';
+import { saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline, closeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-editar-empresa',
@@ -59,7 +59,7 @@ export class EditarEmpresaComponent implements OnInit {
     private toastCtrl: ToastController
   ) {
     // Registramos los iconos obligatorios de la interfaz
-    addIcons({ saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline });
+    addIcons({closeOutline,imageOutline,trashOutline,saveOutline,alertCircleOutline,checkmarkCircleOutline});
   }
 
   ngOnInit() {

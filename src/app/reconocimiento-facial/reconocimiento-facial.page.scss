@@ -1,147 +1,223 @@
+// 🏛️ FONDO GLOBAL CLARO EJECUTIVO (Máxima consistencia con tus bitácoras)
 .kiosco-bg {
-  --background: #0f172a; // Fondo azul noche oscuro premium
-  color: white;
+  --background: #f1f5f9 !important; // El gris claro oficial que transmite orden y limpieza
 }
 
+// 📐 DISEÑO ESTRUCTURAL CENTRALIZADO
 .main-layout {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 40px 24px;
 }
 
+// 🏷️ ENCABEZADO DE IDENTIDAD DE LA SUITE
 .header-branding {
   text-align: center;
-  margin-bottom: 20px;
-  h1 { font-size: 32px; font-weight: 800; color: #a78bfa; margin: 0; }
-  p { color: #94a3b8; margin: 5px 0; }
-}
+  margin-bottom: 32px;
 
-.camera-container {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 4px solid #334155;
-  background: #000;
-  
-  video { 
-    display: block; 
-    width: 100%; 
-    height: auto; 
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+  h1 {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: #0f172a; // Gris pizarra ultra oscuro ejecutivo
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
   }
 
+  p {
+    font-size: 0.95rem;
+    color: #64748b; // Gris slate descriptivo, elegante y amigable
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// 📹 CONTENEDOR DE LA CÁMARA ESTILO TARJETA PREMIUM SAAS
+.camera-container {
+  position: relative;
+  width: 100%;
+  max-width: 540px; // Dimensión ideal para la pantalla de la tablet del kiosco
+  aspect-ratio: 4 / 3;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03), 
+              0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // 🔹 LA LÍNEA DE ACENTO: El sello corporativo azul navy en el marco de la cámara
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Mismo patrón visual de tus tablas y paneles administrativos
+    background: #1e40af;
+    z-index: 15;
+  }
+
+  // Feed de video nativo
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1); // Efecto espejo natural para el colaborador
+  }
+
+  // Canvas flotante para el bounding box o trazado de face-api.js
   canvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 10;
-    opacity: 1;
     pointer-events: none;
+    z-index: 5;
   }
+
 }
 
-// 🎛️ PANEL PRINCIPAL: Contenedor con esquinas redondeadas suaves
+// 🪪 PANEL DE INFORMACIÓN DEL COLABORADOR RECONOCIDO
 .info-panel {
-  margin-top: 25px;
-  padding: 25px;
-  background: #1e293b;
-  border-radius: 24px;
-  border-top: 4px solid #a78bfa;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  
-  h2 { 
-    font-size: 26px; 
-    font-weight: 800; 
-    margin: 5px 0; 
-    letter-spacing: 0.5px;
-  }
-  
-  .sub-puesto {
-    color: #94a3b8;
-    font-size: 15px;
-    margin: 0 0 20px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  width: 100%;
+  max-width: 540px;
+  background: #ffffff !important;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 28px 24px;
+  margin-top: 24px;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03) !important;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  // Barra de acento superior para la tarjeta de datos del empleado
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #1e40af;
+    z-index: 10;
   }
 
+  // Badge amigable de éxito
   .status-badge {
-    background: #4c1d95;
-    color: #ddd6fe;
-    padding: 6px 12px;
-    border-radius: 8px;
+    background: #dcfce7; // Verde menta suave, muy amigable
+    color: #15803d;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 800;
     display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 2px 0;
+    letter-spacing: -0.3px;
+  }
+
+  .sub-puesto {
+    font-size: 0.9rem;
+    color: #475569;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 20px 0;
   }
 }
 
-// 🌅 SECCIÓN DE ACCIONES: Separador y texto de guía
+// 🕹️ REFINAMIENTO DE ACCIONES DE REGISTRO (Mosaico Industrial Amigable)
 .asistencia-actions {
-  border-top: 1px solid #334155;
+  border-top: 1px solid #f1f5f9;
   padding-top: 20px;
-  margin-top: 10px;
 
   .instruccion-text {
-    color: #cbd5e1;
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 16px;
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+  }
+
+  // 🧱 GRID MOSAICO PREMIUM LIMPIO
+  .botones-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // Cuadrícula 2x2 ideal para pulsar con el dedo
+    gap: 12px;
+
+    .btn-asistencia {
+      height: 56px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #334155;
+      background: #f8fafc; // Fondo claro uniforme y profesional
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease-in-out;
+
+      // Animación de pulsación táctil sutil
+      &:active {
+        transform: scale(0.97);
+      }
+
+      // 🌅 Efecto Entrada: Tono azul suave amigable al interactuar
+      &.entrada:hover {
+        background: #eff6ff;
+        color: #1e40af;
+        border-color: #bfdbfe;
+      }
+
+      // 🍔 ☕ Efecto Almuerzos: Tono gris pizarra limpio de control
+      &.inicio-comida:hover, &.fin-comida:hover {
+        background: #f1f5f9;
+        color: #0f172a;
+        border-color: #cbd5e1;
+      }
+
+      // 🏠 Efecto Salida: Tono rojo/coral suave de salida administrativa
+      &.salida:hover {
+        background: #fef2f2;
+        color: #dc2626;
+        border-color: #fecaca;
+      }
+    }
   }
 }
 
-// 🔲 GRID DE BOTONES: Estructura de 2 columnas perfecta para Kioscos
-.botones-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  width: 100%;
+// 🎞️ ANIMACIÓN LINEAL DE ENFOQUE LENTIFICADA
+@keyframes scanAnimation {
+  0% { top: 0%; opacity: 0.2; }
+  50% { top: 100%; opacity: 0.7; }
+  100% { top: 0%; opacity: 0.2; }
 }
 
-// ⚡ BOTÓN BASE: Formato táctil de alto impacto con gradientes degradados
-.btn-asistencia {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 18px 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  border: none;
-  border-radius: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in-out;
+// Transición suave de entrada para el panel informativo
+.animated-fade-in {
+  animation: kioskPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
-  // ✨ Efectos de feedback interactivos para la Tablet
-  &:hover {
-    filter: brightness(1.15);
-    transform: translateY(-2px);
-  }
-
-  &:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
-
-  // 🎨 Paleta Semántica e Institucional (Combina con tus iconos)
-  &.entrada {
-    background: linear-gradient(135deg, #059669, #10b981); // Verde esmeralda
-  }
-
-  &.inicio-comida {
-    background: linear-gradient(135deg, #d97706, #f59e0b); // Ámbar cálido
-  }
-
-  &.fin-comida {
-    background: linear-gradient(135deg, #2563eb, #3b82f6); // Azul eléctrico
-  }
-
-  &.salida {
-    background: linear-gradient(135deg, #dc2626, #ef4444); // Rojo carmín
-  }
+@keyframes kioskPanelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

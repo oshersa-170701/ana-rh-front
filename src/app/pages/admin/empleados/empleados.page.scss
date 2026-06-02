@@ -1,108 +1,242 @@
-.crud-container {
-  background: #1e293b;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
+// 🏛️ FONDO GLOBAL CLARO Y PROFESIONAL
+.empleados-content {
+  --background: #f1f5f9 !important; // Gris claro institucional
 }
 
+// 📦 CONTENEDOR PRINCIPAL ESTILO SAAS (Consistent Layout)
+.crud-container {
+  position: relative;
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 28px 24px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03), 
+              0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+  margin: 20px 12px !important;
+  overflow: hidden !important;
+
+  // 🔹 LA LÍNEA DE ACENTO: Barra superior en azul navy corporativo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Sello de identidad ANA Medic 💫
+    background: #1e40af;
+    z-index: 10;
+  }
+}
+
+// 🏷️ SECCIÓN DE ENCABEZADO Y ACCIONES INTERNAS
 .table-header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
 
-  h2 {
-    color: #ffffff;
-    font-size: 1.4rem;
+  .titulos {
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 0 0 4px 0;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .btn-principal {
+    --background: #1e40af !important;
+    --background-activated: #1d4ed8 !important;
+    --background-hover: #1d4ed8 !important;
+    --color: #ffffff !important;
+    --border-radius: 8px !important;
     font-weight: 600;
+    font-size: 0.9rem;
+    height: 40px;
+    text-transform: none;
     margin: 0;
   }
 }
 
+// 📊 CONTENEDOR DE TABLA RESPONSIVA BLINDADO
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  border-radius: 8px;
-  background: #0f172a;
+  -webkit-overflow-scrolling: touch;
 }
 
+// 📋 LA TABLA CORPORATIVA
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  color: #cbd5e1;
-  font-size: 0.95rem;
 
   thead {
-    background: #1e293b;
-    color: #94a3b8;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
+    background: #1e40af !important;
+    
+    th {
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff !important;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
   }
 
-  th, td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #334155;
-    white-space: nowrap;
-  }
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background-color 0.15s ease-in-out;
 
-  tbody tr:hover {
-    background: rgba(255, 255, 255, 0.02);
-  }
+      &:hover {
+        background-color: #f8fafc !important;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
 
-  .no-data {
-    color: #64748b;
-    padding: 30px;
-  }
-
-  .font-bold {
-    color: #ffffff;
-    font-weight: 500;
-  }
-
-  .puesto-text {
-    color: #38bdf8;
-    font-weight: 500;
-  }
-
-  .curp-text {
-    font-family: monospace;
-    letter-spacing: 0.5px;
-  }
-
-  .company-badge {
-    background: rgba(168, 85, 247, 0.15);
-    color: #c084fc;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid rgba(168, 85, 247, 0.3);
-  }
-
-  .branch-badge {
-    background: rgba(45, 212, 191, 0.15);
-    color: #2dd4bf;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid rgba(45, 212, 191, 0.3);
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .actions-cell {
-    padding: 4px;
-    ion-button {
-      --padding-start: 8px;
-      --padding-end: 8px;
-      margin: 0;
+    td {
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      color: #334155;
+      vertical-align: middle;
     }
   }
 }
+
+// 🖼️ CONTENEDOR DE FOTO BIOMÉTRICA DE PERFIL
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+
+  .supervisor-avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%; // Circular premium
+    object-fit: cover;
+    border: 2px solid #cbd5e1;
+    background: #f8fafc;
+  }
+
+  .avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    border: 1px dashed #cbd5e1;
+  }
+}
+
+// 🧬 CHIPS Y COMPONENTES ORGANIZACIONALES
+.font-bold {
+  font-weight: 700;
+  color: #0f172a !important;
+}
+
+.puesto-text {
+  font-weight: 600;
+  color: #475569;
+}
+
+.curp-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  color: #475569;
+}
+
+.company-badge, .branch-badge {
+  background: #f1f5f9;
+  color: #334155;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+// BADGES DE ESTATUS COHESIVOS
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+
+  &.activo {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  &.inactivo {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+}
+
+// 🎯 ACCIONES EJECUTIVAS ICON-ONLY
+.actions-cell {
+  text-align: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  ion-button {
+    margin: 0;
+    height: 36px;
+    width: 36px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+
+    ion-icon {
+      font-size: 1.3rem !important;
+    }
+
+    &:hover {
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+  }
+
+  .btn-editar {
+    --color: #2563eb !important;
+  }
+
+  .btn-eliminar {
+    --color: #ef4444 !important;
+  }
+}
+
+.no-data {
+  padding: 40px !important;
+  color: #94a3b8;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.text-center { text-align: center !important; }

@@ -1,229 +1,332 @@
+// 🏛️ FONDO GLOBAL CLARO EJECUTIVO
 .custom-bg {
-  --background: #0f172a; // Fondo oscuro premium a juego con el kiosco
-  color: #f8fafc;
+  --background: #f1f5f9 !important; // Gris claro institucional
 }
 
+// 📦 CONTENEDOR PRINCIPAL ESTILO SAAS
 .panel-container {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative; // 🎯 Necesario para la barra de acento superior de 4px
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 28px 24px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03), 
+              0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+  margin: 20px 12px !important;
+  overflow: hidden !important; // Corta los bordes rectos de la barra superior
+
+  // 🔹 LA LÍNEA DE ACENTO: Barra superior ejecutiva azul navy
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Detalle unificado de ANA Medic 💫
+    background: #1e40af;
+    z-index: 10;
+  }
 }
 
+// 🏷️ SECCIÓN DE ENCABEZADO
 .panel-header {
   margin-bottom: 24px;
-  h2 { font-size: 28px; font-weight: 800; color: #a78bfa; margin: 0; }
-  p { color: #94a3b8; margin: 6px 0 0 0; font-size: 15px; }
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a; // Azul pizarra de alta densidad
+    margin: 0 0 4px 0;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: #64748b; // Gris slate descriptivo elegante
+    margin: 0;
+    font-weight: 500;
+  }
 }
 
-// ⏳ Contenedor de Carga
-.loading-container {
-  text-align: center;
-  padding: 40px;
-  color: #94a3b8;
-  p { margin-top: 12px; font-size: 16px; }
-}
-
-// 📸 ESTILOS DEL AVATAR / FOTO
-.avatar-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-}
-
-.empleado-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%; // Totalmente circular
-  object-fit: cover;
-  border: 2px solid #475569;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.avatar-placeholder {
-  width: 42px;
-  height: 42px;
-  background: #334155;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-// 📊 TABLA RESPONSIVA
+// 📊 CONTENEDOR RESPONSIVO BLINDADO
 .table-responsive {
   width: 100%;
-  overflow-x: auto; // Scroll horizontal si la pantalla es muy chica
-  background: #1e293b;
-  border-radius: 16px;
-  border: 1px solid #334155;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
+// 📋 LA TABLA CORPORATIVA (Con cabecera azul ejecutiva)
 .asistencias-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 14px;
 
-  th {
-    background: #111827; // Fondo oscuro para las cabeceras
-    color: #cbd5e1;
-    padding: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #334155;
+  // 🔹 Cabecera de la Tabla en Azul Sólido Corporativo
+  thead {
+    background: #1e40af !important; // 👔 Unificación de marca
+    
+    th {
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff !important; // Texto blanco puro de alto contraste ⚡
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: none !important;
+    }
   }
 
-  td {
-    padding: 14px 16px;
-    color: #e2e8f0;
-    border-bottom: 1px solid #334155;
-    vertical-align: middle; // Alinea la foto con los textos perfectamente
-  }
+  // Cuerpo de Datos de Asistencia
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background-color 0.15s ease-in-out;
 
-  // Efecto Zebra alternado sutil
-  tbody tr:nth-child(even) {
-    background: #1e293b;
-  }
-  tbody tr:nth-child(odd) {
-    background: #162238; 
-  }
+      &:hover {
+        background-color: #f8fafc !important; // Efecto realce ejecutivo al pasar el cursor
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
 
-  // Hover interactivo sobre las filas
-  tbody tr:hover {
-    background: #24334d;
-    transition: background 0.2s ease-in-out;
+    td {
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      color: #334155;
+      vertical-align: middle;
+    }
   }
 }
 
-// 🔤 Formateadores de Texto
+// 🖼️ CONTENEDOR Y DISEÑO DE AVATAR
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+
+  .empleado-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #cbd5e1;
+  }
+
+  .avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    border: 1px dashed #cbd5e1;
+  }
+}
+
+// 🧬 TIPOGRAFÍAS Y REFINAMIENTOS DE COLUMNAS
 .bold-text {
   font-weight: 700;
-  color: #ffffff;
-  font-size: 15px;
+  color: #0f172a !important; // Resalta el nombre del colaborador
 }
 
 .puesto-text {
-  color: #cbd5e1;
-  font-weight: 500;
+  font-weight: 600;
+  color: #475569;
 }
 
 .fecha-text, .hora-text {
-  font-family: 'Courier New', Courier, monospace; // Estilo reloj/sistema
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-// 🎨 TAGS SEMÁNTICOS DE EVENTOS
-.event-tag {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-align: center;
-  min-width: 130px;
-
-  &.success-tag { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-  &.warning-tag { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-  &.info-tag { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-  &.danger-tag { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+  color: #334155;
 }
 
+// 🏷️ METODO DE VALIDACIÓN BADGE (SaaS Badge Style)
 .metodo-badge {
-  background: #334155;
-  color: #94a3b8;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid #e2e8f0;
+  display: inline-block;
+  letter-spacing: 0.3px;
+}
+
+// 🏷️ REEMPLAZO DE CLASES DINÁMICAS PARA EVENTO (Entrada / Salida / Almuerzo)
+// Vinculado al getBadgeColor de tu lógica de Angular
+.event-tag {
   padding: 4px 8px;
   border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-// 📭 Contenedor Vacío
-.empty-container {
-  text-align: center;
-  padding: 60px 20px;
-  background: #1e293b;
-  border-radius: 16px;
-  border: 1px dashed #475569;
-  
-  .icon-box { font-size: 48px; margin-bottom: 16px; }
-  h3 { font-size: 20px; font-weight: 700; color: #ffffff; margin: 0 0 8px 0; }
-  p { color: #94a3b8; max-width: 400px; margin: 0 auto; font-size: 14px; }
-}
-
-// Animación de entrada suave
-.animated-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-// 📝 Botón de acción rápida para incidencias en la tabla
-.btn-incidencia-action {
-  background: linear-gradient(135deg, #4c1d95, #6d28d9); // Degradado morado institucional
-  color: #ffffff;
-  border: none;
-  padding: 8px 14px;
-  font-size: 13px;
+  font-size: 0.75rem;
   font-weight: 700;
-  border-radius: 8px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+// 🚨 BOTONES DE ACCIONES EJECUTIVAS (Incidencias)
+.btn-ver-incidencia, .btn-incidencia-action {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  border: 1px solid transparent;
+  display: inline-block;
+}
+
+// Caso A: Ya existe una incidencia (Estilo Advertencia Corporativo)
+.btn-ver-incidencia {
+  background: #fff7ed;
+  color: #c2410c;
+  border-color: #ffedd5;
 
   &:hover {
-    filter: brightness(1.15);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    background: #ffedd5;
   }
+}
 
-  &:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+// Caso B: Reportar nueva incidencia (Estilo Acción Neutro)
+.btn-incidencia-action {
+  background: #f8fafc;
+  color: #475569;
+  border-color: #e2e8f0;
+
+  &:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
   }
 
   &:disabled {
-    background: #475569;
-    color: #94a3b8;
+    opacity: 0.5;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-    filter: none;
   }
 }
 
-// Centrado sutil para la columna de acciones
-.ion-text-center {
+// ⏳ CONTENEDOR DE CARGA (Spinner)
+.loading-container {
+  padding: 40px;
   text-align: center;
+  color: #64748b;
+  font-weight: 600;
+  
+  ion-spinner {
+    --color: #1e40af !important; // Cambiamos el spinner al azul corporativo
+    margin-bottom: 12px;
+  }
 }
-.btn-ver-incidencia {
-  background: linear-gradient(135deg, #b45309, #d97706); // Degradado ámbar/naranja corporativo
-  color: #ffffff;
-  border: none;
-  padding: 8px 14px;
-  font-size: 13px;
-  font-weight: 700;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in-out;
 
-  &:hover {
-    filter: brightness(1.15);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+// 📭 ESTADO VACÍO (No Data)
+.empty-container {
+  padding: 48px 24px;
+  text-align: center;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
+
+  .icon-box {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+}
+
+// ⚡ ANIMACIÓN DE ENTRADA SUAVE
+.animated-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+// 🎯 CONTENEDOR DE ACCIONES EN LA FILA (Fixed & Clean)
+// 🎯 CONTENEDOR DE ACCIONES EN LA FILA (Iconos con Tamaño Ejecutivo)
+.actions-cell {
+  text-align: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px !important;
+
+  ion-button {
+    margin: 0;
+    // 🚀 AMPLIAMOS EL CONTENEDOR: Le damos más área táctil en la tablet
+    height: 45px !important;
+    width: 45px !important;
+    --padding-start: 0;
+    --padding-end: 0;
+    --box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+
+    // 🚀 AMPLIAMOS EL ICONO: Forzamos un tamaño nítido y legible
+    ion-icon {
+      font-size: 1.6rem !important; // Subimos de 1.3rem a 1.6rem ⚡
+      display: block;
+    }
+  }
+
+  // 🟠 CASO A: Incidencia Activa (Tono naranja/ámbar corporativo estricto)
+  .btn-ver-incidencia {
+    --color: #ea580c !important; 
+    background: #fff7ed; 
+    border-radius: 8px;
+    border: 1px solid #ffedd5;
+
+    &:hover {
+      background: #ffedd5;
+      --color: #c2410c !important;
+    }
+  }
+
+  // 🔵 CASO B: Crear Incidencia (Tono gris slate neutro empresarial)
+  .btn-incidencia-action {
+    --color: #64748b !important; 
+    background: #f8fafc; 
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    
+    &:hover {
+      background: #eff6ff;
+      --color: #1e40af !important; 
+      border-color: #bfdbfe;
+    }
+
+    &[disabled], &.button-disabled {
+      opacity: 0.3 !important;
+      pointer-events: none !important;
+    }
   }
 }

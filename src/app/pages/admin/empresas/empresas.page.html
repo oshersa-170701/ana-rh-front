@@ -1,11 +1,14 @@
 <app-header titulo="Gestión de Empresas" [esHome]="false"></app-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding empresas-content">
   <div class="crud-container">
     
     <div class="table-header-actions">
-      <h2>Listado de Empresas</h2>
-      <ion-button color="primary" class="btn-add" (click)="abrirModalAgregar()">
+      <div class="titulos">
+        <h2>Listado de Empresas</h2>
+        <p>Total de corporativos registrados: {{ empresas.length }}</p>
+      </div>
+      <ion-button class="btn-principal" (click)="abrirModalAgregar()">
         <ion-icon slot="start" name="add-outline"></ion-icon>
         Agregar Empresa
       </ion-button>
@@ -15,7 +18,7 @@
       <table class="custom-table">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Logo</th> <th>ID</th>
             <th>Nombre</th>
             <th>RFC</th>
             <th>Estatus</th>
@@ -25,29 +28,47 @@
         </thead>
         <tbody>
           <tr *ngIf="empresas.length === 0">
-            <td colspan="6" class="text-center no-data">
+            <td colspan="7" class="text-center no-data">
               No se encontraron empresas registradas.
             </td>
           </tr>
 
           <tr *ngFor="let empresa of empresas">
-            <td class="uuid-text">{{ empresa.id }}</td>
+            <td>
+              <div class="avatar-container">
+                <img 
+                  *ngIf="empresa.logo_url"
+                  [src]="empresa.logo_url.startsWith('data:') ? empresa.logo_url : 'http://localhost:3000/' + empresa.logo_url" 
+                  class="empresa-logo-img" 
+                  alt="Logo"
+                  (error)="empresa.logo_url = ''"
+                />
+                <div *ngIf="!empresa.logo_url" class="avatar-placeholder">
+                  {{ (empresa.nombre || 'E').substring(0, 1).toUpperCase() }}
+                </div>
+              </div>
+            </td>
+
+            <td class="uuid-text">{{ (empresa.id?.substring(0, 8) ?? '').toUpperCase() }}...</td>
             <td class="font-bold">{{ empresa.nombre }}</td>
             <td class="rfc-text">{{ empresa.rfc }}</td>
+            
             <td>
-              <ion-badge [color]="empresa.estatus ? 'success' : 'danger'">
+              <span class="status-badge" [ngClass]="empresa.estatus ? 'activo' : 'inactivo'">
                 {{ empresa.estatus ? 'Activo' : 'Inactivo' }}
-              </ion-badge>
+              </span>
             </td>
-            <td>{{ empresa.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
-            <td class="text-center actions-cell">
-              <ion-button fill="clear" color="primary" size="small" title="Editar" (click)="abrirModalEditar(empresa)">
+            
+            <td class="fecha-text">{{ empresa.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+            
+            <td class="actions-cell">
+              <ion-button fill="clear" class="btn-editar" title="Editar" (click)="abrirModalEditar(empresa)">
                 <ion-icon slot="icon-only" name="create-outline"></ion-icon>
               </ion-button>
-             <ion-button fill="clear" color="danger" size="small" (click)="confirmarEliminacion(empresa)">
-  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-</ion-button>
-          
+              
+              <ion-button fill="clear" class="btn-eliminar" title="Eliminar" (click)="confirmarEliminacion(empresa)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
             </td>
           </tr>
         </tbody>

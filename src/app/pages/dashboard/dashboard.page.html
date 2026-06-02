@@ -1,16 +1,19 @@
 <ion-menu contentId="main-content" type="overlay">
-  <ion-header>
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
+  <ion-header class="ion-no-border">
+    <ion-toolbar >
+      <ion-title class="menu-title-executive">Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
-    <ion-list lines="none">
+  
+  <ion-content class="ion-padding menu-ejecutivo-content">
+    <ion-list lines="none" class="bg-transparent">
       <ion-menu-toggle auto-hide="false">
-        <ion-item (click)="logout()" button>
-          <ion-icon slot="start" name="log-out-outline" color="danger"></ion-icon>
-          <ion-label color="danger">Cerrar Sesión</ion-label>
+        
+        <ion-item (click)="logout()" button class="btn-logout-item">
+          <ion-icon slot="start" name="log-out-outline" class="logout-icon"></ion-icon>
+          <ion-label class="logout-label">Cerrar Sesión</ion-label>
         </ion-item>
+        
       </ion-menu-toggle>
     </ion-list>
   </ion-content>

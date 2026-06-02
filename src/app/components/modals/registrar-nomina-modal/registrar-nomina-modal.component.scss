@@ -1,60 +1,135 @@
-.modal-background {
-  --background: #1e293b;
-  color: #f8fafc;
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
+ion-toolbar {
+  --background: #1e40af !important; // El azul navy oficial de ANA Medic
+  --color: #ffffff !important; 
+  height: 60px;
+
+  ion-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: #ffffff !important;
+  }
 }
 
-.form-container {
-  padding: 8px;
+// 🚪 BOTÓN DE CIERRE EN EL HEADER
+.btn-close-header {
+  --color: #ffffff !important;
+  opacity: 0.9;
 
-  .instrucciones {
-    color: #94a3b8;
-    font-size: 0.9rem;
-    line-height: 1.4;
+  ion-icon {
+    font-size: 1.4rem !important;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// 📦 CUERPO DEL FORMULARIO SAAS CLARO
+.modal-ejecutivo-content {
+  --background: #ffffff !important; // Fondo blanco que transmite orden institucional
+
+  // 📋 BLOQUE DE INSTRUCCIONES DE AUDITORÍA (Look de Oficina Limpio)
+  .instrucciones-box {
+    display: flex;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
     margin-bottom: 24px;
-  }
-}
+    align-items: flex-start;
 
-.input-grupo {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    .info-icon {
+      font-size: 1.4rem;
+      color: #1e40af; // Azul de la marca resaltando la advertencia
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
 
-  label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #c084fc;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .custom-date-input {
-    background: #0f172a;
-    border: 1px solid #334155;
-    color: #e2e8f0;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
-    outline: none;
-    font-family: inherit;
-
-    &:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+    .instrucciones {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.5;
+      font-weight: 500;
+      margin: 0;
     }
   }
+
+  // 📅 Estilizado Premium para los selectores de Fecha nativos de Ionic
+  ion-input[type="date"] {
+    --background: #f8fafc !important;
+    --color: #0f172a !important; // Texto oscuro 100% visible
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      --background: #ffffff !important;
+    }
+  }
+
+  // 🛠️ CONTENEDOR DE ACCIONES INLINE (Cancelación y Procesamiento)
+  .acciones-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+
+    // Botón Cancelar Secundario Líquido
+    .btn-cancelar {
+      --color: #64748b !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: none;
+      margin: 0;
+      height: 44px;
+
+      &:hover {
+        --color: #0f172a !important;
+      }
+    }
+    .btn-close-header {
+  --color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: none;
+  opacity: 0.9;
+
+  ion-icon {
+    font-size: 1.1rem !important;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
-.acciones-container {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 32px;
+    // Botón Procesar Principal en Azul Navy
+    .btn-procesar {
+      --background: #1e40af !important;
+      --background-activated: #1d4ed8 !important;
+      --background-hover: #1d4ed8 !important;
+      --color: #ffffff !important;
+      --border-radius: 8px !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      height: 44px;
+      text-transform: none;
+      margin: 0;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15) !important;
 
-  ion-button {
-    --border-radius: 8px;
-    font-weight: bold;
-    margin: 0;
+      ion-spinner {
+        --color: #ffffff !important;
+      }
+    }
   }
 }

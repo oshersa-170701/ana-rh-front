@@ -1,95 +1,231 @@
-.crud-container {
-  background: #1e293b;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
+// 🏛️ FONDO GLOBAL CLARO Y PROFESIONAL
+.empresas-content {
+  --background: #f1f5f9 !important; // Gris claro de oficina
 }
 
+// 📦 CONTENEDOR PRINCIPAL ESTILO SAAS (Consistent Layout)
+.crud-container {
+  position: relative; // 🎯 Fijar la barra superior de 4px
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 28px 24px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03), 
+              0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+  margin: 20px 12px !important;
+  overflow: hidden !important;
+
+  // 🔹 LA LÍNEA DE ACENTO: Fina barra superior en azul navy unificado
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Detalle unificado de ANA Medic 💫
+    background: #1e40af;
+    z-index: 10;
+  }
+}
+
+// 🏷️ SECCIÓN DE ENCABEZADO Y ACCIONES INTERNAS
 .table-header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
 
-  h2 {
-    color: #ffffff;
-    font-size: 1.4rem;
+  .titulos {
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #0f172a; // Azul pizarra oscuro mate
+      margin: 0 0 4px 0;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  // Botón Principal de Acción "Agregar Empresa"
+  .btn-principal {
+    --background: #1e40af !important;
+    --background-activated: #1d4ed8 !important;
+    --background-hover: #1d4ed8 !important;
+    --color: #ffffff !important;
+    --border-radius: 8px !important;
     font-weight: 600;
+    font-size: 0.9rem;
+    height: 40px;
+    text-transform: none;
     margin: 0;
   }
 }
 
+// 📊 CONTENEDOR DE TABLA RESPONSIVA BLINDADO
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  border-radius: 8px;
-  background: #0f172a;
+  -webkit-overflow-scrolling: touch;
 }
 
+// 📋 LA TABLA CORPORATIVA (Con cabecera azul ejecutiva)
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  color: #cbd5e1;
-  font-size: 0.95rem;
 
   thead {
-    background: #1e293b;
-    color: #94a3b8;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
+    background: #1e40af !important; // Azul navy unificado
+    
+    th {
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff !important; // Texto blanco de alto contraste
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
   }
 
-  th, td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #334155;
-    white-space: nowrap;
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background-color 0.15s ease-in-out;
+
+      &:hover {
+        background-color: #f8fafc !important; // Efecto hover ejecutivo
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      color: #334155;
+      vertical-align: middle;
+    }
+  }
+}
+
+// 🖼️ CONTENEDOR DEL LOGOTIPO DE LA EMPRESA
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+
+  .empresa-logo-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%; // Formato circular elegante
+    object-fit: contain; // Respeta las proporciones de los logos corporativos
+    background: #f8fafc;
+    border: 2px solid #cbd5e1;
   }
 
-  tbody tr {
-    transition: background 0.2s ease;
+  .avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    border: 1px dashed #cbd5e1;
+  }
+}
+
+// 🧬 TIPOGRAFÍAS Y REFINAMIENTOS DE CAMPOS CONTABLES
+.font-bold {
+  font-weight: 700;
+  color: #0f172a !important;
+}
+
+.uuid-text, .rfc-text, .fecha-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  color: #475569;
+}
+
+// 🏷️ BADGES DE ESTATUS ESTILIZADOS COHESIVOS
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+
+  &.activo {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  &.inactivo {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+}
+
+// 🎯 ACCIONES EJECUTIVAS ICON-ONLY (Editar y Eliminar)
+.actions-cell {
+  text-align: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  ion-button {
+    margin: 0;
+    height: 36px;
+    width: 36px;
+    --padding-start: 0;
+    --padding-end: 0;
+    --box-shadow: none !important;
+    transition: all 0.2s ease-in-out;
+
+    ion-icon {
+      font-size: 1.3rem !important;
+    }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.02);
+      background: #f1f5f9;
+      border-radius: 6px;
     }
   }
 
-  .no-data {
-    color: #64748b;
-    padding: 30px;
+  .btn-editar {
+    --color: #2563eb !important; // Azul administrativo
   }
 
-  .font-bold {
-    color: #ffffff;
-    font-weight: 500;
+  .btn-eliminar {
+    --color: #ef4444 !important; // Rojo advertencia
   }
+}
 
-  .uuid-text {
-    font-family: monospace;
-    color: #64748b;
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+// 📭 ESTADO VACÍO
+.no-data {
+  padding: 40px !important;
+  color: #94a3b8;
+  font-weight: 500;
+  font-style: italic;
+}
 
-  .rfc-text {
-    font-family: monospace;
-    letter-spacing: 0.5px;
-  }
-
-  .text-center {
-    text-align: center;
-  }
-
-  .actions-cell {
-    padding: 4px;
-    ion-button {
-      --padding-start: 8px;
-      --padding-end: 8px;
-      margin: 0;
-    }
-  }
+.text-center {
+  text-align: center !important;
 }

@@ -1,106 +1,215 @@
-// Variables de ANA Medic
-$morado: #6a1b9a;
-$blanco: #ffffff;
-$fondo: #f4f7f9;
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
+ion-toolbar {
+  --background: #1e40af !important; // El azul navy oficial de la suite
+  --color: #ffffff !important; 
+  height: 60px;
 
-.custom-bg { 
-  --background: #{$fondo}; 
+  ion-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    color: #ffffff !important;
+  }
 }
 
-.morado-header {
-  --background: #{$morado};
-  --color: #{$blanco};
-  ion-title { font-weight: 800; letter-spacing: 1px; }
-}
+// 🚪 BOTÓN DE CIERRE EN EL HEADER
+.btn-close-header {
+  --color: #ffffff !important;
+  opacity: 0.9;
 
-.form-container {
-  padding: 10px;
-
-  // ✨ HOMOLOGADO: Aplicamos la misma estructura base a inputs y selectores
-  ion-input, ion-select {
-    --background: #{$blanco};
-    --border-radius: 14px;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    margin-bottom: 12px;
-    border: 1px solid #e0e0e0;
-    color: #333333;
-    background: #{$blanco};
-    border-radius: 14px;
+  ion-icon {
+    font-size: 1.4rem !important;
   }
 
-  // Altura y alineación específica para el selector dinámico
-  ion-select {
-    height: 56px; // Forzamos la altura estándar de tus inputs con fill="outline"
-    display: flex;
-    align-items: center;
-    --placeholder-color: #475569 !important;
-    color: #333333 !important;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// 📦 CUERPO DEL FORMULARIO SAAS CLARO
+.modal-ejecutivo-content {
+  --background: #ffffff !important;
+
+  // Estilizado Premium de las cajas de Inputs de Texto
+  ion-input {
+    --background: #f8fafc !important;
+    --color: #0f172a !important; // Texto oscuro nítido visible
+    --placeholder-color: #94a3b8;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      --background: #ffffff !important;
+    }
+
+    // Bloque bloqueado de la Empresa
+    &.readonly-input {
+      --background: #f1f5f9 !important;
+      border-color: #cbd5e1;
+      opacity: 0.85;
+      cursor: not-allowed;
+    }
+  }
+
+  // Notas de error e informativas
+  .error-msg {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-block;
+    padding-left: 4px;
+  }
+
+  ion-note[slot="helper"] {
+    color: #64748b;
     font-weight: 500;
+  }
 
-    // Estilizamos los componentes internos del Shadow DOM del selector
-    &::part(icon) {
-      color: #{$morado} !important; // Flecha a juego con tu paleta corporativa
-      opacity: 1;
-      margin-top: 4px;
+  // 🎯 CONTENEDOR DE SELECTORES BLINDADOS (Sucursal y Estatus)
+  .custom-select-container {
+    width: 100%;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #ffffff !important;
+    }
+
+    ion-select {
+      width: 100%;
+      --color: #0f172a !important; // Texto de opción elegida visible al 100%
+      --placeholder-color: #64748b !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding-left: 16px;
+      padding-right: 16px;
+      min-height: 56px;
+
+      &::part(label) {
+        color: #475569 !important;
+        font-weight: 600;
+      }
+
+      &::part(text) {
+        color: #0f172a !important;
+      }
+
+      &::part(icon) {
+        color: #64748b !important;
+        opacity: 1;
+      }
     }
   }
 
-  // Estilo sutil para campos congelados/informativos
-  .readonly-input {
-    opacity: 0.8;
-    --background: #f8fafc;
-    background: #f8fafc;
-  }
-}
+  // 🖼️ ZONA DE CAPTURA BIOMÉTRICA DE ROSTRO
+  .foto-zona {
+    .placeholder-camara {
+      width: 100%;
+      padding: 24px 16px;
+      border: 2px dashed #cbd5e1;
+      border-radius: 10px;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
 
-.foto-zona {
-  margin: 20px 0;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 20px;
-  border: 2px dashed #d1c4e9;
-  transition: 0.3s;
-  
-  &:hover { border-color: #{$morado}; }
+      ion-icon {
+        color: #94a3b8;
+        margin-bottom: 8px;
+        font-size: 44px !important;
+        transition: all 0.2s ease-in-out;
+      }
 
-  .placeholder-camara {
-    color: #6a1b9a;
-    ion-icon { font-size: 50px; }
-    p { font-weight: 600; margin-top: 10px; }
-  }
+      p {
+        color: #334155;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 0 0 2px 0;
+      }
 
-  .preview-container {
-    position: relative;
-    .preview-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 20px;
-      object-fit: cover;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      span {
+        color: #94a3b8;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      &:hover {
+        border-color: #1e40af;
+        background: #eff6ff;
+        
+        ion-icon {
+          color: #1e40af;
+          transform: scale(1.05);
+        }
+      }
     }
-    .btn-eliminar {
-      position: absolute;
-      top: -10px;
-      right: calc(50% - 85px);
-      background: white;
+
+    // Contenedor circular simétrico para el rostro
+    .preview-container {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin: 0 auto;
       border-radius: 50%;
+      border: 3px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+
+      .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .btn-remove-foto {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 32px;
+        background: rgba(239, 68, 68, 0.9);
+        color: #ffffff;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        ion-icon {
+          font-size: 1.1rem;
+        }
+
+        &:hover {
+          background: #dc2626;
+        }
+      }
     }
   }
-}
 
-.submit-btn {
-  --border-radius: 16px;
-  height: 56px;
-  font-weight: 700;
-  box-shadow: 0 8px 16px rgba(106, 27, 154, 0.25);
-  margin-top: 10px;
-}
+  // 🚀 BOTÓN PRINCIPAL "GUARDAR CAMBIOS"
+  .submit-btn {
+    --background: #1e40af !important;
+    --background-activated: #1d4ed8 !important;
+    --background-hover: #1d4ed8 !important;
+    --color: #ffffff !important;
+    --border-radius: 8px !important;
+    font-weight: 700;
+    font-size: 0.95rem;
+    height: 46px;
+    text-transform: none;
+    margin-top: 24px;
+    letter-spacing: 0.3px;
 
-// Estilos de los mensajes de error informativos
-.error-msg {
-  display: block;
-  margin: -6px 0 12px 10px;
-  font-size: 0.85rem;
-  font-weight: 500;
+    ion-spinner {
+      --color: #ffffff !important;
+    }
+  }
 }

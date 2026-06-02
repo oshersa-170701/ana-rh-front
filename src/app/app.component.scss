@@ -1,0 +1,74 @@
+// 🏛️ BARRA LATERAL PREMIUM (ion-menu)
+ion-menu {
+  // Aplicamos un borde fino de separación de oficina
+  --border: 1px solid #e2e8f0;
+  
+  ion-header {
+    box-shadow: none !important; // Adiós a la sombra pesada nativa
+
+    ion-toolbar {
+      // 🚀 CAMBIO DE IDENTIDAD: Fondo blanco nítido y letras negro mate
+      --background: #ffffff !important; 
+      --color: #0f172a !important; 
+      border-bottom: 1px solid #e2e8f0 !important; // Delgada línea divisoria
+      height: 64px; // Misma altura que tu cabecera principal
+
+      ion-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        color: #0f172a !important;
+      }
+    }
+  }
+
+  // Cuerpo interno del menú desplegable
+  ion-content {
+    --background: #ffffff !important; // Fondo blanco limpio para dar amplitud
+    
+    ion-list {
+      background: transparent !important;
+      padding-top: 16px;
+    }
+  }
+}
+
+// 🚪 BOTÓN "CERRAR SESIÓN" ESTILIZADO (Formato Cápsula)
+ion-item {
+  --background: transparent !important;
+  --background-hover: #fef2f2 !important; // Fondo rojo ultra-suave al pasar el dedo o cursor
+  --border-radius: 8px !important;
+  margin: 4px 12px !important; // Le damos aire para separarlo de los bordes de la tablet
+  height: 48px;
+  transition: all 0.2s ease-in-out;
+
+  // Interceptamos el contenedor interno del Shadow DOM de Ionic
+  &::part(native) {
+    padding-start: 16px !important;
+    padding-end: 16px !important;
+    border-radius: 8px !important;
+  }
+
+  ion-icon {
+    font-size: 1.25rem;
+    margin-right: 12px;
+    color: #ef4444 !important; // Rojo de advertencia corporativo pulido
+  }
+
+  ion-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ef4444 !important;
+    letter-spacing: -0.2px;
+  }
+
+  // Efecto activo al presionar en la tablet
+  &:active {
+    background: #fee2e2 !important;
+  }
+}
+
+// 📺 EL CONTENEDOR PRINCIPAL DE PÁGINAS (ion-page)
+#main-content {
+  background: #f1f5f9 !important; // Asegura que las vistas hereden el gris claro de inmediato
+}

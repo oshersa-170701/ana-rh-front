@@ -64,7 +64,7 @@ async onLogin() {
     // 1. Intentamos loguear primero como Superadmin global
     this.authService.loginSuperadmin(this.user, this.password_hash).subscribe({
       next: () => {
-        this.showToast('¡Bienvenido Superadmin! 💫', 'success');
+        this.showToast('¡Bienvenido Superadmin!', 'success');
         this.router.navigate(['/dashboard']); // Va a la raíz del dashboard (home-admin)
       },
       error: (err) => {
@@ -73,7 +73,7 @@ async onLogin() {
         // 2. Si falla el Superadmin, se intenta con las credenciales de la tabla empleados
         this.authService.loginEmpleadoAdmin(this.user, this.password_hash).subscribe({
           next: () => {
-            this.showToast('¡Bienvenido, Supervisor! 🏢', 'success');
+            this.showToast('¡Bienvenido, Supervisor!', 'success');
             
             // ✨ REDIRECCIÓN AL ENTORNO CORRECTO:
             this.router.navigate(['/dashboard/home-supervisor']); 

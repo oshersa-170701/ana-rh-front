@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { saveOutline, alertCircleOutline, businessOutline } from 'ionicons/icons';
+import { saveOutline, alertCircleOutline, businessOutline, closeOutline } from 'ionicons/icons';
 import { SucursalesService } from 'src/app/services/sucursales';
 import { Empresa, Empresas } from 'src/app/services/empresas';
 
@@ -38,7 +38,7 @@ export class AgregarSucursalComponent implements OnInit {
     private toastCtrl: ToastController,
     private empresasService: Empresas
   ) {
-    addIcons({ saveOutline, alertCircleOutline, businessOutline });
+    addIcons({closeOutline,saveOutline,alertCircleOutline,businessOutline});
   }
 
   ngOnInit() {

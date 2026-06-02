@@ -10,16 +10,17 @@ import {
   IonLabel, 
   IonInput, 
   IonButton, 
-  ModalController 
-} from '@ionic/angular/standalone';
+  ModalController, IonSpinner, IonIcon, IonButtons } from '@ionic/angular/standalone';
 import { NominasService } from 'src/app/services/nominas';
+import { addIcons } from 'ionicons';
+import { calendarOutline, closeOutline, informationCircleOutline, calculatorOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-registrar-nomina-modal',
   templateUrl: './registrar-nomina-modal.component.html',
   styleUrls: ['./registrar-nomina-modal.component.scss'],
   standalone: true,
-  imports: [
+  imports: [IonButtons, IonIcon, IonSpinner, 
     IonHeader, 
     IonToolbar, 
     IonTitle, 
@@ -42,7 +43,7 @@ export class RegistrarNominaModalComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private nominasService: NominasService
-  ) { }
+  ) { addIcons({closeOutline,informationCircleOutline,calendarOutline,calculatorOutline}); }
 
   ngOnInit() {}
 

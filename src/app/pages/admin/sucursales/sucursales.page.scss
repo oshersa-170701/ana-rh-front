@@ -1,103 +1,180 @@
-.crud-container {
-  background: #1e293b;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  margin-top: 10px;
+// 🏛️ FONDO GLOBAL CLARO
+ion-content {
+  --background: #f1f5f9 !important; // Gris institucional estándar
 }
 
+// 📦 CONTENEDOR PRINCIPAL ESTILO SAAS (Blindado contra Ionic)
+.crud-container {
+  position: relative; // 🎯 Necesario para la barra de acento superior
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  padding: 28px 24px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.03), 
+              0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+  margin: 20px 12px !important;
+  overflow: hidden !important; // Corta los bordes rectos de la barra superior
+
+  // 🔹 LA LÍNEA DE ACENTO: Barra superior ejecutiva azul navy
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Línea idéntica a la de Login y Empresas
+    background: #1e40af; // El azul corporativo de ANA Medic
+    z-index: 10;
+  }
+}
+
+// 🏷️ ENCABEZADO Y BOTÓN DE ACCIÓN
 .table-header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
 
   h2 {
-    color: #ffffff;
     font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a; // Pizarra oscuro corporativo
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+
+  // Botón "Agregar Sucursal" adaptado al diseño limpio
+  ion-button {
+    --background: #1e40af !important;
+    --background-activated: #1d4ed8 !important;
+    --background-hover: #1d4ed8 !important;
+    --color: #ffffff !important;
+    --border-radius: 8px !important;
     font-weight: 600;
+    font-size: 0.9rem;
+    height: 40px;
+    text-transform: none;
     margin: 0;
   }
 }
 
+// 📊 CONTENEDOR RESPONSIVO
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  border-radius: 8px;
-  background: #0f172a;
+  -webkit-overflow-scrolling: touch;
 }
 
+// 📋 LA TABLA CORPORATIVA (Con cabecera azul ejecutiva)
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  color: #cbd5e1;
-  font-size: 0.95rem;
 
+  // 🔹 Cabecera de la Tabla en Azul Corporativo
   thead {
-    background: #1e293b;
-    color: #94a3b8;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.5px;
+    background: #1e40af !important; // Azul Navy de la marca 👔
+    
+    th {
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff !important; // Letras en blanco puro para un alto contraste ⚡
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: none !important;
+    }
   }
 
-  th, td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #334155;
-    white-space: nowrap;
-  }
+  // Cuerpo de Datos
+  tbody {
+    tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background-color 0.2s ease-in-out;
 
-  tbody tr:hover {
-    background: rgba(255, 255, 255, 0.02);
-  }
+      &:hover {
+        background-color: #f8fafc !important; // Destaca la fila sutilmente al pasar el dedo o el cursor
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
 
-  .no-data {
-    color: #64748b;
-    padding: 30px;
+    td {
+      padding: 16px;
+      font-size: 0.9rem;
+      color: #334155;
+      vertical-align: middle;
+    }
   }
+}
 
-  .font-bold {
-    color: #ffffff;
-    font-weight: 500;
-  }
+// 🧬 CLASES DE REFINAMIENTO DE DATOS
+.font-bold {
+  font-weight: 700;
+  color: #0f172a !important; // Resalta el nombre de la sucursal
+}
 
-  .uuid-text {
-    font-family: monospace;
-    color: #64748b;
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.direccion-text {
+  color: #475569;
+  font-weight: 500;
+}
 
-  .tenant-badge {
-    background: rgba(59, 130, 246, 0.15);
-    color: #60a5fa;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid rgba(59, 130, 246, 0.3);
-  }
+// 🏷️ ETIQUETA TENANT (Muestra la empresa asociada con estilo SaaS limpio)
+.tenant-badge {
+  background: #f1f5f9;
+  color: #1e40af;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid #e2e8f0;
+  display: inline-block;
+}
 
-  .direccion-text {
-    color: #94a3b8;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+// Disminuye el impacto visual de los IDs largos (UUID)
+.uuid-text {
+  font-size: 0.75rem !important;
+  color: #94a3b8;
+  font-family: monospace;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-  .text-center {
-    text-align: center;
-  }
+// 🎯 ALINEACIONES Y ACCIONES
+.text-center {
+  text-align: center !important;
+}
 
-  .actions-cell {
-    padding: 4px;
-    ion-button {
-      --padding-start: 8px;
-      --padding-end: 8px;
-      margin: 0;
+.no-data {
+  padding: 32px !important;
+  color: #94a3b8 !important;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.actions-cell {
+  text-align: center !important;
+  
+  ion-button {
+    margin: 0 2px;
+    display: inline-block;
+    --background: transparent !important;
+    --box-shadow: none !important;
+
+    // Cambiamos el color de edición a azul en vez del amarillo por defecto, se ve más corporativo
+    &[color="warning"] {
+      --color: #2563eb !important; 
+    }
+
+    &:hover {
+      background: #f1f5f9;
+      border-radius: 6px;
     }
   }
 }

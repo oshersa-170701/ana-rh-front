@@ -1,43 +1,129 @@
-.modal-dark-content {
-  --background: #0f172a;
-  
-  ion-input {
-    --background: #1e293b;
-    --color: #ffffff;
-    --placeholder-color: #64748b;
-    border-radius: 8px;
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
+ion-header {
+  box-shadow: none !important;
+
+  ion-toolbar {
+    --background: #1e40af !important; // 👔 Forzamos el Azul Navy de ANA Medic
+    --color: #ffffff !important; // Texto blanco de alto contraste
+    height: 60px;
+
+    ion-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff !important;
+    }
   }
 }
 
-.form-actions {
-  margin-top: 25px;
-  ion-button {
-    --border-radius: 8px;
-    font-weight: 600;
+// 🚪 BOTÓN DE CANCELACIÓN BLANCO (Para contrastar con la barra azul)
+.btn-cancelar-header {
+  --color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: none;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
   }
 }
+
+// 📦 CUERPO DEL FORMULARIO CLARO
+.modal-ejecutivo-content {
+  --background: #ffffff !important;
+
+  // Estilizado ejecutivo para los inputs de texto
+  ion-input {
+    --background: #f8fafc !important;
+    --color: #0f172a !important; // Texto negro mate visible
+    --placeholder-color: #94a3b8;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    padding: 0 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      --background: #ffffff !important;
+    }
+  }
+
+  // 🎯 PARCHE DEFINITIVO PARA EL SELECT (Soluciona el texto invisible)
+  .custom-select-container {
+    width: 100%;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #ffffff !important;
+    }
+
+    // Estilizamos las variables internas del componente ion-select de Ionic
+    ion-select {
+      --color: #0f172a !important; // 🔥 Obligamos a que el texto seleccionado sea negro mate visible
+      --placeholder-color: #64748b !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding-left: 16px;
+      padding-right: 16px;
+      min-height: 56px;
+
+      // Estilo de la etiqueta flotante del select
+      &::part(label) {
+        color: #475569 !important; // Gris oscuro para la etiqueta flotante
+        font-weight: 600;
+      }
+
+      // Estilo del texto del valor ya seleccionado
+      &::part(text) {
+        color: #0f172a !important;
+      }
+
+      // Icono del chevron lateral
+      &::part(icon) {
+        color: #64748b !important;
+        opacity: 1;
+      }
+    }
+  }
+
+  ion-note {
+    font-size: 0.8rem;
+    padding-left: 4px;
+    font-weight: 500;
+  }
+}
+
+// 🖼️ SECCIÓN DEL CONTENEDOR DE LOGOTIPO
 .logo-upload-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 
   .custom-label-logo {
-    color: #94a3b8;
-    font-size: 0.9rem;
-    font-weight: 500;
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 2px;
   }
 
   .hidden-file-input {
     display: none;
   }
 
-  // 📦 Zona de arrastre / Contenedor interactivo vacío
   .dropzone-container {
     width: 100%;
     height: 120px;
-    border: 2px dashed #475569;
+    border: 2px dashed #cbd5e1;
     border-radius: 10px;
-    background: #1e293b;
+    background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,12 +131,12 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      border-color: #c084fc; // Color lila de tu divisor
-      background: rgba(192, 132, 252, 0.04);
+      border-color: #1e40af; 
+      background: #eff6ff;
       
       .dropzone-icon {
-        color: #c084fc;
-        transform: scale(1.1);
+        color: #1e40af;
+        transform: scale(1.05);
       }
     }
 
@@ -58,53 +144,49 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       text-align: center;
     }
 
     .dropzone-icon {
       font-size: 2rem;
-      color: #64748b;
-      transition: all 0.2s ease-in-out;
+      color: #94a3b8;
     }
 
     .dropzone-text {
-      color: #f8fafc;
+      color: #334155;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .dropzone-subtext {
-      color: #64748b;
+      color: #94a3b8;
       font-size: 0.75rem;
     }
   }
 
-  // 🖼️ Contenedor cuando la imagen ya está cargada
   .preview-active-container {
     position: relative;
     width: 100%;
-    height: 140px;
-    border: 1px solid #334155;
+    height: 130px;
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
-    background: #0f172a; // Fondo más oscuro para resaltar la imagen
+    background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 
     .img-preview-canvas {
-      max-width: 90%;
+      max-width: 85%;
       max-height: 85%;
       object-fit: contain;
     }
 
-    // 🗑️ Botón flotante de eliminación
     .btn-remove-logo {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 8px;
+      right: 8px;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -115,12 +197,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
-      transition: background 0.2s;
-
-      ion-icon {
-        font-size: 1.1rem;
-      }
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
 
       &:hover {
         background: #dc2626;
@@ -129,8 +206,22 @@
   }
 
   .helper-logo {
+    color: #94a3b8;
     font-size: 0.8rem;
-    color: #64748b;
-    margin-top: 2px;
   }
+}
+
+// 🚀 BOTÓN DE ACCIÓN "ACTUALIZAR CAMBIOS"
+.btn-guardar {
+  --background: #1e40af !important;
+  --background-activated: #1d4ed8 !important;
+  --background-hover: #1d4ed8 !important;
+  --color: #ffffff !important;
+  --border-radius: 8px !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  height: 44px;
+  text-transform: none;
+  margin-top: 16px;
+  letter-spacing: 0.3px;
 }

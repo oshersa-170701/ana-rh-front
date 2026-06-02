@@ -1,84 +1,119 @@
+// 🏛️ FONDO CLARO INSTITUCIONAL (Consistent Layout)
 .supervisor-bg {
-  --background: #0f172a;
+  --background: #f1f5f9 !important; // El mismo gris claro de oficina
 }
 
+// 🏷️ SECCIÓN DE BIENVENIDA OPERATIVA
 .supervisor-welcome {
-  padding: 12px 6px;
+  margin: 24px 16px 12px 16px;
+
   h1 {
-    color: #ffffff;
-    font-size: 1.7rem;
-    font-weight: 700;
-    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0f172a; // Azul pizarra de alta densidad
+    letter-spacing: -0.5px;
+    margin: 0 0 6px 0;
   }
+
   p {
-    color: #cbd5e1;
-    font-size: 1.1rem;
-    margin: 4px 0 10px 0;
-  }
-  .badge-custom {
-    padding: 6px 10px;
-    font-size: 0.8rem;
+    font-size: 1.05rem;
+    color: #475569; // Gris elegante
+    margin: 0 0 10px 0;
     font-weight: 600;
-    border-radius: 6px;
-    text-transform: uppercase;
+  }
+
+  .meta-info {
+    display: inline-block;
+    
+    // Badge de puesto del supervisor estilizado como etiqueta corporativa sutil
+    .badge-custom {
+      --background: #eff6ff !important;
+      --color: #1e40af !important;
+      padding: 6px 12px !important;
+      border-radius: 6px !important;
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
+      border: 1px solid #bfdbfe !important;
+    }
   }
 }
 
+// 🎴 TARJETAS OPERATIVAS PREMIUM (SaaS Cards)
 .menu-card {
-  --background: #1e293b;
-  --color: #ffffff;
-  border: 1px solid #334155;
-  border-radius: 12px;
-  margin: 0;
-  height: 100%;
-  transition: transform 0.2s, border-color 0.2s;
+  position: relative; // 🎯 Anclaje estricto para la barra de acento superior
+  background: #ffffff !important; // Blanco puro
+  border: 1px solid #e2e8f0 !important; // Borde nítido estándar
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.02), 
+              0 2px 4px -2px rgba(15, 23, 42, 0.02) !important;
+  margin: 12px 8px !important;
+  overflow: hidden !important; // Corta limpiamente la barra superior
+  transition: all 0.25s ease-in-out;
 
-  &:hover {
-    transform: translateY(-2px);
-    border-color: #38bdf8;
+  // 🔹 LA LÍNEA DE ACENTO: Fina barra superior en azul navy unificado
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px; // Detalle idéntico a todo el ecosistema de ANA Medic
+    background: #1e40af; 
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    z-index: 10;
   }
 
+  // ⚡ EFECTO REALCE TÁCTIL / HOVER PREMIUM
+  &:hover, &:focus {
+    transform: translateY(-4px); // Elevación limpia y profesional al interactuar
+    box-shadow: 0 12px 20px -3px rgba(15, 23, 42, 0.06), 
+                0 4px 12px -4px rgba(15, 23, 42, 0.06) !important;
+    border-color: #cbd5e1 !important;
+
+    &::before {
+      opacity: 1; // Resalta más el azul al interactuar
+    }
+  }
+
+  // Ajuste de cabecera interna
   ion-card-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding-bottom: 8px;
+    gap: 16px;
+    padding: 24px 20px 12px 20px !important;
+
+    // 🛡️ UNIFICACIÓN DE ENTORNO DE ICONOS (Aplastamos los fondos emerald/ocean/orange anteriores)
+    .badge-icon {
+      background: #f1f5f9 !important; // Fondo gris neutro de oficina para enmarcar el icono
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+
+      ion-icon {
+        font-size: 1.8rem;
+        color: #1e40af !important; // Todos los iconos se tiñen del azul institucional
+      }
+    }
+
+    ion-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a !important;
+      letter-spacing: -0.3px;
+      margin: 0;
+    }
   }
 
-  ion-card-title {
-    color: #ffffff;
-    font-size: 1.15rem;
-    font-weight: 600;
-  }
-
+  // Contenido o cuerpo del texto descriptivo
   ion-card-content {
-    color: #94a3b8;
+    padding: 0 20px 24px 20px !important;
     font-size: 0.9rem;
-    line-height: 1.4;
-  }
-}
-
-.badge-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  
-  ion-icon {
-    font-size: 22px;
-    color: #ffffff;
-  }
-}
-
-.icon-emerald { background: linear-gradient(135deg, #10b981, #047857); }
-.icon-ocean   { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
-.icon-orange   { background: linear-gradient(135deg, #f97316, #ea580c); }
-
-.action-footer {
-  margin-top: 48px;
-  ion-button {
-    font-weight: 600;
+    color: #64748b !important; // Gris slate mitigado muy legible
+    line-height: 1.5;
+    font-weight: 500;
   }
 }

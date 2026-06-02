@@ -10,18 +10,19 @@ import {
   IonSpinner,
   IonBadge,
   ModalController,
-  AlertController 
-} from '@ionic/angular/standalone';
+  AlertController, IonIcon, IonButtons } from '@ionic/angular/standalone';
 import { NominasService } from 'src/app/services/nominas';
 import { EstatusNomina, NominaResponse, NominaDetalleResponse } from 'src/app/models1/nomina.interface';
 import { PdfGeneratorService } from 'src/app/services/pdf-generator';
+import { addIcons } from 'ionicons';
+import { documentAttachOutline, arrowBackOutline, shieldCheckmarkOutline, cashOutline, closeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-ver-nomina-modal',
   templateUrl: './ver-nomina-modal.component.html',
   styleUrls: ['./ver-nomina-modal.component.scss'],
   standalone: true,
-  imports: [
+  imports: [IonButtons, IonIcon, 
     IonHeader, 
     IonToolbar, 
     IonTitle, 
@@ -48,7 +49,7 @@ export class VerNominaModalComponent implements OnInit {
     private alertCtrl: AlertController, 
     private nominasService: NominasService,
     private pdfService: PdfGeneratorService // 👈 2. Inyectamos el servicio de PDF
-  ) { }
+  ) { addIcons({closeOutline,shieldCheckmarkOutline,cashOutline,documentAttachOutline,arrowBackOutline}); }
 
   ngOnInit() {
     this.cargarDetalleCompleto();

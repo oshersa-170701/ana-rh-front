@@ -51,10 +51,11 @@ export class EmpleadosPage implements OnInit {
     this.cargarEmpleados();
   }
 
-  cargarEmpleados() {
+ cargarEmpleados() {
     this.empleadosService.getEmpleados().subscribe({
       next: (data) => {
-        this.empleados = data;
+        // 🎯 FILTRO INTELIGENTE: Solo conserva empleados que posean credenciales de ingreso (user y hash)
+        this.empleados = data.filter(emp => emp.user && emp.password_hash);
       },
       error: (err) => {
         console.error('Error al traer los empleados de NestJS:', err);

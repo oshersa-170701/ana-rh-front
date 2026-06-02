@@ -1,13 +1,16 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar class="morado-header">
+  <ion-toolbar >
     <ion-title>Reportar Incidencia</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="cancelar()" color="danger">X</ion-button>
+   <ion-button (click)="cerrar()" class="btn-close-header">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding custom-bg">
+<ion-content class="ion-padding modal-ejecutivo-content">
+  
   <div class="empleado-badge-panel">
     <div class="meta-info">
       <h3>{{ empleadoData?.nombre_completo }}</h3>
@@ -18,24 +21,33 @@
   <form [formGroup]="incidenciaForm" (ngSubmit)="guardar()">
     <div class="form-container">
       
-      <ion-select fill="outline" color="tertiary" label="Tipo de Incidencia" labelPlacement="floating"
-        formControlName="tipo" interface="popover">
-        <ion-select-option value="FALTA">❌ Falta</ion-select-option>
-        <ion-select-option value="RETARDO">⏳ Retardo</ion-select-option>
-        <ion-select-option value="HORA_EXTRA">⚡ Hora Extra</ion-select-option>
-        <ion-select-option value="PERMISO">📝 Permiso Especial</ion-select-option>
-        <ion-select-option value="VACACIONES">🏖️ Vacaciones</ion-select-option>
-      </ion-select>
+      <div class="form-group">
+        <div class="custom-select-container">
+          <ion-select 
+            label="Tipo de Incidencia" 
+            labelPlacement="floating"
+            interface="popover"
+            toggleIcon="chevron-down-outline"
+            expandedIcon="chevron-up-outline"
+            formControlName="tipo">
+            <ion-select-option value="FALTA">Falta</ion-select-option>
+            <ion-select-option value="RETARDO">Retardo</ion-select-option>
+            <ion-select-option value="HORA_EXTRA">Hora Extra</ion-select-option>
+            <ion-select-option value="PERMISO">Permiso Especial</ion-select-option>
+            <ion-select-option value="VACACIONES">Vacaciones</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
 
-      <ion-input fill="outline" color="tertiary" label="Fecha del Suceso" labelPlacement="floating" 
-        type="date" formControlName="fecha"></ion-input>
+      <ion-input fill="solid" label="Fecha del Suceso" labelPlacement="floating" 
+        type="date" formControlName="fecha" class="ion-margin-top"></ion-input>
 
-      <ion-input fill="outline" color="tertiary" label="Tiempo Afectado (Horas)" labelPlacement="floating" 
-        type="number" formControlName="cantidad_horas" min="0"></ion-input>
+      <ion-input fill="solid" label="Tiempo Afectado (Horas)" labelPlacement="floating" 
+        type="number" formControlName="cantidad_horas" min="0" class="ion-margin-top"></ion-input>
 
-      <ion-textarea fill="outline" color="tertiary" label="Justificación / Motivo" labelPlacement="floating"
+      <ion-textarea fill="solid" label="Justificación / Motivo" labelPlacement="floating"
         formControlName="motivo" placeholder="Escribe el motivo detallado de la incidencia..." 
-        [autoGrow]="true" rows="3"></ion-textarea>
+        [autoGrow]="true" class="ion-margin-top"></ion-textarea>
         
       @if (incidenciaForm.get('motivo')?.invalid && incidenciaForm.get('motivo')?.touched) {
         <ion-note color="danger" class="error-msg">⚠️ La justificación debe tener al menos 10 caracteres.</ion-note>
@@ -43,8 +55,7 @@
 
     </div>
 
-    <ion-button expand="block" type="submit" color="tertiary"
-      [disabled]="incidenciaForm.invalid || isSaving" class="submit-btn" size="large">
+    <ion-button expand="block" type="submit" [disabled]="incidenciaForm.invalid || isSaving" class="submit-btn">
       @if (isSaving) {
         <ion-spinner name="crescent"></ion-spinner>
         <span style="margin-left: 12px;">Guardando incidencia...</span>

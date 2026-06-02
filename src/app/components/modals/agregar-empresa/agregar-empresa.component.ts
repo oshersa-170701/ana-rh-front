@@ -15,7 +15,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline } from 'ionicons/icons';
+import { saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline, closeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-agregar-empresa',
@@ -49,7 +49,7 @@ export class AgregarEmpresaComponent {
     private toastCtrl: ToastController 
   ) {
     // Agregamos imageOutline a la colección de iconos nativos
-    addIcons({imageOutline,trashOutline,saveOutline,alertCircleOutline,checkmarkCircleOutline});
+    addIcons({closeOutline,imageOutline,trashOutline,saveOutline,alertCircleOutline,checkmarkCircleOutline});
   }
 
   cancelar() {

@@ -9,13 +9,14 @@ import {
   IonToolbar, 
   IonSpinner, 
   IonNote,
-  ModalController 
-} from '@ionic/angular/standalone'; 
+  ModalController, IonButton, IonIcon } from '@ionic/angular/standalone'; 
 
 import { AppHeaderComponent } from "src/app/components/app-header/app-header.component";
 import { AsistenciasService } from 'src/app/services/asistencias';
 import { RegistrarIncidenciaModalComponent } from 'src/app/components/modals/registrar-incidencia-modal/registrar-incidencia-modal.component';
 import { VerIncidenciaModalComponent } from 'src/app/components/modals/ver-indicencia-modal/ver-indicencia-modal.component';
+import { addIcons } from 'ionicons';
+import { documentTextOutline, searchOutline } from 'ionicons/icons';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { VerIncidenciaModalComponent } from 'src/app/components/modals/ver-indic
   templateUrl: './asistencias.page.html',
   styleUrls: ['./asistencias.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonNote, CommonModule, FormsModule, AppHeaderComponent]
+  imports: [IonIcon, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, IonSpinner, IonNote, CommonModule, FormsModule, AppHeaderComponent]
 })
 export class AsistenciasPage implements OnInit {
 
@@ -33,7 +34,9 @@ export class AsistenciasPage implements OnInit {
   constructor(
     private asistenciasService: AsistenciasService, 
     private modalCtrl: ModalController 
-  ) { }
+  ) { 
+    addIcons({searchOutline, documentTextOutline});
+   }
 
   ngOnInit() {
     this.cargarHistorialAsistencias();
@@ -78,6 +81,7 @@ export class AsistenciasPage implements OnInit {
   async abrirModalIncidencia(empleado: any) {
     const modal = await this.modalCtrl.create({
       component: RegistrarIncidenciaModalComponent,
+      mode: 'ios', // Para mantener la estética limpia deslizando desde abajo
       componentProps: {
         empleadoData: empleado
       }
@@ -96,6 +100,7 @@ export class AsistenciasPage implements OnInit {
   async abrirModalVerIncidencia(incidencia: any) {
     const modal = await this.modalCtrl.create({
       component: VerIncidenciaModalComponent,
+      mode: 'ios',
       componentProps: {
         incidenciaData: incidencia 
       }

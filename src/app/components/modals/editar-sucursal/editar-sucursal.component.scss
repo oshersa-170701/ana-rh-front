@@ -1,23 +1,117 @@
-.modal-dark-content {
-  --background: #0f172a;
-  
+// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
+ion-header {
+  box-shadow: none !important;
+
+  ion-toolbar {
+    --background: #1e40af !important; // El azul navy oficial de ANA Medic
+    --color: #ffffff !important; // Texto blanco puro
+    height: 60px;
+
+    ion-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: #ffffff !important;
+    }
+  }
+}
+
+// 🚪 BOTÓN DE CANCELACIÓN EN EL HEADER
+.btn-cancelar-header {
+  --color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: none;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// 📦 CUERPO DEL FORMULARIO SAAS CLARO
+.modal-ejecutivo-content {
+  --background: #ffffff !important; // Fondo nítido limpio
+
+  // Estilizado para los campos de tipo input de texto y textarea
   ion-input, ion-textarea {
-    --background: #1e293b;
-    --color: #ffffff;
+    --background: #f8fafc !important;
+    --color: #0f172a !important; // Texto oscuro visible al 100%
+    --placeholder-color: #94a3b8;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
+    margin-bottom: 4px;
+    padding: 0 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      --background: #ffffff !important;
+    }
+  }
+
+  // Ajuste de altura base específico para el bloque textarea
+  ion-textarea {
+    min-height: 80px;
+    padding-top: 6px;
+  }
+
+  // 🎯 CONTENEDOR BLINDADO PARA EL SELECT DE EMPRESAS (Texto visible)
+  .custom-select-container {
+    width: 100%;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+
+    &:focus-within {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #ffffff !important;
+    }
+
+    // Interceptamos las propiedades internas del componente de Ionic
+    ion-select {
+      --color: #0f172a !important; // Forzamos texto de opción elegida en negro mate
+      --placeholder-color: #64748b !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding-left: 16px;
+      padding-right: 16px;
+      min-height: 56px;
+
+      // Etiqueta flotante superior
+      &::part(label) {
+        color: #475569 !important;
+        font-weight: 600;
+      }
+
+      // Texto interno renderizado
+      &::part(text) {
+        color: #0f172a !important;
+      }
+
+      // Flecha del menú desplegable lateral
+      &::part(icon) {
+        color: #64748b !important;
+        opacity: 1;
+      }
+    }
   }
 }
 
-.custom-select-item {
-  --background: #1e293b;
-  --color: #ffffff;
-  border-radius: 8px;
-}
-
-.form-actions {
-  margin-top: 25px;
-  ion-button {
-    --border-radius: 8px;
-    font-weight: 600;
-  }
+// 🚀 BOTÓN DE ACCIÓN "ACTUALIZAR SUCURSAL" (Azul Navy Premium)
+.btn-guardar {
+  --background: #1e40af !important;
+  --background-activated: #1d4ed8 !important;
+  --background-hover: #1d4ed8 !important;
+  --color: #ffffff !important;
+  --border-radius: 8px !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  height: 44px;
+  text-transform: none;
+  margin-top: 16px;
+  letter-spacing: 0.3px;
 }

@@ -20,6 +20,7 @@ export interface Empleado {
   empresa?: { nombre: string };
   sucursal?: { nombre: string };
   user?: string | null; // 👈 Nombre de usuario para el login de sistema
+  password_hash?: string | null; // 👈 Hash de contraseña para el login de sistema
 }
 
 @Injectable({
