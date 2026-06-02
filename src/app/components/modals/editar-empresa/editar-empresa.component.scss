@@ -45,3 +45,121 @@
     font-weight: 600;
   }
 }
+.logo-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .custom-label-logo {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .hidden-file-input {
+    display: none;
+  }
+
+  // 📦 Zona de arrastre / Contenedor interactivo vacío
+  .dropzone-container {
+    width: 100%;
+    height: 120px;
+    border: 2px dashed #475569;
+    border-radius: 10px;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border-color: #c084fc; // Color lila de tu divisor
+      background: rgba(192, 132, 252, 0.04);
+      
+      .dropzone-icon {
+        color: #c084fc;
+        transform: scale(1.1);
+      }
+    }
+
+    .dropzone-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .dropzone-icon {
+      font-size: 2rem;
+      color: #64748b;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .dropzone-text {
+      color: #f8fafc;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .dropzone-subtext {
+      color: #64748b;
+      font-size: 0.75rem;
+    }
+  }
+
+  // 🖼️ Contenedor cuando la imagen ya está cargada
+  .preview-active-container {
+    position: relative;
+    width: 100%;
+    height: 140px;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    background: #0f172a; // Fondo más oscuro para resaltar la imagen
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    .img-preview-canvas {
+      max-width: 90%;
+      max-height: 85%;
+      object-fit: contain;
+    }
+
+    // 🗑️ Botón flotante de eliminación
+    .btn-remove-logo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ef4444;
+      color: #ffffff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+      transition: background 0.2s;
+
+      ion-icon {
+        font-size: 1.1rem;
+      }
+
+      &:hover {
+        background: #dc2626;
+      }
+    }
+  }
+
+  .helper-logo {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 2px;
+  }
+}

@@ -10,10 +10,11 @@ import {
   IonSpinner,
   IonBadge,
   ModalController,
-  AlertController // 👈 1. Importamos el AlertController
+  AlertController 
 } from '@ionic/angular/standalone';
 import { NominasService } from 'src/app/services/nominas';
-import { EstatusNomina, NominaResponse } from 'src/app/models1/nomina.interface';
+import { EstatusNomina, NominaResponse, NominaDetalleResponse } from 'src/app/models1/nomina.interface';
+import { PdfGeneratorService } from 'src/app/services/pdf-generator';
 
 @Component({
   selector: 'app-ver-nomina-modal',
@@ -44,8 +45,9 @@ export class VerNominaModalComponent implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController, // 👈 2. Inyectamos el AlertController
-    private nominasService: NominasService
+    private alertCtrl: AlertController, 
+    private nominasService: NominasService,
+    private pdfService: PdfGeneratorService // 👈 2. Inyectamos el servicio de PDF
   ) { }
 
   ngOnInit() {
@@ -67,7 +69,33 @@ export class VerNominaModalComponent implements OnInit {
     });
   }
 
-  // 🚀 CAMBIO DE ESTADO: Ahora utiliza el AlertController asíncrono de Ionic
+  // 🚀 DISPARADOR DEL PDF: Llama a la librería pasándole la info acoplada
+descargarPDF(detalle: NominaDetalleResponse) {
+    if (this.nomina) {
+      
+      // 🛡️ DETECTOR DE FORMATO DE IMAGEN MULTI-TENANT
+      let urlFinalLogotipo: string | undefined = undefined;
+
+      if (this.nomina.empresa?.logo_url) {
+        const logo = this.nomina.empresa.logo_url;
+        
+        // Si ya es un string Base64 limpio, lo pasamos directo sin alterar
+        if (logo.startsWith('data:image/')) {
+          urlFinalLogotipo = logo;
+        } else {
+          // Si es una ruta de archivo estático (ej: uploads/logos/logo.png), le pegamos el backend
+          urlFinalLogotipo = 'http://localhost:3000/' + logo;
+        }
+      }
+
+      const infoEmpresa = {
+        nombre: this.nomina.empresa?.nombre || 'EMPRESA LOCAL S.A.',
+        logo_url: urlFinalLogotipo
+      };
+
+      this.pdfService.generarReciboEmpleado(this.nomina, detalle, infoEmpresa);
+    }
+  }
   async cambiarEstado(nuevoEstatus: EstatusNomina) {
     const alert = await this.alertCtrl.create({
       header: 'Confirmar Acción',
@@ -75,25 +103,17 @@ export class VerNominaModalComponent implements OnInit {
       message: `¿Estás seguro de que deseas marcar este período de nómina como ${nuevoEstatus.toLowerCase()}? Esta acción afectará el historial contable.`,
       backdropDismiss: false,
       buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'alert-btn-cancelar' // Por si quieres darle estilos específicos luego
-        },
+        { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Confirmar',
           role: 'confirm',
-          handler: () => {
-            this.ejecutarCambioEstatus(nuevoEstatus);
-          }
+          handler: () => { this.ejecutarCambioEstatus(nuevoEstatus); }
         }
       ]
     });
-
     await alert.present();
   }
 
-  // Lógica de consumo del servicio aislada para limpieza del código
   private ejecutarCambioEstatus(nuevoEstatus: EstatusNomina) {
     this.procesandoEstatus = true;
     this.nominasService.cambiarEstatusNomina(this.nominaId, nuevoEstatus).subscribe({
@@ -111,7 +131,6 @@ export class VerNominaModalComponent implements OnInit {
     });
   }
 
-  // Alerta secundaria para notificar errores del servidor de forma estética
   async mostrarAlertaError(mensaje: string) {
     const alert = await this.alertCtrl.create({
       header: 'Error Operativo',

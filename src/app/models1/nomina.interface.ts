@@ -1,4 +1,4 @@
-import { AsistenciaResponse } from '../services/asistencias'; // Por si la ocupas después
+export { AsistenciaResponse } from '../services/asistencias';
 
 export enum EstatusNomina {
   BORRADOR = 'BORRADOR',
@@ -6,7 +6,15 @@ export enum EstatusNomina {
   PAGADA = 'PAGADA'
 }
 
-// 👤 Estructura para el empleado vinculado dentro de los detalles
+// 🏢 Estructura de la empresa vinculada al Tenant
+export interface EmpresaResponse {
+  id: string;
+ nombre: string; // 👈 ¡Cambiado de nombre_comercial a nombre!
+  razon_social?: string;
+  rfc?: string;
+  logo_url?: string;
+}
+
 export interface EmpleadoDetalleNomina {
   id: string;
   nombre_completo: string;
@@ -17,7 +25,6 @@ export interface EmpleadoDetalleNomina {
   nss?: string;
 }
 
-// 📑 Estructura para cada renglón histórico de la tabla nominas_detalles
 export interface NominaDetalleResponse {
   id: string;
   nomina_id: string;
@@ -29,10 +36,9 @@ export interface NominaDetalleResponse {
   pago_horas_extra: number;
   total_neto: number;
   created_at: string;
-  empleado?: EmpleadoDetalleNomina; // 🔥 Objeto inyectado por la relación de NestJS
+  empleado?: EmpleadoDetalleNomina;
 }
 
-// 📅 Estructura principal de la Nómina (Cabecera Global)
 export interface NominaResponse {
   id: string;
   tenant_id: string;
@@ -40,5 +46,6 @@ export interface NominaResponse {
   periodo_fin: string;
   estatus: EstatusNomina;
   created_at: string;
-  detalles?: NominaDetalleResponse[]; // 🔥 Arreglo con todos los pagos calculados
+  empresa?: EmpresaResponse; // 🚀 ¡COMPLEMENTO DE TIPADO FRONTEND!
+  detalles?: NominaDetalleResponse[];
 }

@@ -18,7 +18,7 @@ import {
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { saveOutline, alertCircleOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-editar-empresa',
@@ -43,13 +43,14 @@ import { saveOutline, alertCircleOutline, checkmarkCircleOutline } from 'ionicon
   ]
 })
 export class EditarEmpresaComponent implements OnInit {
-  // ✨ Recibe los datos completos desde la tabla
+  
   @Input() empresaData!: any;
 
-  // Objeto local para el formulario
+  // Estructura sincronizada con la base de datos MySQL 🎯
   empresaEditada = {
     nombre: '',
     rfc: '',
+    logo_url: '', 
     estatus: true
   };
 
@@ -57,18 +58,40 @@ export class EditarEmpresaComponent implements OnInit {
     private modalCtrl: ModalController,
     private toastCtrl: ToastController
   ) {
-    addIcons({ saveOutline, alertCircleOutline, checkmarkCircleOutline });
+    // Registramos los iconos obligatorios de la interfaz
+    addIcons({ saveOutline, alertCircleOutline, checkmarkCircleOutline, imageOutline, trashOutline });
   }
 
   ngOnInit() {
-    // Clonamos los datos recibidos para rellenar los inputs al abrirse
     if (this.empresaData) {
+      // Si el logo viene de la BD como ruta parcial (ej: uploads/logos/...), 
+      // le inyectamos el puerto del servidor para que se dibuje correctamente en la vista previa.
+      let urlLogotipo = '';
+      if (this.empresaData.logo_url) {
+        urlLogotipo = this.empresaData.logo_url.startsWith('data:') || this.empresaData.logo_url.startsWith('http')
+          ? this.empresaData.logo_url
+          : `http://localhost:3000/${this.empresaData.logo_url}`;
+      }
+
       this.empresaEditada = {
         nombre: this.empresaData.nombre,
         rfc: this.empresaData.rfc,
+        logo_url: urlLogotipo,
         estatus: this.empresaData.estatus
       };
     }
+  }
+
+  // 📷 LECTOR BINARIO: Transforma el archivo cargado a formato Base64 para transportación en el JSON
+  seleccionarFoto(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.empresaEditada.logo_url = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   cancelar() {
@@ -87,36 +110,32 @@ export class EditarEmpresaComponent implements OnInit {
     await toast.present();
   }
 
-async guardar() {
+  async guardar() {
     try {
       const nombreLimpio = this.empresaEditada.nombre.trim();
       const rfcLimpio = this.empresaEditada.rfc.trim().toUpperCase();
 
-      // 1. Validación de campos vacíos
       if (!nombreLimpio || !rfcLimpio) {
         await this.mostrarToast('Por favor, rellena todos los campos obligatorios.', 'danger', 'alert-circle-outline');
         return;
       }
 
-      // 2. Validación de longitud del RFC
       if (rfcLimpio.length < 12 || rfcLimpio.length > 13) {
         await this.mostrarToast('El RFC debe tener entre 12 y 13 caracteres.', 'danger', 'alert-circle-outline');
         return;
       }
 
-      // ✨ Toast de éxito local si pasa los filtros antes de cerrar
       await this.mostrarToast('Cambios procesados con éxito.', 'success', 'checkmark-circle-outline');
 
-      // Retornamos los datos modificados con éxito
+      // Devolvemos el payload acoplado incluyendo el nuevo logo (o nulo si se removió)
       this.modalCtrl.dismiss({ 
         nombre: nombreLimpio, 
         rfc: rfcLimpio, 
+        logo_url: this.empresaEditada.logo_url || null,
         estatus: this.empresaEditada.estatus 
       }, 'confirm');
 
     } catch (error) {
-      // 💥 Toast de error por si ocurre un fallo inesperado en el hilo de ejecución
-    //  console.error('Error interno al validar la edición:', error);
       await this.mostrarToast('Hubo un error inesperado al validar la actualización.', 'danger', 'alert-circle-outline');
     }
   }

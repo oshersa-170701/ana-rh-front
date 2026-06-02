@@ -43,6 +43,36 @@
       </ion-note>
     </div>
 
+    <div class="form-group ion-margin-top logo-upload-section">
+      <label class="custom-label-logo">Logotipo de la Empresa (Opcional)</label>
+      
+      <input 
+        type="file" 
+        id="logoFile" 
+        accept="image/png, image/jpeg, image/jpg" 
+        (change)="seleccionarFoto($event)" 
+        class="hidden-file-input" 
+      />
+
+      <label for="logoFile" class="dropzone-container" *ngIf="!empresaEditada.logo_url">
+        <div class="dropzone-content">
+          <ion-icon name="image-outline" class="dropzone-icon"></ion-icon>
+          <span class="dropzone-text">Seleccionar Nuevo Logotipo</span>
+          <span class="dropzone-subtext">Formatos aceptados: PNG, JPG (Max. 2MB)</span>
+        </div>
+      </label>
+
+      <div class="preview-active-container" *ngIf="empresaEditada.logo_url">
+        <img [src]="empresaEditada.logo_url" alt="Logotipo corporativo" class="img-preview-canvas" />
+        
+        <button type="button" class="btn-remove-logo" (click)="empresaEditada.logo_url = ''">
+          <ion-icon name="trash-outline"></ion-icon>
+        </button>
+      </div>
+
+      <ion-note class="helper-logo">Este logotipo se utilizará para renderizar los encabezados de los recibos de nómina.</ion-note>
+    </div>
+
     <div class="form-group ion-margin-top">
       <ion-item lines="none" class="custom-select-item">
         <ion-select 

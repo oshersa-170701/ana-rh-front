@@ -4,7 +4,7 @@
       Desglose: Período #{{ nomina.id.substring(0,8).toUpperCase() }}
     </ion-title>
     <ion-title *ngIf="!nomina">Cargando Desglose...</ion-title>
-    <ion-button slot="end" fill="clear" color="light" (click)="cerrar()">
+    <ion-button slot="end" fill="clear" color="light" (click Rama)="cerrar()">
       VOLVER
     </ion-button>
   </ion-toolbar>
@@ -12,7 +12,6 @@
 
 <ion-content class="ion-padding modal-background">
 
-  <!-- Spinner de Carga Centralizado -->
   <div *ngIf="cargando" class="spinner-container">
     <ion-spinner name="cues"></ion-spinner>
     <p>Sincronizando cuentas y timbrados...</p>
@@ -20,15 +19,13 @@
 
   <div *ngIf="!cargando && nomina" class="modulo-container">
 
-    <!-- Info Panel Superior -->
-  <div class="resumen-periodo">
+    <div class="resumen-periodo">
       <div class="datos">
         <h3>Rango: <span>{{ nomina.periodo_inicio | date:'dd/MM/yyyy':'UTC' }}</span> al <span>{{ nomina.periodo_fin | date:'dd/MM/yyyy':'UTC' }}</span></h3>
         <p>Generada el {{ nomina.created_at | date:'dd/MM/yyyy hh:mm a' }}</p>
       </div>
       
       <div class="acciones-estatus">
-        
         <ion-button 
           *ngIf="nomina.estatus === EstatusEnum.BORRADOR" 
           color="secondary" 
@@ -55,7 +52,6 @@
 
     <hr class="divisor" />
 
-    <!-- Tabla Secundaria de Renglones por Empleado -->
     <div class="tabla-wrapper">
       <table class="tabla-detalles">
         <thead>
@@ -69,33 +65,40 @@
             <th class="text-right">PAGO BASE</th>
             <th class="text-right">PAGO EXTRA</th>
             <th class="text-right">TOTAL NETO</th>
-          </tr>
+            <th class="text-center">ACCIONES</th> </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of nomina.detalles">
-            <!-- Foto de Perfil con fallback -->
             <td>
               <div class="avatar-container">
-                <img *ngIf="item.empleado?.foto_perfil_url"
-                  [src]="'http://localhost:3000/' + item.empleado?.foto_perfil_url" class="avatar-tabla" alt="Perfil"
-                  (error)="item.empleado!.foto_perfil_url = ''" />
-
+                <img 
+                  *ngIf="item.empleado?.foto_perfil_url"
+                  [src]="'http://localhost:3000/' + item.empleado?.foto_perfil_url" 
+                  class="avatar-tabla" 
+                  alt="Perfil"
+                  (error)="item.empleado!.foto_perfil_url = ''" 
+                />
+               <div *ngIf="!item.empleado?.foto_perfil_url" class="avatar-placeholder">
+  {{ (item.empleado?.nombre_completo || 'E').substring(0, 1).toUpperCase() }}
+</div>
               </div>
             </td>
-            <!-- Datos Personales -->
             <td>
               <div class="nombre-emp">{{ item.empleado?.nombre_completo }}</div>
               <div class="curp-sub">CURP: {{ item.empleado?.curp }}</div>
             </td>
             <td>{{ item.empleado?.puesto || 'Sin Puesto' }}</td>
-            <!-- Métricas de Asistencias e Incidencias -->
             <td class="text-center num-destacado">{{ item.dias_asistidos }}</td>
             <td class="text-center text-danger font-bold">{{ item.faltas }}</td>
             <td class="text-center text-warning font-bold">{{ item.horas_extra }} hrs</td>
-            <!-- Desglose Monetario -->
             <td class="text-right">{{ item.pago_base | currency:'MXN':'symbol':'1.2-2' }}</td>
             <td class="text-right text-success">+{{ item.pago_horas_extra | currency:'MXN':'symbol':'1.2-2' }}</td>
             <td class="text-right total-pagar">{{ item.total_neto | currency:'MXN':'symbol':'1.2-2' }}</td>
+            <td class="text-center">
+              <ion-button color="light" size="small" class="btn-pdf" (click)="descargarPDF(item)">
+                PDF
+              </ion-button>
+            </td>
           </tr>
         </tbody>
       </table>
