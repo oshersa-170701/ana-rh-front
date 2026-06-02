@@ -1,0 +1,95 @@
+.incidencia-header {
+  --background: #b45309; // Tonalidad ámbar/café corporativo para auditoría
+  --color: white;
+  font-weight: 700;
+}
+
+.custom-bg {
+  --background: #0f172a; // Fondo azul noche oscuro
+  color: white;
+}
+
+.card-detalle {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.header-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-aprobado {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.fecha-text {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 14px;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #334155;
+  margin: 16px 0;
+}
+
+.info-group {
+  margin-bottom: 16px;
+
+  label {
+    font-size: 11px;
+    color: #a78bfa; // Detalle morado institucional para los títulos internos
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+.tipo-title {
+  margin: 4px 0 0 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.horas-text {
+  margin: 4px 0 0 0;
+  font-size: 16px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.justification-box, .supervisor-box {
+  background: #0f172a;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  margin-top: 6px;
+}
+
+.motivo-text {
+  margin: 4px 0 0 0;
+  color: #e2e8f0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.supervisor-name {
+  margin: 4px 0 0 0;
+  color: #60a5fa;
+  font-weight: 600;
+  font-size: 14px;
+}

@@ -11,6 +11,8 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
    provideIonicAngular({}),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient() // 👈 IMPORTANTE: Si falta esto, el servicio dará error
+    provideHttpClient() ,// 👈 IMPORTANTE: Si falta esto, el servicio dará error
+    // 2. 🔥 PARCHE DE ORO: Inicializa todos los controladores de Ionic (Modal, Toast, etc.)
+   
   ],
 });

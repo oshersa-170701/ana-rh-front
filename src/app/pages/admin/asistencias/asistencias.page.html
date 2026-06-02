@@ -1,0 +1,103 @@
+<app-header titulo="Asistencias de Empleados" [esHome]="false"></app-header>
+
+<ion-content [fullscreen]="true" class="custom-bg">
+  <div class="panel-container">
+    
+    <div class="panel-header">
+      <h2>Historial de Registros</h2>
+      <p>Monitoreo en tiempo real de entradas, almuerzos y salidas del personal.</p>
+    </div>
+
+    @if (cargando) {
+      <div class="loading-container">
+        <ion-spinner name="crescent" color="tertiary"></ion-spinner>
+        <p>Cargando registros de asistencia...</p>
+      </div>
+    } @else {
+
+      @if (listaAsistencias.length > 0) {
+        <div class="table-responsive animated-fade-in">
+          <table class="asistencias-table">
+            <thead>
+              <tr>
+                <th>Foto</th> 
+                <th>Colaborador</th>
+                <th>Puesto</th>
+                <th>Fecha</th>
+                <th>Evento</th>
+                <th>Hora de Registro</th>
+                <th>Método</th>
+                <th class="ion-text-center">Acciones</th> 
+              </tr>
+            </thead>
+            <tbody>
+              @for (asistencia of listaAsistencias; track asistencia.id) {
+                <tr>
+                  <td>
+                    <div class="avatar-container">
+                      @if (asistencia.empleado?.foto_perfil_url) {
+                        <img [src]="'http://localhost:3000/' + asistencia.empleado?.foto_perfil_url" alt="Perfil" class="empleado-avatar">
+                      } @else {
+                        <div class="avatar-placeholder">👤</div>
+                      }
+                    </div>
+                  </td>
+
+                  <td class="bold-text">
+                    {{ asistencia.empleado?.nombre_completo || 'Empleado Eliminado' }}
+                  </td>
+                  
+                  <td>
+                    <span class="puesto-text">{{ asistencia.empleado?.puesto || 'N/A' }}</span>
+                  </td>
+                  
+                  <td class="fecha-text">{{ asistencia.fecha }}</td>
+                  
+                  <td>
+                    <span class="event-tag" [ngClass]="getBadgeColor(asistencia.tipo_evento)">
+                      {{ asistencia.tipo_evento.replace('_', ' ') }}
+                    </span>
+                  </td>
+                  
+                  <td class="hora-text">{{ asistencia.hora }}</td>
+                  
+                  <td>
+                    <span class="metodo-badge">
+                      {{ asistencia.metodo_validacion || 'FACIAL' }}
+                    </span>
+                  </td>
+
+                  <td class="ion-text-center">
+                    @if (asistencia.incidencia) {
+                      <button class="btn-ver-incidencia" 
+                              (click)="abrirModalVerIncidencia(asistencia.incidencia)"
+                              title="Ver Detalle de la Incidencia">
+                        🔍 Ver Incidencia
+                      </button>
+                    } @else {
+                      <button class="btn-incidencia-action" 
+                              (click)="abrirModalIncidencia(asistencia.empleado)"
+                              [disabled]="!asistencia.empleado"
+                              title="Reportar Incidencia">
+                        📝 Incidencia
+                      </button>
+                    }
+                  </td>
+
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      } @else {
+        <div class="empty-container animated-fade-in">
+          <div class="icon-box">📅</div>
+          <h3>Sin registros el día de hoy</h3>
+          <p>No se han detectado marcas de asistencia para los colaboradores asignados a esta sucursal.</p>
+        </div>
+      }
+
+    }
+
+  </div>
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="morado-header">
+    <ion-title>Reportar Incidencia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()" color="danger">X</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding custom-bg">
+  <div class="empleado-badge-panel">
+    <div class="meta-info">
+      <h3>{{ empleadoData?.nombre_completo }}</h3>
+      <p>{{ empleadoData?.puesto }}</p>
+    </div>
+  </div>
+
+  <form [formGroup]="incidenciaForm" (ngSubmit)="guardar()">
+    <div class="form-container">
+      
+      <ion-select fill="outline" color="tertiary" label="Tipo de Incidencia" labelPlacement="floating"
+        formControlName="tipo" interface="popover">
+        <ion-select-option value="FALTA">❌ Falta</ion-select-option>
+        <ion-select-option value="RETARDO">⏳ Retardo</ion-select-option>
+        <ion-select-option value="HORA_EXTRA">⚡ Hora Extra</ion-select-option>
+        <ion-select-option value="PERMISO">📝 Permiso Especial</ion-select-option>
+        <ion-select-option value="VACACIONES">🏖️ Vacaciones</ion-select-option>
+      </ion-select>
+
+      <ion-input fill="outline" color="tertiary" label="Fecha del Suceso" labelPlacement="floating" 
+        type="date" formControlName="fecha"></ion-input>
+
+      <ion-input fill="outline" color="tertiary" label="Tiempo Afectado (Horas)" labelPlacement="floating" 
+        type="number" formControlName="cantidad_horas" min="0"></ion-input>
+
+      <ion-textarea fill="outline" color="tertiary" label="Justificación / Motivo" labelPlacement="floating"
+        formControlName="motivo" placeholder="Escribe el motivo detallado de la incidencia..." 
+        [autoGrow]="true" rows="3"></ion-textarea>
+        
+      @if (incidenciaForm.get('motivo')?.invalid && incidenciaForm.get('motivo')?.touched) {
+        <ion-note color="danger" class="error-msg">⚠️ La justificación debe tener al menos 10 caracteres.</ion-note>
+      }
+
+    </div>
+
+    <ion-button expand="block" type="submit" color="tertiary"
+      [disabled]="incidenciaForm.invalid || isSaving" class="submit-btn" size="large">
+      @if (isSaving) {
+        <ion-spinner name="crescent"></ion-spinner>
+        <span style="margin-left: 12px;">Guardando incidencia...</span>
+      } @else {
+        <span>Registrar Incidencia</span>
+      }
+    </ion-button>
+  </form>
+</ion-content>

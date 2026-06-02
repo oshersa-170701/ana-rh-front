@@ -18,7 +18,7 @@ import {
 import { AppHeaderComponent } from "src/app/components/app-header/app-header.component";
 import { AuthService } from 'src/app/services/auth';
 import { addIcons } from 'ionicons';
-import { peopleOutline, scanOutline, logOutOutline, timeOutline } from 'ionicons/icons';
+import { peopleOutline, scanOutline, logOutOutline, timeOutline, cashOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home-supervisor',
@@ -39,7 +39,7 @@ export class HomeSupervisorPage implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {
     // ✨ Registramos los iconos específicos para la operación del supervisor
-    addIcons({ peopleOutline, scanOutline, timeOutline, logOutOutline });
+    addIcons({peopleOutline,timeOutline,cashOutline,scanOutline,logOutOutline,});
   }
 
   ngOnInit() {

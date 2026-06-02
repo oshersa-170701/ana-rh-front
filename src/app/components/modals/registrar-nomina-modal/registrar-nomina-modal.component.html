@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Generar Nueva Nómina</ion-title>
+    <ion-button slot="end" fill="clear" color="light" (click)="cerrar()">
+      CERRAR
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding modal-background">
+  <div class="form-container">
+    <p class="instrucciones">
+      Selecciona el rango de fechas. El sistema escaneará las asistencias de reconocimiento facial y las incidencias aprobadas en este periodo para congelar los salarios de forma automática.
+    </p>
+
+    <div class="input-grupo">
+      <label>Fecha de Inicio del Período</label>
+      <input type="date" [(ngModel)]="periodo_inicio" class="custom-date-input" />
+    </div>
+
+    <div class="input-grupo">
+      <label>Fecha de Fin del Período</label>
+      <input type="date" [(ngModel)]="periodo_fin" class="custom-date-input" />
+    </div>
+
+    <div class="acciones-container">
+      <ion-button color="medium" fill="outline" (click)="cerrar()" [disabled]="guardando">
+        Cancelar
+      </ion-button>
+      <ion-button color="success" (click)="guardar()" [disabled]="guardando">
+        {{ guardando ? 'Calculando...' : 'Procesar y Guardar' }}
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

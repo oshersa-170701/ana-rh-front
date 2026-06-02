@@ -23,6 +23,18 @@ export const routes: Routes = [
         data: { title: 'Mi Personal', isHome: false }
       },
       {
+        path: 'nominas',
+        loadComponent: () => import('./pages/admin/nominas/nominas.page').then(m => m.NominasPage),
+        canActivate: [supervisorGuard], // 👈 Solo entra el supervisor
+        data: { title: 'Nóminas', isHome: false }
+      },
+      {
+        path: 'asistencias',
+        loadComponent: () => import('./pages/admin/asistencias/asistencias.page').then(m => m.AsistenciasPage),
+        canActivate: [supervisorGuard], // 👈 Solo entra el supervisor
+        data: { title: 'Asistencias', isHome: false }
+      },
+      {
         path: 'home-supervisor',
         loadComponent: () => import('./pages/admin/home-supervisor/home-supervisor.page').then(m => m.HomeSupervisorPage),
         canActivate: [supervisorGuard], // 👈 Solo entra el supervisor
@@ -66,5 +78,13 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: 'login'
+  },
+  {
+    path: 'asistencias',
+    loadComponent: () => import('./pages/admin/asistencias/asistencias.page').then( m => m.AsistenciasPage)
+  },
+  {
+    path: 'nominas',
+    loadComponent: () => import('./pages/admin/nominas/nominas.page').then( m => m.NominasPage)
   }
 ];

@@ -1,0 +1,45 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="incidencia-header">
+    <ion-title>Detalles de la Incidencia</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()" color="white">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding custom-bg">
+  <div class="card-detalle">
+    
+    <div class="header-status">
+      <span class="badge-aprobado"> APROBADA</span>
+      <p class="fecha-text">Fecha del suceso: <b>{{ incidenciaData?.fecha }}</b></p>
+    </div>
+
+    <hr class="divider">
+
+    <div class="info-group">
+      <label>Tipo de Registro</label>
+      <h2 class="tipo-title">{{ incidenciaData?.tipo }}</h2>
+    </div>
+
+    <div class="info-group">
+      <label>Tiempo Afectado</label>
+      <p class="horas-text"> {{ incidenciaData?.cantidad_horas }} Horas Reportadas</p>
+    </div>
+
+    <div class="info-group justification-box">
+      <label>Justificación / Motivo Interno</label>
+      <p class="motivo-text">
+        {{ incidenciaData?.motivo || 'Falta Justificada Administrativamente o Incapacidad médica.' }}
+      </p>
+    </div>
+
+    <div class="info-group supervisor-box">
+      <label>Registrado y Autorizado por:</label>
+      <p class="supervisor-name">
+         {{ incidenciaData?.aprobador?.nombre_completo || 'Supervisor de Sucursal' }}
+      </p>
+    </div>
+
+  </div>
+</ion-content>

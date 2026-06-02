@@ -1,0 +1,50 @@
+.morado-header {
+  --background: #4c1d95; // El morado de tu panel
+  --color: white;
+  font-weight: 700;
+}
+
+.custom-bg {
+  --background: #0f172a; // Azul noche profundo
+  color: #f8fafc;
+}
+
+.empleado-badge-panel {
+  background: #1e293b;
+  border-left: 4px solid #a78bfa;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  h3 { margin: 0; font-size: 18px; font-weight: 700; color: #ffffff; }
+  p { margin: 4px 0 0 0; font-size: 13px; color: #94a3b8; text-transform: uppercase; }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #334155;
+
+  ion-select, ion-input, ion-textarea {
+    --background: #0f172a;
+    --border-color: #475569;
+    color: white;
+  }
+}
+
+.submit-btn {
+  margin-top: 24px;
+  font-weight: 700;
+  --border-radius: 12px;
+}
+
+.error-msg {
+  font-size: 12px;
+  margin-top: -8px;
+  padding-left: 4px;
+}

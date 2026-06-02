@@ -1,0 +1,224 @@
+.modal-background {
+  --background: #0f172a;
+  color: #f8fafc;
+}
+
+.modulo-container {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.resumen-periodo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .datos {
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      color: #e2e8f0;
+      span { color: #38bdf8; }
+    }
+    p {
+      color: #94a3b8;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.divisor {
+  border: 0;
+  height: 1px;
+  background: #334155;
+  margin: 20px 0;
+}
+
+.tabla-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.tabla-detalles {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+
+  thead {
+    background: #0f172a;
+    color: #94a3b8;
+    th {
+      padding: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #334155;
+    background: #1e293b;
+    &:hover { background: #273549; }
+    &:last-child { border-bottom: none; }
+    
+    td {
+      padding: 12px 14px;
+      color: #cbd5e1;
+      vertical-align: middle;
+    }
+  }
+}
+
+// Elementos de la Fila del Empleado
+.avatar-tabla {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #334155;
+}
+
+.nombre-emp {
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.curp-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+// Clases Auxiliares de Formato
+.num-destacado { font-weight: 600; color: #f8fafc; }
+.total-pagar { font-weight: 800; color: #c084fc; font-size: 0.95rem; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-success { color: #4ade80 !important; }
+.text-warning { color: #fbbf24 !important; }
+.text-danger { color: #f87171 !important; }
+.font-bold { font-weight: bold; }
+
+// Badges de Estatus
+.badge-tag {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.borrador-tag { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+.timbrada-tag { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+.pagada-tag { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
+
+.spinner-container {
+  text-align: center;
+  padding: 60px 0;
+  p { color: #94a3b8; margin-top: 12px; }
+}
+// Contenedor de la Tabla sin scrolls innecesarios
+.tabla-wrapper {
+  overflow-x: auto; // Solo activa scroll si la pantalla es extremadamente chica (como un celular)
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #1e293b;
+}
+
+.tabla-detalles {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem; // Reducimos ligeramente para ganar espacio en pantallas medianas
+
+  thead {
+    background: #0f172a;
+    color: #94a3b8;
+    th {
+      padding: 12px 10px; // Padding más compacto
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      white-space: nowrap; // Evita que los títulos se rompan en dos renglones
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #334155;
+    background: #1e293b;
+    &:hover { background: #273549; }
+    &:last-child { border-bottom: none; }
+    
+    td {
+      padding: 10px 10px; // Reducción de espaciado interno para compactar la grilla
+      color: #cbd5e1;
+      vertical-align: middle;
+    }
+  }
+}
+
+// ✨ DISEÑO DEL NUEVO AVATAR FALLBACK
+.avatar-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-tabla {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #334155;
+}
+
+.avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #c084fc; // Tono lila de tu branding
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  border: 2px solid #334155;
+  box-shadow: 0 2px 8px rgba(192, 132, 252, 0.2);
+}
+
+// Ajustes finos de columnas monetarias
+.total-pagar { 
+  font-weight: 800; 
+  color: #c084fc; 
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+.resumen-periodo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.acciones-estatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  ion-button {
+    --border-radius: 6px;
+    font-weight: 700;
+    margin: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+}

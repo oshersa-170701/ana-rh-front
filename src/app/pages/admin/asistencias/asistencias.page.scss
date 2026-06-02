@@ -1,0 +1,229 @@
+.custom-bg {
+  --background: #0f172a; // Fondo oscuro premium a juego con el kiosco
+  color: #f8fafc;
+}
+
+.panel-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.panel-header {
+  margin-bottom: 24px;
+  h2 { font-size: 28px; font-weight: 800; color: #a78bfa; margin: 0; }
+  p { color: #94a3b8; margin: 6px 0 0 0; font-size: 15px; }
+}
+
+// ⏳ Contenedor de Carga
+.loading-container {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  p { margin-top: 12px; font-size: 16px; }
+}
+
+// 📸 ESTILOS DEL AVATAR / FOTO
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.empleado-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%; // Totalmente circular
+  object-fit: cover;
+  border: 2px solid #475569;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-placeholder {
+  width: 42px;
+  height: 42px;
+  background: #334155;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+// 📊 TABLA RESPONSIVA
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; // Scroll horizontal si la pantalla es muy chica
+  background: #1e293b;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.asistencias-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+
+  th {
+    background: #111827; // Fondo oscuro para las cabeceras
+    color: #cbd5e1;
+    padding: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #334155;
+  }
+
+  td {
+    padding: 14px 16px;
+    color: #e2e8f0;
+    border-bottom: 1px solid #334155;
+    vertical-align: middle; // Alinea la foto con los textos perfectamente
+  }
+
+  // Efecto Zebra alternado sutil
+  tbody tr:nth-child(even) {
+    background: #1e293b;
+  }
+  tbody tr:nth-child(odd) {
+    background: #162238; 
+  }
+
+  // Hover interactivo sobre las filas
+  tbody tr:hover {
+    background: #24334d;
+    transition: background 0.2s ease-in-out;
+  }
+}
+
+// 🔤 Formateadores de Texto
+.bold-text {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 15px;
+}
+
+.puesto-text {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.fecha-text, .hora-text {
+  font-family: 'Courier New', Courier, monospace; // Estilo reloj/sistema
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+// 🎨 TAGS SEMÁNTICOS DE EVENTOS
+.event-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  min-width: 130px;
+
+  &.success-tag { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+  &.warning-tag { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+  &.info-tag { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+  &.danger-tag { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+}
+
+.metodo-badge {
+  background: #334155;
+  color: #94a3b8;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+// 📭 Contenedor Vacío
+.empty-container {
+  text-align: center;
+  padding: 60px 20px;
+  background: #1e293b;
+  border-radius: 16px;
+  border: 1px dashed #475569;
+  
+  .icon-box { font-size: 48px; margin-bottom: 16px; }
+  h3 { font-size: 20px; font-weight: 700; color: #ffffff; margin: 0 0 8px 0; }
+  p { color: #94a3b8; max-width: 400px; margin: 0 auto; font-size: 14px; }
+}
+
+// Animación de entrada suave
+.animated-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+// 📝 Botón de acción rápida para incidencias en la tabla
+.btn-incidencia-action {
+  background: linear-gradient(135deg, #4c1d95, #6d28d9); // Degradado morado institucional
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    background: #475569;
+    color: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+  }
+}
+
+// Centrado sutil para la columna de acciones
+.ion-text-center {
+  text-align: center;
+}
+.btn-ver-incidencia {
+  background: linear-gradient(135deg, #b45309, #d97706); // Degradado ámbar/naranja corporativo
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  }
+}
