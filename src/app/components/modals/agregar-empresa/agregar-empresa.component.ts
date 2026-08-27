@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { 
   IonHeader, 
   IonToolbar, 
@@ -43,13 +43,19 @@ export class AgregarEmpresaComponent {
     rfc: '',
     logo_url: '' // 👈 Inicializamos el campo para capturar la imagen en Base64
   };
-
+empresaForm: FormGroup;
   constructor(
     private modalCtrl: ModalController,
-    private toastCtrl: ToastController 
+    private toastCtrl: ToastController ,
+    private fb: FormBuilder
   ) {
     // Agregamos imageOutline a la colección de iconos nativos
     addIcons({closeOutline,imageOutline,trashOutline,saveOutline,alertCircleOutline,checkmarkCircleOutline});
+    this.empresaForm = this.fb.group({
+      nombre: ['', Validators.required],
+      rfc: ['', Validators.required],
+      logo_url: ['', Validators.required] // Validación para asegurarnos de que se seleccione una imagen
+    });
   }
 
   cancelar() {

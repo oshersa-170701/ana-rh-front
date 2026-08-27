@@ -4,7 +4,7 @@ import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import * as faceapi from 'face-api.js';
 import { addIcons } from 'ionicons';
-import { cameraOutline, trashOutline } from 'ionicons/icons';
+import { cameraOutline, closeOutline, trashOutline } from 'ionicons/icons';
 import { EmpleadosService } from 'src/app/services/empleados';
 @Component({
   selector: 'app-add-empleado-modal',
@@ -22,7 +22,7 @@ export class AddEmpleadoModalComponent {
   isSaving = false; // ✨ Nueva variable de control
   listaSucursales: any[] = [];
   constructor(private modalCtrl: ModalController, private fb: FormBuilder, private empleadosService: EmpleadosService, private toastCtrl: ToastController) {
-    addIcons({ cameraOutline, trashOutline });
+    addIcons({ cameraOutline, trashOutline,closeOutline });
     // 🏢 Recuperamos los datos descriptivos de la sesión para mostrarlos
     const empresaReal = localStorage.getItem('admin_empresa_nombre') || 'Cargando Empresa...';
     const sucursalReal = localStorage.getItem('admin_sucursal_nombre') || 'Cargando Sucursal...';
@@ -150,6 +150,9 @@ async confirmar() {
   }
 
   cancelar() { return this.modalCtrl.dismiss(); }
+   cerrar() {
+    this.modalCtrl.dismiss();
+  }
   activarCamara() { this.fileInput.nativeElement.click(); }
   eliminarFoto(event: Event) {
     event.stopPropagation();

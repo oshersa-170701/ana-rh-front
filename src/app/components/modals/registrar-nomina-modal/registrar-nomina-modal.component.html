@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title class="header-title-executive">Generar Nueva Nómina</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="cerrar()" class="btn-close-header">
+      <ion-button (click)="cerrar()" class="btn-close-header" >
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -50,7 +50,7 @@
         Cancelar
       </ion-button>
       
-      <ion-button (click)="guardar()" class="btn-procesar" [disabled]="guardando">
+      <ion-button (click)="guardar()" class="btn-procesar" [disabled]="guardando"  [disabled]="nominaForm.invalid " >
         @if (guardando) {
           <ion-spinner name="crescent"></ion-spinner>
           <span class="btn-text">Calculando...</span>

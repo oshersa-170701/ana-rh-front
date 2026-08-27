@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { 
   IonHeader, 
   IonToolbar, 
@@ -39,11 +39,20 @@ export class RegistrarNominaModalComponent implements OnInit {
   periodo_inicio: string = '';
   periodo_fin: string = '';
   guardando = false;
-
+  nominaForm: FormGroup;
   constructor(
     private modalCtrl: ModalController,
-    private nominasService: NominasService
-  ) { addIcons({closeOutline,informationCircleOutline,calendarOutline,calculatorOutline}); }
+    private nominasService: NominasService,
+     private fb: FormBuilder,
+  ) { addIcons({closeOutline,informationCircleOutline,calendarOutline,calculatorOutline}); 
+ this.nominaForm = this.fb.group({
+    periodo_inicio: [''],
+    periodo_fin: ['']
+  });
+}
+  
+
+
 
   ngOnInit() {}
 
@@ -51,9 +60,11 @@ export class RegistrarNominaModalComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
+
   guardar() {
     if (!this.periodo_inicio || !this.periodo_fin) {
-      alert('Por favor, selecciona ambas fechas del período.');
+    //  alert('Por favor, selecciona ambas fechas del período.');
+      this.toast('Por favor, selecciona ambas fechas del período.', 'danger');
       return;
     }
 
@@ -74,9 +85,17 @@ export class RegistrarNominaModalComponent implements OnInit {
       },
       error: (err) => {
         this.guardando = false;
-        console.error('Error al generar la nómina:', err);
-        alert(err.error?.message || 'Error al procesar el cálculo del período.');
+     //   console.error('Error al generar la nómina:', err);
+        this.toast(err.error?.message || 'Error al procesar el cálculo del período.', 'danger');
       }
     });
+  }
+  async toast(message: string, color: 'success' | 'danger' | 'warning' = 'success') {
+    const toast = document.createElement('ion-toast');
+    toast.message = message;
+    toast.duration = 3000;
+    toast.color = color;
+    document.body.appendChild(toast);
+    await toast.present();
   }
 }

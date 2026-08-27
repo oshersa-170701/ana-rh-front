@@ -1,4 +1,3 @@
-// 🏛️ CABECERA AZUL CORPORATIVA UNIFICADA
 ion-toolbar {
   --background: #1e40af !important; // El azul navy oficial de la plataforma
   --color: #ffffff !important; 
@@ -12,20 +11,22 @@ ion-toolbar {
   }
 }
 
-// 🚪 BOTÓN DE CIERRE EN EL HEADER
+// 🚪 BOTÓN DE CIERRE EN EL HEADER (Corregido para evitar la X invisible)
 .btn-close-header {
-  --color: #ffffff !important;
+  --color: #ffffff !important; // 🔥 Fuerza el color blanco puro en el Shadow DOM de Ionic desde el milisegundo cero
+  color: #ffffff !important;    // Respaldo estructural para el contenedor del botón
   opacity: 0.9;
+  transition: opacity 0.2s ease-in-out;
 
   ion-icon {
-    font-size: 1.4rem !important;
+    font-size: 1.4rem !important; // Tamaño óptimo para pulsación táctil
+    color: #ffffff !important;    // Fuerza el renderizado del vector interno a blanco
   }
 
   &:hover {
     opacity: 1;
   }
 }
-
 // 📦 CUERPO DEL FORMULARIO SAAS CLARO
 .modal-ejecutivo-content {
   --background: #ffffff !important; // Fondo nítido limpio

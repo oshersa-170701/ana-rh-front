@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonSelect, IonSelectOption, IonInput, IonTextarea, IonNote, IonSpinner, ModalController, ToastController, IonIcon } from '@ionic/angular/standalone';
 
 import { IncidenciaPayload, IncidenciasService } from 'src/app/services/incidencias';
+import { addIcons } from 'ionicons';
+import { closeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-registrar-incidencia-modal',
@@ -42,7 +44,7 @@ export class RegistrarIncidenciaModalComponent implements OnInit {
     private fb: FormBuilder,
     private incidenciasService: IncidenciasService,
     private toastCtrl: ToastController
-  ) { }
+  ) { addIcons({ closeOutline }); }
 
   ngOnInit() {
     // 🇲🇽 OBTENER LA FECHA LOCAL EXACTA

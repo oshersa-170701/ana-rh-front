@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { 
   IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, 
   IonContent, IonInput, IonIcon, IonNote, IonItem, 
@@ -26,7 +26,7 @@ import { Empresa, Empresas } from 'src/app/services/empresas';
 export class AgregarSucursalComponent implements OnInit {
   
   empresasActivas: Empresa[] = [];
-  
+  sucursalForm: FormGroup;
   nuevaSucursal = {
     tenant_id: '',
     nombre: '',
@@ -36,9 +36,15 @@ export class AgregarSucursalComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
-    private empresasService: Empresas
+    private empresasService: Empresas,
+    private fb: FormBuilder
   ) {
     addIcons({closeOutline,saveOutline,alertCircleOutline,businessOutline});
+    this.sucursalForm = this.fb.group({
+      tenant_id: ['', Validators.required],
+      nombre: ['', Validators.required],
+      direccion: ['', Validators.required]
+    });
   }
 
   ngOnInit() {

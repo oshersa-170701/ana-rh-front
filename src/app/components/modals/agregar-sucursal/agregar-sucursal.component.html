@@ -68,7 +68,7 @@
     </div>
 
     <div class="form-actions ion-margin-top">
-      <ion-button type="submit" expand="block" class="btn-guardar">
+      <ion-button type="submit" expand="block" class="btn-guardar" [disabled]="sucursalForm.invalid || !nuevaSucursal.nombre.trim() || !nuevaSucursal.tenant_id">
         <ion-icon slot="start" name="save-outline"></ion-icon>
         Guardar Sucursal
       </ion-button>

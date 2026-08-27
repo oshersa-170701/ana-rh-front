@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
-import { cameraOutline, trashOutline } from 'ionicons/icons';
+import { cameraOutline, closeOutline, trashOutline } from 'ionicons/icons';
 import { Empleado, EmpleadosService } from 'src/app/services/empleados';
 import * as faceapi from 'face-api.js';
 
@@ -32,7 +32,7 @@ export class EditarEmpleadoSupervisorComponent implements OnInit {
     private empleadosService: EmpleadosService,
     private toastCtrl: ToastController
   ) {
-    addIcons({ cameraOutline, trashOutline });
+    addIcons({ cameraOutline, trashOutline,closeOutline });
   }
 
   async ngOnInit() {

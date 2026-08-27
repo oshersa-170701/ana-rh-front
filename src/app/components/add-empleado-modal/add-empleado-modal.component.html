@@ -1,10 +1,8 @@
-<!-- 🏛️ Cabecera Unificada con el Azul Corporativo de la Marca -->
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-title>Registrar Empleado</ion-title>
     <ion-buttons slot="end">
-      <!-- Botón de cierre unificado e icon-only -->
-      <ion-button (click)="cancelar()" class="btn-close-header">
+      <ion-button (click)="cerrar()" class="btn-close-header">
         <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -93,7 +91,7 @@
     <ion-button 
       expand="block" 
       type="submit" 
-      [disabled]="empleadoForm.invalid || !selectedFile || !isModelLoaded || isSaving" 
+      [disabled]="empleadoForm.invalid || !selectedFile || !isModelLoaded || isSaving " 
       class="submit-btn">
       
       @if (isSaving) {

@@ -94,8 +94,8 @@
       <ion-note class="helper-logo">Esta imagen se incrustará automáticamente en la cabecera del reporte PDF.</ion-note>
     </div>
 
-    <div class="form-actions ion-margin-top">
-      <ion-button type="submit" expand="block" class="btn-guardar">
+    <div class="form-actions ion-margin-top" >
+      <ion-button type="submit" expand="block" class="btn-guardar" [disabled]="empresaForm.invalid || !nuevaEmpresa.nombre.trim() || !nuevaEmpresa.rfc.trim()">
         <ion-icon slot="start" name="save-outline"></ion-icon>
         Guardar Empresa
       </ion-button>
