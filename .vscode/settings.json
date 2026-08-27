@@ -4,19 +4,10 @@
     "@ionic/angular"
   ],
   "workbench.colorCustomizations": {
-    "statusBar.noFolderForeground": "#FBFBEA",
-    "activityBar.background": "#1E1E5C",
-    "titleBar.activeBackground": "#2A2A81",
-    "titleBar.activeForeground": "#FCFCFE",
-    "titleBar.inactiveBackground": "#1E1E5C",
-    "titleBar.inactiveForeground": "#FCFCFE",
-    "statusBar.background": "#1E1E5C",
-    "statusBar.foreground": "#FCFCFE",
-    "statusBar.debuggingBackground": "#1E1E5C",
-    "statusBar.debuggingForeground": "#FCFCFE",
-    "statusBar.noFolderBackground": "#626262",
-    "activityBar.activeBorder": "#ffffff",
-    "focusBorder": "#888888"
-  },
-  "projectColor.enabled": false
+    "titleBar.activeBackground": "#1B1A55",
+    "titleBar.border": "#1B1A55",
+    "titleBar.activeForeground": "#9290C3",
+    "titleBar.inactiveBackground": "#3d3c6f",
+    "titleBar.inactiveForeground": "#a2a1cc"
+  }
 }
